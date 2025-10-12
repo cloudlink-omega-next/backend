@@ -72,6 +72,9 @@ func main() {
 
 	// Compile authorized domains for CORS
 	allowed_domains := strings.ReplaceAll(os.Getenv("ALLOWED_DOMAINS"), " ", ", ")
+	if allowed_domains == "true" {
+		allowed_domains = "*"
+	}
 
 	// Read port from environment
 	if use_email {
@@ -155,10 +158,16 @@ func main() {
 	app.Use(fiber_logger.New())
 	app.Use(recover.New())
 
+	// Fiber CORS: AllowCredentials 不能和 AllowOrigins:* 同时使用，否则会 panic
+	allowCredentials := true
+	if allowed_domains == "*" {
+		allowCredentials = false
+		log.Warn("[CORS] AllowCredentials 被禁用，因为 AllowOrigins 为 *。如需支持凭证，请配置具体域名。")
+	}
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     allowed_domains,
 		AllowHeaders:     "Origin, Content-Type, Accept",
-		AllowCredentials: true,
+		AllowCredentials: allowCredentials,
 	}))
 
 	// Mount servers in the Fiber app

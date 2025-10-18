@@ -1,3 +1,4 @@
+//Second revision: lightseeking studio
 package main
 
 import (
@@ -70,10 +71,33 @@ func main() {
 	// Init global cache
 	cache := types.NewDBCache()
 
-	// Compile authorized domains for CORS
-	allowed_domains := strings.ReplaceAll(os.Getenv("ALLOWED_DOMAINS"), " ", ", ")
-	if allowed_domains == "true" {
+	// Compile authorized domains for CORS（支持空、true、逗号/空格/分号分隔）
+	envAllowed := strings.TrimSpace(os.Getenv("ALLOWED_DOMAINS"))
+	var allowed_domains string
+	var allowedDomainsSlice []string
+	if envAllowed == "true" {
 		allowed_domains = "*"
+		allowedDomainsSlice = []string{"*"}
+	} else if envAllowed == "" {
+		// 禁止任何域名连接
+		allowed_domains = ""
+		allowedDomainsSlice = []string{}
+	} else {
+		parts := strings.FieldsFunc(envAllowed, func(r rune) bool { return r == ',' || r == ' ' || r == ';' })
+		cleaned := make([]string, 0, len(parts))
+		for _, p := range parts {
+			p = strings.TrimSpace(p)
+			if p != "" {
+				cleaned = append(cleaned, p)
+			}
+		}
+		if len(cleaned) == 0 {
+			allowed_domains = ""
+			allowedDomainsSlice = []string{}
+		} else {
+			allowed_domains = strings.Join(cleaned, ",")
+			allowedDomainsSlice = cleaned
+		}
 	}
 
 	// Read port from environment
@@ -123,9 +147,9 @@ func main() {
 		bypass_db,
 	)
 
-	// Initialize the Signaling server
+	// Initialize the Signaling server（用规范化后的 allowedDomainsSlice）
 	signaling_server := signaling.New(
-		strings.Split(os.Getenv("ALLOWED_DOMAINS"), " "),
+		allowedDomainsSlice,
 		turn_only,
 		auth.APIv1.Auth,
 		db,
@@ -162,7 +186,10 @@ func main() {
 	allowCredentials := true
 	if allowed_domains == "*" {
 		allowCredentials = false
-		log.Warn("[CORS] AllowCredentials 被禁用，因为 AllowOrigins 为 *。如需支持凭证，请配置具体域名。")
+		log.Warn("[CORS] AllowCredentials is disabled because AllowOrigins is set to *. To support credentials, please configure specific domains.")
+	} else if allowed_domains == "" {
+		allowCredentials = false
+		log.Warn("[CORS] ALLOWED_DOMAINS is empty, all cross-origin requests have been blocked.")
 	}
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     allowed_domains,

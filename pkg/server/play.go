@@ -2,7 +2,9 @@ package server
 
 import (
 	"os"
+	"time"
 
+	"github.com/cloudlink-omega/storage/pkg/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 )
@@ -21,8 +23,13 @@ func (s *Server) Play(c *fiber.Ctx) error {
 	claims := s.Authorization.GetNormalClaims(c)
 	loggedIn := s.Authorization.ValidFromNormal(c)
 	var username string
+	avatarURL := "/assets/static/img/ui/placeholder_user.png"
 	if loggedIn {
 		username = claims.Username
+
+		if user, err := s.Accounts.DB.GetUser(claims.ULID); err == nil && user != nil && user.Avatar != nil {
+			avatarURL = user.Avatar.Link
+		}
 	}
 
 	if file_error != nil || game == nil {
@@ -33,6 +40,7 @@ func (s *Server) Play(c *fiber.Ctx) error {
 			"BaseURL":    s.ServerURL,
 			"LoggedIn":   loggedIn,
 			"Username":   username,
+			"AvatarURL":  avatarURL,
 			"ServerName": s.ServerName,
 			"Title":      "Whoops!",
 		}
@@ -41,14 +49,34 @@ func (s *Server) Play(c *fiber.Ctx) error {
 		return c.Render("views/play_not_found", data, "views/layouts/default")
 	}
 
+	if loggedIn && game != nil {
+		now := time.Now()
+		s.DB.DB.FirstOrCreate(&types.UserPlayedGame{
+			UserID:          claims.ULID,
+			DeveloperGameID: game.ID,
+		}, map[string]any{
+			"user_id":          claims.ULID,
+			"developer_game_id": game.ID,
+		}).Updates(map[string]any{
+			"updated_at": now,
+		})
+	}
+
 	data := map[string]any{
-		"BaseURL":         s.ServerURL,
-		"LoggedIn":        loggedIn,
-		"Username":        username,
-		"ServerName":      s.ServerName,
-		"Title":           game.Name,
-		"GameName":        game.Name,
-		"DeveloperName":   game.Developer.Name,
+		"BaseURL":           s.ServerURL,
+		"LoggedIn":          loggedIn,
+		"Username":          username,
+		"AvatarURL":         avatarURL,
+		"ServerName":        s.ServerName,
+		"Title":             game.Name,
+		"GameName":          game.Name,
+		"DeveloperName":     game.Developer.Name,
+		"DeveloperAvatarURL": func() string {
+			if game.Developer.Avatar != nil && game.Developer.Avatar.Link != "" {
+				return game.Developer.Avatar.Link
+			}
+			return "/assets/static/img/ui/placeholder_user.png"
+		}(),
 		"GameDescription": game.Description,
 		"ID":              game.ID,
 		"Features":        game.Features,
@@ -60,6 +88,7 @@ func (s *Server) Play(c *fiber.Ctx) error {
 				"Date":     "1/1/2023",
 			},
 		}, */
+		"IsAdmin": s.IsAdmin(c),
 	}
 
 	// Render the modal template

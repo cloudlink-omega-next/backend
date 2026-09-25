@@ -1,47 +1,62 @@
 <div class="flex mx-auto w-full">
-
   <!-- Sidebar -->
-  <aside class="w-1/6 bg-white text-black dark:text-white dark:bg-gray-800 p-4">
-    <h2 class="text-xl font-semibold mb-4">Admin Dashboard</h2>
+  <aside class="w-64 bg-white text-black dark:text-white dark:bg-gray-800 p-4">
+    <h2 class="text-xl font-semibold mb-4" data-i18n="admin_title">Admin Dashboard</h2>
     <nav>
       <ul class="space-y-2">
         <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#">
+          <a href="#" data-tab="overview">
             <div class="flex items-center gap-3">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-              Overview
+              <span data-i18n="admin_overview">Overview</span>
             </div>
           </a>
         </li>
         <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#">
+          <a href="#" data-tab="logs">
             <div class="flex items-center gap-3">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scroll"><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></svg>
-              Logs
+              <span data-i18n="admin_logs">Logs</span>
             </div>
           </a>
         </li>
         <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#">
+          <a href="#" data-tab="accounts">
             <div class="flex items-center gap-3">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>
-              Accounts
+              <span data-i18n="admin_accounts">Accounts</span>
             </div>
           </a>
         </li>
         <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#">
+          <a href="#" data-tab="storage">
             <div class="flex items-center gap-3">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hard-drive"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg>
-              Storage
+              <span data-i18n="admin_storage">Storage</span>
             </div>
           </a>
         </li>
         <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#">
+          <a href="#" data-tab="reports">
             <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cog"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 22v-2"/><path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/><path d="m20.66 17-1.73-1"/><path d="m3.34 7 1.73 1"/><path d="M14 12h8"/><path d="M2 12h2"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m17 3.34-1 1.73"/><path d="m11 13.73-4 6.93"/></svg>
-              Settings
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-alert"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+              <span data-i18n="admin_reports">Reports</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="#" data-tab="games">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gamepad-2"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>
+              <span data-i18n="admin_game_review">Game Review</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="#" data-tab="settings">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cog"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 1 0 0 4Z"/><path d="M12 2v2"/><path d="M12 22v-2"/><path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/><path d="m20.66 17-1.73-1"/><path d="m3.34 7 1.73 1"/><path d="M14 12h8"/><path d="M2 12h2"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m17 3.34-1 1.73"/><path d="m11 13.73-4 6.93"/></svg>
+              <span data-i18n="admin_settings">Settings</span>
             </div>
           </a>
         </li>
@@ -53,84 +68,611 @@
   <main class="flex-1 p-6 bg-gray-100 dark:bg-gray-900 dark:text-white">
     <!-- Dashboard Header -->
     <div class="mb-6">
-      <h1 class="text-3xl font-semibold text-gray-800 dark:text-white">Overview</h1>
+      <h1 class="text-3xl font-semibold text-gray-800 dark:text-white" data-i18n="admin_overview">Overview</h1>
     </div>
 
-    <!-- Statistics Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Regisered Users</h3>
-        <p class="text-2xl font-bold text-red-400">1234</p>
+    <!-- Overview Tab -->
+    <div id="tab-overview" class="admin-tab">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_registered_users">Registered Users</h3>
+          <p class="text-2xl font-bold text-red-400" id="stat-registered-users">-</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_active_sessions">Active Sessions</h3>
+          <p class="text-2xl font-bold text-red-400" id="stat-active-sessions">-</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_active_lobbies">Active Lobbies</h3>
+          <p class="text-2xl font-bold text-red-400" id="stat-active-lobbies">-</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_active_voice_connections">Active Voice Connections</h3>
+          <p class="text-2xl font-bold text-red-400" id="stat-active-voice">-</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_published_games">Published Games</h3>
+          <p class="text-2xl font-bold text-red-400" id="stat-published-games">-</p>
+        </div>
       </div>
+
       <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Active Sessions</h3>
-        <p class="text-2xl font-bold text-red-400">23456</p>
-      </div>
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Active Lobbies</h3>
-        <p class="text-2xl font-bold text-red-400">5432</p>
-      </div>
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Active Voice Connections</h3>
-        <p class="text-2xl font-bold text-red-400">1234</p>
-      </div>
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Published Games</h3>
-        <p class="text-2xl font-bold text-red-400">12</p>
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_system_event_log">System Event Log</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b">
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_timestamp">Timestamp</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_class">Class</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_description">Description</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_status">Status</th>
+              </tr>
+            </thead>
+            <tbody id="overview-logs-body">
+              <tr><td class="px-4 py-2" colspan="4">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
-    <!-- Recent Logs Table -->
-    <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-      <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4">System Event Log</h2>
-      <table class="w-full text-left">
-        <thead>
-          <tr class="border-b">
-            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Timestamp</th>
-            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Class</th>
-            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Description</th>
-            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">
-            <td class="px-4 py-2">nil</td>
-            <td class="px-4 py-2">Session</td>
-            <td class="px-4 py-2">Authenticate user 45678</td>
-            <td class="px-4 py-2 text-green-600">Successful</td>
-          </tr>
-          <tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">
-            <td class="px-4 py-2">nil</td>
-            <td class="px-4 py-2">Signaling</td>
-            <td class="px-4 py-2">Initialize message relay in game ID 1234</td>
-            <td class="px-4 py-2 text-green-600">Successful</td>
-          </tr>
-          <tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">
-            <td class="px-4 py-2">nil</td>
-            <td class="px-4 py-2">Developer Registration</td>
-            <td class="px-4 py-2">Register developer ID 34567</td>
-            <td class="px-4 py-2 text-yellow-600">Awaiting Approval</td>
-          </tr>
-          <tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">
-            <td class="px-4 py-2">nil</td>
-            <td class="px-4 py-2">Game Submission</td>
-            <td class="px-4 py-2">Developer ID 12345 submitted game ID 4567</td>
-            <td class="px-4 py-2 text-yellow-600">Awaiting Approval</td>
-          </tr>
-          <tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">
-            <td class="px-4 py-2">nil</td>
-            <td class="px-4 py-2">Game Review</td>
-            <td class="px-4 py-2">Developer ID 12345 game ID 3456</td>
-            <td class="px-4 py-2 text-red-600">Denied</td>
-          </tr>
-          <tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">
-            <td class="px-4 py-2">nil</td>
-            <td class="px-4 py-2">Game Review</td>
-            <td class="px-4 py-2">Developer ID 12345 game ID 1234</td>
-            <td class="px-4 py-2 text-green-600">Approved</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- Logs Tab -->
+    <div id="tab-logs" class="admin-tab hidden">
+      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_system_event_log">System Event Log</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b">
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_timestamp">Timestamp</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_class">Class</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_description">Description</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_status">Status</th>
+              </tr>
+            </thead>
+            <tbody id="logs-tab-body">
+              <tr><td class="px-4 py-2" colspan="4">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accounts Tab -->
+    <div id="tab-accounts" class="admin-tab hidden">
+      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-semibold text-gray-700 dark:text-white" data-i18n="admin_accounts">Accounts</h2>
+          <input type="text" id="account-search" class="px-3 py-2 border rounded bg-white dark:bg-gray-700 dark:text-white" placeholder="Search users..." />
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b">
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Avatar</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Username</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Email</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">State</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Created</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="accounts-tab-body">
+              <tr><td class="px-4 py-2" colspan="6">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reports Tab -->
+    <div id="tab-reports" class="admin-tab hidden">
+      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-semibold text-gray-700 dark:text-white" data-i18n="admin_reports">Reports</h2>
+          <select id="report-type-filter" class="px-3 py-2 border rounded bg-white dark:bg-gray-700 dark:text-white">
+            <option value="" data-i18n="admin_all_types">All Types</option>
+            <option value="user" data-i18n="admin_report_user">User</option>
+            <option value="developer" data-i18n="admin_report_developer">Developer</option>
+            <option value="game" data-i18n="admin_report_game">Game</option>
+          </select>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b">
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_reporter">Reporter</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_reported_user">Reported User</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_type">Type</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_reason">Reason</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_created">Created</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="reports-tab-body">
+              <tr><td class="px-4 py-2" colspan="6">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Storage Tab -->
+    <div id="tab-storage" class="admin-tab hidden">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_total_hosted_games">Hosted Games</h3>
+          <p class="text-2xl font-bold text-red-400" id="stat-hosted-games">-</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_total_cloud_saves">Cloud Saves</h3>
+          <p class="text-2xl font-bold text-red-400" id="stat-cloud-saves">-</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h3 class="text-lg font-sememibold text-gray-700 dark:text-white" data-i18n="admin_total_images">Images</h3>
+          <p class="text-2xl font-bold text-red-400" id="stat-images">-</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Review Tab -->
+    <div id="tab-games" class="admin-tab hidden">
+      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_game_review">Game Review</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b">
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="game_name">Game Name</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_developer">Developer</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_description">Description</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_timestamp">Timestamp</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="games-tab-body">
+              <tr><td class="px-4 py-2" colspan="5">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p id="games-status" class="mt-3 text-sm text-gray-600 dark:text-gray-300"></p>
+      </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div id="tab-settings" class="admin-tab hidden">
+      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow max-w-2xl">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_settings">Settings</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300" data-i18n="admin_email_label">Admin Email</label>
+            <input type="email" id="admin-email" class="mt-1 block w-full rounded-md border-gray-300 bg-white dark:bg-gray-700 dark:text-white" />
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400" data-i18n="admin_email_hint">If set, users with this email will have admin access.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button id="admin-settings-save" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded" data-i18n="save">Save</button>
+            <span id="admin-settings-status" class="text-sm text-gray-600 dark:text-gray-300"></span>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </div>
+
+<script>
+(function() {
+  const baseUrl = '{{ .BaseURL }}';
+
+  // Error responses (rate limits, server errors) are rendered as HTML pages, so
+  // the body is read as text and only parsed when possible. Otherwise a failure
+  // would reject before any message could be shown.
+  function parseResponse(res) {
+    return res.text().then(function(text) {
+      var data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        data = {
+          result: res.status === 429
+            ? 'Too many requests, please wait a moment and try again.'
+            : 'Request failed with status ' + res.status + '.',
+        };
+      }
+      return { status: res.status, data: data };
+    });
+  }
+
+  function unreachable() {
+    return { status: 0, data: { result: 'Could not reach the server.' } };
+  }
+
+  function apiGet(path) {
+    return fetch(baseUrl + path, { credentials: 'same-origin' }).then(parseResponse).catch(unreachable);
+  }
+
+  function apiPut(path, body) {
+    return fetch(baseUrl + path, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify(body),
+    }).then(parseResponse).catch(unreachable);
+  }
+
+  function apiPost(path, body) {
+    return fetch(baseUrl + path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify(body || {}),
+    }).then(parseResponse).catch(unreachable);
+  }
+
+  function showTab(name) {
+    document.querySelectorAll('.admin-tab').forEach(function(el) {
+      el.classList.add('hidden');
+    });
+    var target = document.getElementById('tab-' + name);
+    if (target) {
+      target.classList.remove('hidden');
+    }
+  }
+
+  function setText(id, value) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = value != null ? value : '-';
+  }
+
+  function statusBadge(status) {
+    if (status === 'successful') return '<span class="text-green-600">Successful</span>';
+    if (status === 'warning') return '<span class="text-yellow-600">Warning</span>';
+    if (status === 'failed') return '<span class="text-red-600">Failed</span>';
+    return '<span>' + escapeHtml(String(status)) + '</span>';
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function renderLogs(tbodyId, logs) {
+    var tbody = document.getElementById(tbodyId);
+    if (!tbody) return;
+    if (!Array.isArray(logs) || logs.length === 0) {
+      tbody.innerHTML = '<tr><td class="px-4 py-2" colspan="4">No logs found.</td></tr>';
+      return;
+    }
+    var html = '';
+    logs.forEach(function(log) {
+      html += '<tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">';
+      html += '<td class="px-4 py-2">' + escapeHtml(log.timestamp || '') + '</td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(log.class || '') + '</td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(log.description || '') + '</td>';
+      html += '<td class="px-4 py-2">' + statusBadge(log.status) + '</td>';
+      html += '</tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  function renderAccounts(accounts) {
+    var tbody = document.getElementById('accounts-tab-body');
+    if (!tbody) return;
+    if (!Array.isArray(accounts) || accounts.length === 0) {
+      tbody.innerHTML = '<tr><td class="px-4 py-2" colspan="6">No accounts found.</td></tr>';
+      return;
+    }
+    var html = '';
+    accounts.forEach(function(account) {
+      var avatarUrl = account.avatar_url || '/assets/static/img/ui/placeholder_user.png';
+      var state = String(account.state ?? '');
+      var isBanned = state.indexOf('banned') !== -1 || state.indexOf('1') !== -1;
+      var actionButtons = '<button class="px-2 py-1 bg-red-500 text-white rounded text-sm mr-1" onclick="banUser(\'' + account.id + '\')">Ban</button>' +
+        '<button class="px-2 py-1 bg-green-500 text-white rounded text-sm mr-1" onclick="unbanUser(\'' + account.id + '\')">Unban</button>' +
+        '<button class="px-2 py-1 bg-gray-500 text-white rounded text-sm" onclick="deleteUser(\'' + account.id + '\')">Delete</button>';
+      if (isBanned) {
+        actionButtons = '<button class="px-2 py-1 bg-green-500 text-white rounded text-sm mr-1" onclick="unbanUser(\'' + account.id + '\')">Unban</button>' +
+          '<button class="px-2 py-1 bg-gray-500 text-white rounded text-sm" onclick="deleteUser(\'' + account.id + '\')">Delete</button>';
+      }
+      html += '<tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">';
+      html += '<td class="px-4 py-2"><img src="' + escapeHtml(avatarUrl) + '" class="w-8 h-8 rounded-full object-cover" alt="avatar" onerror="this.src=\'/assets/static/img/ui/placeholder_user.png\'" /></td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(account.username || '') + '</td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(account.email || '') + '</td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(state) + '</td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(account.created_at || '') + '</td>';
+      html += '<td class="px-4 py-2">' + actionButtons + '</td>';
+      html += '</tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  function renderReports(reports) {
+    var tbody = document.getElementById('reports-tab-body');
+    if (!tbody) return;
+    if (!Array.isArray(reports) || reports.length === 0) {
+      tbody.innerHTML = '<tr><td class="px-4 py-2" colspan="6">No reports found.</td></tr>';
+      return;
+    }
+    var html = '';
+    reports.forEach(function(report) {
+      var reporterName = report.reporter_username || 'Unknown';
+      var reportedName = report.reported_username || 'Unknown';
+      var reportType = report.report_type || '';
+      var details = escapeHtml(report.details || '');
+      var createdAt = report.created_at || '';
+      html += '<tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">';
+      html += '<td class="px-4 py-2">' + escapeHtml(reporterName) + '</td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(reportedName) + '</td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(reportType) + '</td>';
+      html += '<td class="px-4 py-2">' + details + '</td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(createdAt) + '</td>';
+      html += '<td class="px-4 py-2">' +
+        '<button class="px-2 py-1 bg-green-500 text-white rounded text-sm mr-1" onclick="resolveReport(\'' + report.id + '\', \'dismiss\')">Dismiss</button>' +
+        '<button class="px-2 py-1 bg-yellow-500 text-white rounded text-sm mr-1" onclick="resolveReport(\'' + report.id + '\', \'warn\')">Warn</button>' +
+        '<button class="px-2 py-1 bg-red-500 text-white rounded text-sm" onclick="resolveReport(\'' + report.id + '\', \'ban\')">Ban</button>' +
+        '</td>';
+      html += '</tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  function renderGames(games) {
+    var tbody = document.getElementById('games-tab-body');
+    if (!tbody) return;
+    if (!Array.isArray(games) || games.length === 0) {
+      tbody.innerHTML = '<tr><td class="px-4 py-2" colspan="5">No pending games.</td></tr>';
+      return;
+    }
+    var html = '';
+    games.forEach(function(game) {
+      html += '<tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">';
+      html += '<td class="px-4 py-2">' + escapeHtml(game.name || '') + '<br /><span class="text-xs text-gray-500 dark:text-gray-400">' + escapeHtml(game.id || '') + '</span></td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(game.developer || '') + '<br /><span class="text-xs text-gray-500 dark:text-gray-400">' + escapeHtml(game.developer_id || '') + '</span></td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(game.description || '') + '</td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(game.created_at || '') + '</td>';
+      html += '<td class="px-4 py-2">' +
+        '<button id="game-approve-' + game.id + '" class="px-2 py-1 bg-green-500 text-white rounded text-sm mr-1 disabled:opacity-50" onclick="approveGame(\'' + game.id + '\')">Approve</button>' +
+        '<button id="game-reject-' + game.id + '" class="px-2 py-1 bg-red-500 text-white rounded text-sm disabled:opacity-50" onclick="rejectGame(\'' + game.id + '\')">Reject</button>' +
+        '</td>';
+      html += '</tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  function setGamesStatus(message, kind) {
+    var status = document.getElementById('games-status');
+    if (!status) return;
+    status.textContent = message || '';
+    status.className = 'mt-3 text-sm ' + (
+      kind === 'error'
+        ? 'text-red-600 dark:text-red-400'
+        : kind === 'success'
+          ? 'text-green-600 dark:text-green-400'
+          : 'text-gray-600 dark:text-gray-300'
+    );
+  }
+
+  // Publishing moves the whole game package on disk, so the request can take a
+  // while. The buttons are locked to prevent duplicate submissions and a status
+  // is shown until the server answers.
+  function setGameButtonsDisabled(id, disabled) {
+    ['game-approve-', 'game-reject-'].forEach(function(prefix) {
+      var button = document.getElementById(prefix + id);
+      if (button) button.disabled = disabled;
+    });
+  }
+
+  function reviewGame(id, action) {
+    setGameButtonsDisabled(id, true);
+    setGamesStatus(action === 'approve' ? 'Publishing game, please wait...' : 'Rejecting game, please wait...');
+    apiPost('/api/v1/admin/games/' + id + '/' + action).then(function(res) {
+      setGameButtonsDisabled(id, false);
+      if (res.status === 200) {
+        setGamesStatus(res.data.result || 'Done.', 'success');
+        loadGames();
+        return;
+      }
+      setGamesStatus('Failed to ' + action + ' game: ' + (res.data && res.data.result ? res.data.result : 'Unknown error'), 'error');
+    });
+  }
+
+  function loadGames() {
+    apiGet('/api/v1/admin/games').then(function(res) {
+      if (res.status === 200 && res.data && Array.isArray(res.data.data)) {
+        renderGames(res.data.data);
+        return;
+      }
+      setGamesStatus('Failed to load pending games: ' + (res.data && res.data.result ? res.data.result : 'Unknown error'), 'error');
+    });
+  }
+
+  function loadOverview() {
+    apiGet('/api/v1/admin/overview').then(function(res) {
+      if (res.status !== 200 || !res.data || res.data.result !== 'OK') {
+        return;
+      }
+      var data = res.data.data || {};
+      setText('stat-registered-users', data.registered_users);
+      setText('stat-active-sessions', data.active_sessions);
+      setText('stat-active-lobbies', data.active_lobbies);
+      setText('stat-active-voice', data.active_voice_connections);
+      setText('stat-published-games', data.published_games);
+    });
+
+    apiGet('/api/v1/admin/logs?page=1&limit=10').then(function(res) {
+      if (res.status === 200) {
+        renderLogs('overview-logs-body', res.data.data || []);
+      }
+    });
+  }
+
+  function loadLogs() {
+    apiGet('/api/v1/admin/logs?page=1&limit=50').then(function(res) {
+      if (res.status === 200) {
+        renderLogs('logs-tab-body', res.data.data || []);
+      }
+    });
+  }
+
+  function loadReports() {
+    var typeFilter = document.getElementById('report-type-filter').value || '';
+    var url = '/api/v1/admin/reports?page=1&limit=50';
+    if (typeFilter) {
+      url += '&type=' + encodeURIComponent(typeFilter);
+    }
+    apiGet(url).then(function(res) {
+      if (res.status === 200) {
+        renderReports(res.data.data || []);
+      }
+    });
+  }
+
+  function loadAccounts() {
+    var search = document.getElementById('account-search').value || '';
+    var url = '/api/v1/admin/accounts?page=1&limit=50';
+    if (search) {
+      url += '&search=' + encodeURIComponent(search);
+    }
+    apiGet(url).then(function(res) {
+      if (res.status === 200) {
+        renderAccounts(res.data.data || []);
+      }
+    });
+  }
+
+  function loadStorage() {
+    apiGet('/api/v1/admin/storage').then(function(res) {
+      if (res.status !== 200 || !res.data || res.data.result !== 'OK') {
+        return;
+      }
+      var data = res.data.data || {};
+      setText('stat-hosted-games', data.total_hosted_games);
+      setText('stat-cloud-saves', data.total_cloud_saves);
+      setText('stat-images', data.total_images);
+    });
+  }
+
+  function loadSettings() {
+    apiGet('/api/v1/admin/settings').then(function(res) {
+      if (res.status !== 200 || !res.data || res.data.result !== 'OK') {
+        return;
+      }
+      var data = res.data.data || {};
+      var emailInput = document.getElementById('admin-email');
+      if (emailInput) {
+        emailInput.value = data.admin_email || '';
+      }
+    });
+  }
+
+  window.banUser = function(id) {
+    apiPost('/api/v1/admin/ban/' + id).then(function(res) {
+      if (res.status === 200) {
+        alert('User banned successfully.');
+        loadAccounts();
+      } else {
+        alert('Failed to ban user: ' + (res.data && res.data.result ? res.data.result : 'Unknown error'));
+      }
+    });
+  };
+
+  window.unbanUser = function(id) {
+    apiPost('/api/v1/admin/unban/' + id).then(function(res) {
+      if (res.status === 200) {
+        alert('User unbanned successfully.');
+        loadAccounts();
+      } else {
+        alert('Failed to unban user: ' + (res.data && res.data.result ? res.data.result : 'Unknown error'));
+      }
+    });
+  };
+
+  window.deleteUser = function(id) {
+    if (!confirm('Are you sure you want to delete this account? This action cannot be undone.')) {
+      return;
+    }
+    apiPost('/api/v1/admin/delete/' + id).then(function(res) {
+      if (res.status === 200) {
+        alert('Account deleted successfully.');
+        loadAccounts();
+      } else {
+        alert('Failed to delete user: ' + (res.data && res.data.result ? res.data.result : 'Unknown error'));
+      }
+    });
+  };
+
+  window.resolveReport = function(id, action) {
+    apiPost('/api/v1/admin/reports/' + id + '/resolve', { action: action }).then(function(res) {
+      if (res.status === 200) {
+        alert('Report resolved successfully.');
+        loadReports();
+      } else {
+        alert('Failed to resolve report: ' + (res.data && res.data.result ? res.data.result : 'Unknown error'));
+      }
+    });
+  };
+
+  window.approveGame = function(id) {
+    reviewGame(id, 'approve');
+  };
+
+  window.rejectGame = function(id) {
+    if (!confirm('Are you sure you want to reject this game? The uploaded package will be deleted.')) {
+      return;
+    }
+    reviewGame(id, 'reject');
+  };
+
+  document.querySelectorAll('[data-tab]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var tab = link.getAttribute('data-tab');
+      showTab(tab);
+      if (tab === 'overview') loadOverview();
+      if (tab === 'logs') loadLogs();
+      if (tab === 'accounts') loadAccounts();
+      if (tab === 'reports') loadReports();
+      if (tab === 'games') loadGames();
+      if (tab === 'storage') loadStorage();
+      if (tab === 'settings') loadSettings();
+    });
+  });
+
+  var searchTimer;
+  var searchInput = document.getElementById('account-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(loadAccounts, 300);
+    });
+  }
+
+  var reportTypeFilter = document.getElementById('report-type-filter');
+  if (reportTypeFilter) {
+    reportTypeFilter.addEventListener('change', function() {
+      loadReports();
+    });
+  }
+
+  var saveButton = document.getElementById('admin-settings-save');
+  if (saveButton) {
+    saveButton.addEventListener('click', function() {
+      var emailInput = document.getElementById('admin-email');
+      var status = document.getElementById('admin-settings-status');
+      var payload = { admin_email: emailInput ? emailInput.value : '' };
+      apiPut('/api/v1/admin/settings', payload).then(function(res) {
+        if (res.status === 200) {
+          if (status) status.textContent = 'Saved.';
+        } else {
+          if (status) status.textContent = 'Save failed.';
+        }
+      });
+    });
+  }
+
+  applyI18n();
+  showTab('overview');
+  loadOverview();
+})();
+</script>

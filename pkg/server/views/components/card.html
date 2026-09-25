@@ -39,7 +39,7 @@
                 </h6>
 
                 <!-- Text Content -->
-                <p id="text_{{ .ID }}" class="text-gray-700 dark:text-gray-300 mb-6 line-clamp-3">
+                <p id="text_{{ .ID }}" data-raw="{{ .Text }}" class="text-gray-700 dark:text-gray-300 mb-6 line-clamp-3">
                     {{ if .Enabled }}
                     {{ .Text }}
                     {{ else }}
@@ -51,7 +51,7 @@
                 {{ if .Enabled }}
                 <!-- open-modal-button -->
                 <a href="/play/{{ .ID }}" type="button" class="flex flex-col w-full px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200" data-item-id="{{ .ID }}">
-                    <span class="flex items-center justify-center gap-2">
+                    <span class="flex items-center justify-center gap-2" data-i18n="card_launch">
                         Launch
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
@@ -63,7 +63,7 @@
                 {{ else }}
                 <button type="button" class="w-full px-6 py-3 bg-gray-600 text-white rounded-xl 
                            font-medium">
-                    <span class="flex items-center justify-center gap-2">
+                    <span class="flex items-center justify-center gap-2" data-i18n="card_disabled">
                         . . .
                     </span>
                 </button>
@@ -96,7 +96,7 @@
                         <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium 
                                    bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300">
                             <span class="w-2 h-2 rounded-full bg-red-600 dark:bg-red-400"></span>
-                            New
+                        <span data-i18n="card_new">New</span>
                         </span>
                     </div>
                     {{ end }}
@@ -107,7 +107,12 @@
 </div>
     {{ if .Enabled }}
     <script>
-        document.getElementById("text_{{ .ID }}").innerHTML = marked.parse("{{ .Text }}");
+        (function() {
+            const textEl = document.getElementById("text_{{ .ID }}");
+            if (textEl) {
+                textEl.innerHTML = marked.parse(textEl.getAttribute('data-raw'));
+            }
+        })();
     </script>
     {{ end }}
 {{ end }}

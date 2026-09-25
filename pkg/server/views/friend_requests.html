@@ -1,0 +1,229 @@
+<div class="flex mx-auto w-full">
+
+  <!-- Sidebar -->
+  <aside class="w-1/6 bg-white text-black dark:text-white dark:bg-gray-800 p-4" style="height: 100vh;">
+    <h2 class="text-xl font-semibold mb-4" data-i18n="friends_title">Friends</h2>
+    <nav>
+      <ul class="space-y-2">
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span data-i18n="friends_my_friends">My Friends</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends/requests">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" x2="20" y1="8" y2="14"/><line x1="23" x2="17" y1="11" y2="11"/></svg>
+              <span data-i18n="friends_requests">Friend Requests</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends/search">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <span data-i18n="friends_find">Find Friends</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends/blocklist">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban"><circle cx="12" cy="12" r="10"/><line x1="4.93" x2="19.07" y1="4.93" y2="19.07"/></svg>
+              <span data-i18n="friends_blocked">Blocked Users</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 bg-gray-100 dark:bg-gray-900 dark:text-white">
+    <h1 class="text-3xl font-semibold mb-6" data-i18n="friend_requests_title">Friend Requests</h1>
+
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold mb-2" data-i18n="friend_requests_received">Received</h2>
+      <div id="received-list" class="space-y-4">
+        <p class="text-gray-600 dark:text-gray-300" data-i18n="friend_requests_loading">Loading requests...</p>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold mb-2" data-i18n="friend_requests_sent">Sent</h2>
+      <div id="sent-list" class="space-y-4">
+        <p class="text-gray-600 dark:text-gray-300" data-i18n="friend_requests_loading">Loading requests...</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+async function loadFriendRequests() {
+  try {
+    const res = await fetch('/api/v1/friends/requests?t=' + Date.now());
+    if (res.status === 401 || res.status === 403) {
+      window.location.href = '/accounts/login?redirect=/friends/requests';
+      return;
+    }
+    const data = await res.json();
+    const receivedContainer = document.getElementById('received-list');
+    const sentContainer = document.getElementById('sent-list');
+
+    if (!res.ok || data.result !== 'OK' || !Array.isArray(data.data) || data.data.length === 0) {
+      receivedContainer.innerHTML = '<p class="text-gray-600 dark:text-gray-300" data-i18n="friend_requests_none">No pending friend requests.</p>';
+      sentContainer.innerHTML = '<p class="text-gray-600 dark:text-gray-300" data-i18n="friend_requests_none">No pending friend requests.</p>';
+      return;
+    }
+
+    receivedContainer.innerHTML = '';
+    sentContainer.innerHTML = '';
+
+    let receivedCount = 0;
+    let sentCount = 0;
+
+    for (const req of data.data) {
+      const item = document.createElement('div');
+      item.className = 'border rounded p-4 bg-white dark:bg-gray-800 flex items-center justify-between';
+
+      if (req.type === 'received') {
+        receivedCount++;
+        const avatarUrl = req.sender_avatar || '/assets/static/img/ui/placeholder_user.png';
+        const displayName = req.sender_name && req.sender_name.trim() !== '' ? req.sender_name : null;
+        item.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${avatarUrl}" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700">
+            <div>
+              <h4 class="text-lg font-semibold text-gray-700 dark:text-white">${displayName || req.sender}</h4>
+              ${displayName ? `<p class="text-sm text-gray-500 dark:text-gray-400">@${req.sender}</p>` : ''}
+              <p class="text-sm text-gray-600 dark:text-gray-300">Sent on ${req.created_at}</p>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="respondRequest('${req.id}', 'accept')" class="px-3 py-1 rounded bg-green-500 text-white text-sm" data-i18n="friend_requests_accept">Accept</button>
+            <button onclick="respondRequest('${req.id}', 'reject')" class="px-3 py-1 rounded bg-gray-300 dark:bg-gray-600 text-sm" data-i18n="friend_requests_reject">Reject</button>
+            <button onclick="blockUser('${req.sender_id}')" class="px-3 py-1 rounded bg-red-500 text-white text-sm" data-i18n="friend_requests_block">Block</button>
+          </div>
+        `;
+        receivedContainer.appendChild(item);
+      } else if (req.type === 'sent') {
+        sentCount++;
+        const avatarUrl = req.receiver_avatar || '/assets/static/img/ui/placeholder_user.png';
+        const displayName = req.receiver_name && req.receiver_name.trim() !== '' ? req.receiver_name : null;
+        item.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${avatarUrl}" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700">
+            <div>
+              <h4 class="text-lg font-semibold text-gray-700 dark:text-white">${displayName || req.receiver}</h4>
+              ${displayName ? `<p class="text-sm text-gray-500 dark:text-gray-400">@${req.receiver}</p>` : ''}
+              <p class="text-sm text-gray-600 dark:text-gray-300">Sent on ${req.created_at}</p>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <span class="px-3 py-1 rounded bg-yellow-100 text-yellow-800 text-sm" data-i18n="friend_requests_pending">Pending</span>
+            <button onclick="cancelRequest('${req.id}')" class="px-3 py-1 rounded bg-gray-300 dark:bg-gray-600 text-sm" data-i18n="friend_requests_cancel">Cancel</button>
+            <button onclick="blockUser('${req.receiver_id}')" class="px-3 py-1 rounded bg-red-500 text-white text-sm" data-i18n="friend_requests_block">Block</button>
+          </div>
+        `;
+        sentContainer.appendChild(item);
+      }
+    }
+
+    if (receivedCount === 0) {
+      receivedContainer.innerHTML = '<p class="text-gray-600 dark:text-gray-300" data-i18n="friend_requests_none">No pending friend requests.</p>';
+    }
+    if (sentCount === 0) {
+      sentContainer.innerHTML = '<p class="text-gray-600 dark:text-gray-300" data-i18n="friend_requests_none">No pending friend requests.</p>';
+    }
+  } catch (e) {
+    console.error('Failed to load friend requests:', e);
+  }
+}
+
+(async function() {
+  await loadFriendRequests();
+  setInterval(loadFriendRequests, 5000);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      loadFriendRequests();
+    }
+  });
+  applyI18n();
+})();
+
+async function respondRequest(id, action) {
+  const res = await fetch(`/api/v1/friends/request/${id}/${action}`, { method: 'POST' });
+  if (res.ok) {
+    const item = document.querySelector(`button[onclick="respondRequest('${id}', '${action}')"]`);
+    if (item) {
+      const card = item.closest('.border');
+      if (card) {
+        card.style.transition = 'opacity 0.3s';
+        card.style.opacity = '0';
+        setTimeout(() => card.remove(), 300);
+      }
+    }
+    if (typeof updateUnreadCount === 'function') {
+      updateUnreadCount();
+    }
+  } else if (res.status === 401 || res.status === 403) {
+    window.location.href = '/accounts/login?redirect=/friends/requests';
+  } else {
+    alert(t('search_failed_request'));
+  }
+}
+
+async function blockUser(userId) {
+  if (!confirm(t('search_confirm_block'))) return;
+  const res = await fetch('/api/v1/friends/block', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ blocked_id: userId })
+  });
+  if (res.ok) {
+    const item = document.querySelector(`button[onclick="blockUser('${userId}')"]`);
+    if (item) {
+      const card = item.closest('.border');
+      if (card) {
+        card.style.transition = 'opacity 0.3s';
+        card.style.opacity = '0';
+        setTimeout(() => card.remove(), 300);
+      }
+    }
+    if (typeof updateUnreadCount === 'function') {
+      updateUnreadCount();
+    }
+  } else if (res.status === 401 || res.status === 403) {
+    window.location.href = '/accounts/login?redirect=/friends/requests';
+  } else {
+    const data = await res.json();
+    alert(data.result || t('search_failed_block'));
+  }
+}
+
+async function cancelRequest(id) {
+  if (!confirm(t('friends_remove_confirm'))) return;
+  const res = await fetch(`/api/v1/friends/request/${id}`, { method: 'DELETE' });
+  if (res.ok) {
+    const item = document.querySelector(`button[onclick="cancelRequest('${id}')"]`);
+    if (item) {
+      const card = item.closest('.border');
+      if (card) {
+        card.style.transition = 'opacity 0.3s';
+        card.style.opacity = '0';
+        setTimeout(() => card.remove(), 300);
+      }
+    }
+    if (typeof updateUnreadCount === 'function') {
+      updateUnreadCount();
+    }
+  } else if (res.status === 401 || res.status === 403) {
+    window.location.href = '/accounts/login?redirect=/friends/requests';
+  } else {
+    alert(t('search_failed_request'));
+  }
+}
+</script>

@@ -33,8 +33,13 @@ func (s *Server) Explore(c *fiber.Ctx) error {
 	}
 
 	var username string
+	avatarURL := "/assets/static/img/ui/placeholder_user.png"
 	if loggedIn {
 		username = claims.Username
+
+		if user, err := s.Accounts.DB.GetUser(claims.ULID); err == nil && user != nil && user.Avatar != nil {
+			avatarURL = user.Avatar.Link
+		}
 	}
 
 	data := map[string]any{
@@ -43,6 +48,7 @@ func (s *Server) Explore(c *fiber.Ctx) error {
 		"Title":      "Explore",
 		"LoggedIn":   loggedIn,
 		"Username":   username,
+		"AvatarURL":  avatarURL,
 		"PageCards":  loaded_cards, /* []map[string]any{
 			{
 				"Image":     "/assets/static/img/dummy1.png",
@@ -123,6 +129,7 @@ func (s *Server) Explore(c *fiber.Ctx) error {
 				"ID":        "01HNPHRWS0N0AYMM5K4HN31V4W",
 			},
 		},*/
+		"IsAdmin": s.IsAdmin(c),
 	}
 
 	// Render the modal template

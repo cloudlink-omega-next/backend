@@ -1,0 +1,114 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+        <div class="p-6">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="report_title">Submit a Report</h1>
+            <p class="text-gray-600 dark:text-gray-300 mb-6" data-i18n="report_subtitle">Report inappropriate content or behavior to help keep our community safe.</p>
+
+            <form id="reportForm" class="space-y-6">
+                <div>
+                    <label for="reportedUser" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-i18n="report_reported_user">Reported User</label>
+                    <input type="text" id="reportedUser" name="submitted_user_id" required placeholder="Enter username or user ID" 
+                           class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                </div>
+
+                <div>
+                    <label for="reportType" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-i18n="report_type">Report Type</label>
+                    <select id="reportType" name="report_tag_id" required 
+                            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        <option value="" data-i18n="report_select_type">Select a report type</option>
+                        <option value="user" data-i18n="report_type_user">User Violation</option>
+                        <option value="developer" data-i18n="report_type_developer">Developer Violation</option>
+                        <option value="game" data-i18n="report_type_game">Game Violation</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="reportDetails" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-i18n="report_details">Details</label>
+                    <textarea id="reportDetails" name="details" rows="5" required placeholder="Please provide details about the violation..." 
+                              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"></textarea>
+                    <p class="text-xs text-gray-500 mt-1" data-i18n="report_details_hint">Be as specific as possible. Include relevant information such as usernames, dates, and descriptions.</p>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors" data-i18n="report_submit">
+                        Submit Report
+                    </button>
+                    <span id="report-status" class="text-sm text-gray-600 dark:text-gray-300"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+  const baseUrl = '{{ .BaseURL }}';
+
+  function apiPost(path, body) {
+    return fetch(baseUrl + path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify(body),
+    }).then(function(res) {
+      return res.json().then(function(data) { return { status: res.status, data: data }; });
+    });
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  document.getElementById('reportForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var reportedUser = document.getElementById('reportedUser').value.trim();
+    var reportType = document.getElementById('reportType').value;
+    var details = document.getElementById('reportDetails').value.trim();
+    var statusEl = document.getElementById('report-status');
+
+    if (!reportedUser || !reportType || !details) {
+      if (statusEl) statusEl.textContent = 'Please fill in all fields.';
+      return;
+    }
+
+    statusEl.textContent = 'Submitting...';
+
+    apiPost('/api/v1/reports', {
+      submitted_user_id: reportedUser,
+      report_tag_id: reportType,
+      details: details,
+    }).then(function(res) {
+      // The API answers with a descriptive message rather than a bare "OK", so the
+      // HTTP status is what determines success here.
+      if (res.status === 200) {
+        if (statusEl) {
+          statusEl.textContent = 'Report submitted successfully. Thank you.';
+          statusEl.className = 'text-sm text-green-600 dark:text-green-400';
+        }
+        document.getElementById('reportForm').reset();
+        setTimeout(function() {
+          window.location.href = baseUrl + '/';
+        }, 1500);
+      } else {
+        var message = 'Failed to submit report.';
+        if (res.data && res.data.result) {
+          message = res.data.result;
+        }
+        if (statusEl) {
+          statusEl.textContent = message;
+          statusEl.className = 'text-sm text-red-600 dark:text-red-400';
+        }
+      }
+    }).catch(function(err) {
+      if (statusEl) {
+        statusEl.textContent = 'An error occurred. Please try again.';
+        statusEl.className = 'text-sm text-red-600 dark:text-red-400';
+      }
+    });
+  });
+
+  applyI18n();
+})();
+</script>

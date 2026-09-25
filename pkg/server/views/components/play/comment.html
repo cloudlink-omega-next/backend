@@ -7,11 +7,16 @@
         <a href="#">
             <b class="text-left text-2xl">{{ .Username }}</b>
         </a>
-        <p id="comment_text_{{ .ID }}" class="text-left"></p>
+        <p id="comment_text_{{ .ID }}" data-raw="{{ .Comment }}" class="text-left"></p>
         <p id="comment_date_{{ .ID }}" class="text-left text-sm">{{ .Date }}</p>
     </div>
 </div>
 <script>
-    document.getElementById("comment_text_{{ .ID }}").innerHTML = marked.parse("{{ .Comment }}");
+    (function() {
+        const textEl = document.getElementById("comment_text_{{ .ID }}");
+        if (textEl) {
+            textEl.innerHTML = marked.parse(textEl.getAttribute('data-raw'));
+        }
+    })();
 </script>
 {{ end }}

@@ -1,0 +1,164 @@
+<div class="flex mx-auto w-full">
+
+  <!-- Sidebar -->
+  <aside class="w-1/6 bg-white text-black dark:text-white dark:bg-gray-800 p-4" style="height: 100vh;">
+    <h2 class="text-xl font-semibold mb-4" data-i18n="friends_title">Friends</h2>
+    <nav>
+      <ul class="space-y-2">
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span data-i18n="friends_my_friends">My Friends</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends/requests">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" x2="20" y1="8" y2="14"/><line x1="23" x2="17" y1="11" y2="11"/></svg>
+              <span data-i18n="friends_requests">Friend Requests</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends/search">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <span data-i18n="friends_find">Find Friends</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends/blocklist">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban"><circle cx="12" cy="12" r="10"/><line x1="4.93" x2="19.07" y1="4.93" y2="19.07"/></svg>
+              <span data-i18n="friends_blocked">Blocked Users</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 bg-gray-100 dark:bg-gray-900 dark:text-white">
+    <h1 class="text-3xl font-semibold mb-6" data-i18n="search_users_title">Find Friends</h1>
+
+    <div class="mb-6">
+      <input id="search-input" type="text" data-i18n-placeholder="search_placeholder" placeholder="Search by username..." class="w-full max-w-md px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+      <button onclick="searchUsers()" class="ml-2 px-4 py-2 rounded bg-red-400 text-white" data-i18n="search_button">Search</button>
+    </div>
+
+    <div id="results-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <p class="text-gray-600 dark:text-gray-300" data-i18n="search_enter_query">Enter a username to search.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+async function searchUsers() {
+  const query = document.getElementById('search-input').value.trim();
+  const container = document.getElementById('results-list');
+  if (!query) {
+    container.innerHTML = '<p class="text-gray-600 dark:text-gray-300" data-i18n="search_enter_query">Enter a username to search.</p>';
+    return;
+  }
+
+  try {
+    const res = await fetch(`/api/v1/friends/search?q=${encodeURIComponent(query)}`);
+    if (res.status === 401 || res.status === 403) {
+      window.location.href = '/accounts/login?redirect=/friends/search';
+      return;
+    }
+    const data = await res.json();
+    if (!res.ok || data.result !== 'OK' || !Array.isArray(data.data) || data.data.length === 0) {
+      container.innerHTML = '<p class="text-gray-600 dark:text-gray-300" data-i18n="search_no_results">No users found.</p>';
+      return;
+    }
+
+    container.innerHTML = '';
+    for (const user of data.data) {
+      const card = document.createElement('div');
+      card.className = 'border rounded p-4 bg-white dark:bg-gray-800 flex flex-col gap-2';
+      const avatarUrl = user.avatar_url || '/assets/static/img/ui/placeholder_user.png';
+      const displayName = user.name && user.name.trim() !== '' ? user.name : null;
+      card.innerHTML = `
+        <div class="flex items-center gap-3">
+          <img src="${avatarUrl}" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-700 dark:text-white">${displayName || user.username}</h4>
+            ${displayName ? `<p class="text-sm text-gray-500 dark:text-gray-400">@${user.username}</p>` : ''}
+          </div>
+        </div>
+        <button onclick="sendRequest('${user.id}')" class="px-3 py-1 rounded bg-red-400 text-white text-sm" data-i18n="search_add_friend">Add Friend</button>
+        <button onclick="blockUser('${user.id}')" class="px-3 py-1 rounded bg-gray-300 dark:bg-gray-600 text-sm" data-i18n="search_block">Block</button>
+      `;
+      container.appendChild(card);
+    }
+  } catch (e) {
+    window.location.href = '/accounts/login?redirect=/friends/search';
+  }
+}
+
+async function sendRequest(receiverId) {
+  const button = event.target;
+  button.disabled = true;
+  button.textContent = t('search_sending');
+
+  try {
+    const res = await fetch('/api/v1/friends/request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ receiver_id: receiverId })
+    });
+
+    if (res.ok) {
+      alert(t('search_request_sent_msg'));
+      button.textContent = t('search_request_sent');
+      button.disabled = true;
+    } else if (res.status === 401 || res.status === 403) {
+      window.location.href = '/accounts/login?redirect=/friends/search';
+    } else {
+      const data = await res.json();
+      alert(data.result || t('search_failed_request'));
+      button.disabled = false;
+      button.textContent = t('search_add_friend');
+    }
+  } catch (e) {
+    alert(t('search_failed_request'));
+    button.disabled = false;
+    button.textContent = t('search_add_friend');
+  }
+}
+
+async function blockUser(userId) {
+  if (!confirm(t('search_confirm_block'))) return;
+  const res = await fetch('/api/v1/friends/block', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ blocked_id: userId })
+  });
+  if (res.ok) {
+    const item = document.querySelector(`button[onclick="blockUser('${userId}')"]`);
+    if (item) {
+      const card = item.closest('.border');
+      if (card) {
+        card.style.transition = 'opacity 0.3s';
+        card.style.opacity = '0';
+        setTimeout(() => card.remove(), 300);
+      }
+    }
+    if (typeof updateUnreadCount === 'function') {
+      updateUnreadCount();
+    }
+  } else if (res.status === 401 || res.status === 403) {
+    window.location.href = '/accounts/login?redirect=/friends/search';
+  } else {
+    const data = await res.json();
+    alert(data.result || t('search_failed_block'));
+  }
+}
+
+applyI18n();
+</script>

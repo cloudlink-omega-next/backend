@@ -36,11 +36,14 @@
 <body class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
 
     <noscript>
-        <h1>You need to enable JavaScript to run this webapp.
+        <h1>You need to enable JavaScript to run this webapp.</h1>
     </noscript>
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- Global i18n -->
+    <script src="/assets/js/i18n.js"></script>
 
     <!-- Navbar -->
     {{ template "navbar_default" . }}
@@ -63,7 +66,7 @@
         <div class="container mx-auto px-4 py-6">
             <div class="text-center">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
-                    CloudLink Omega
+                    Cloudlink Ω Next
                 </h3>
                 <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">
                     An open source WebRTC-powered multiplayer network.
@@ -90,6 +93,8 @@
 
     <!-- Theme toggle -->
     <script src="/assets/js/color-modes.js"></script>
+
+    <script type="text/javascript" src="/assets/js/navbar.js" onload></script>
 </body>
 
 </html>

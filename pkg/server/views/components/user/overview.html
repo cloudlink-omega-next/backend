@@ -1,22 +1,47 @@
 {{ define "user_overview" }}
 <!-- Dashboard Header -->
 <div class="mb-6">
-    <h1 class="text-3xl font-semibold text-gray-800 dark:text-white">Overview</h1>
+    <h1 class="text-3xl font-semibold text-gray-800 dark:text-white" data-i18n="dashboard_overview">Overview</h1>
 </div>
 
 <!-- Statistics Cards -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
     <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Games I've Played</h3>
-        <p class="text-2xl font-bold text-red-400">{{ .GamesPlayed }}</p>
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="games_played">Games I've Played</h3>
+        <p class="text-2xl font-bold text-red-400">{{ len .GamesPlayed }}</p>
     </div>
     <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Friends I've Met</h3>
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="friends_met">Friends I've Met</h3>
         <p class="text-2xl font-bold text-red-400">{{ .FriendsMet }}</p>
     </div>
     <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">Points I've Earned</h3>
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="friend_requests">Friend Requests</h3>
+        <p class="text-2xl font-bold text-red-400">{{ .FriendRequests }}</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="points_balance">Points Balance</h3>
+        <p class="text-2xl font-bold text-red-400">{{ .PointsBalance }}</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="points_earned">Points I've Earned</h3>
         <p class="text-2xl font-bold text-red-400">{{ .PointsEarned }}</p>
     </div>
+</div>
+
+<!-- Games I've Played -->
+<div class="bg-white dark:bg-gray-800 p-6 rounded shadow">
+    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4" data-i18n="games_played">Games I've Played</h2>
+    {{ if len .GamesPlayed }}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {{ range .GamesPlayed }}
+                <div class="border rounded p-4">
+                    <h4 class="text-lg font-semibold text-gray-700 dark:text-white">{{ .Name }}</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">{{ .Developer.Name }}</p>
+                </div>
+            {{ end }}
+        </div>
+    {{ else }}
+        <p class="text-gray-600 dark:text-gray-300" data-i18n="games_none">You haven't played any games yet.</p>
+    {{ end }}
 </div>
 {{ end }}

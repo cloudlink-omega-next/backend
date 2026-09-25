@@ -19,3 +19,13 @@ func (d *Database) GetDeveloper(id string) *types.Developer {
 	d.DB.Preload("DeveloperMembers").Where("id = ?", id).First(&res)
 	return res
 }
+
+// GetDevelopersForUser returns every developer account the user is a member of.
+func (d *Database) GetDevelopersForUser(user_id string) (developers []*types.Developer) {
+	d.DB.Model(&types.Developer{}).
+		Joins("JOIN developer_members ON developer_members.developer_id = developers.id").
+		Where("developer_members.user_id = ?", user_id).
+		Preload("DeveloperMembers").
+		Find(&developers)
+	return developers
+}

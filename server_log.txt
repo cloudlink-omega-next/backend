@@ -1,0 +1,1600 @@
+﻿.\cloudlink-omega-test.exe : 2026/09/19 14:22:26.472428 main.go:238: [Info] Migrating and seeding database...
+At line:15 char:3549
++ ... loudlink-omega-test\backend"; .\cloudlink-omega-test.exe 2>&1 | Tee-O ...
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/09/19 14:2...ing database...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.006ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.554ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.558ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'events' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.529ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.554ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `events` LIMIT 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[83.231ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'events' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.469ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.513ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.531ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'report_tags' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.547ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.006ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.508ms] [34;1m[rows:-][0m SELECT * FROM `report_tags` LIMIT 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[8.409ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'report_tags' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.556ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.083ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'system_events' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.107ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `system_events` LIMIT 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[34.360ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'system_events' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.277ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.526ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.732ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'system_events' AND constraint_name = 'fk_system_events_event'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.008ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.824ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.505ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'guests' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.516ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[7.194ms] [34;1m[rows:-][0m SELECT * FROM `guests` LIMIT 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[55.131ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'guests' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.531ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.277ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.517ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'images' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.573ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.624ms] [34;1m[rows:-][0m SELECT * FROM `images` LIMIT 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[21.299ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'images' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.020ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.513ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `users` LIMIT 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[27.831ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:26 [32m
+[0m[33m[2.665ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32m
+[0m[33m[0.530ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.545ms] [34;1m[rows:6][0m 
+SELECT
+	TABLE_NAME,
+	COLUMN_NAME,
+	INDEX_NAME,
+	NON_UNIQUE 
+FROM
+	information_schema.STATISTICS 
+WHERE
+	TABLE_SCHEMA = 'cl-omega' 
+	AND TABLE_NAME = 'users' 
+ORDER BY
+	INDEX_NAME,
+	SEQ_IN_INDEX
+
+2026/09/19 14:22:26 [32m
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32m
+[0m[33m[0.512ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32m
+[0m[33m[1.120ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'users' AND constraint_name = 'uni_users_username'
+
+2026/09/19 14:22:26 [32m
+[0m[33m[0.518ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32m
+[0m[33m[0.514ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:6][0m 
+SELECT
+	TABLE_NAME,
+	COLUMN_NAME,
+	INDEX_NAME,
+	NON_UNIQUE 
+FROM
+	information_schema.STATISTICS 
+WHERE
+	TABLE_SCHEMA = 'cl-omega' 
+	AND TABLE_NAME = 'users' 
+ORDER BY
+	INDEX_NAME,
+	SEQ_IN_INDEX
+
+2026/09/19 14:22:26 [32m
+[0m[33m[0.516ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32m
+[0m[33m[0.546ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32m
+[0m[33m[0.762ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'users' AND constraint_name = 'uni_users_email'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.521ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.519ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.564ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'users' AND constraint_name = 'fk_users_avatar'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.533ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.045ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'users' AND constraint_name = 'fk_users_banner'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.628ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.230ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'verifications' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.519ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:26 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `verifications` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[79.855ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'verifications' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.021ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.506ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.007ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'verifications' AND constraint_name = 'fk_verifications_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.505ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.530ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'email_change_tokens' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.598ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.552ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.514ms] [34;1m[rows:-][0m SELECT * FROM `email_change_tokens` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[49.631ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'email_change_tokens' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.571ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.532ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.022ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'email_change_tokens' AND constraint_name = 'fk_email_change_tokens_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.530ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.601ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'recovery_codes' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.517ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.525ms] [34;1m[rows:-][0m SELECT * FROM `recovery_codes` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[23.135ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'recovery_codes' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.025ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.259ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.571ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'recovery_codes' AND constraint_name = 'fk_recovery_codes_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.160ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'user_googles' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.602ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.788ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.794ms] [34;1m[rows:-][0m SELECT * FROM `user_googles` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[18.404ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'user_googles' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.349ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.507ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.755ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_googles' AND constraint_name = 'fk_user_googles_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.197ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.536ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'user_discords' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.536ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `user_discords` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[19.374ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'user_discords' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.506ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.506ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.512ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_discords' AND constraint_name = 'fk_user_discords_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.514ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.586ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'user_git_hubs' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.532ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `user_git_hubs` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[30.184ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'user_git_hubs' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.466ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.098ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.041ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_git_hubs' AND constraint_name = 'fk_user_git_hubs_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.008ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.376ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.518ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'user_totps' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.519ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.524ms] [34;1m[rows:-][0m SELECT * FROM `user_totps` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[17.902ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'user_totps' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.042ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.158ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.108ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_totps' AND constraint_name = 'fk_user_totps_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.085ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.557ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'user_sessions' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.546ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.022ms] [34;1m[rows:-][0m SELECT * FROM `user_sessions` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[24.081ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'user_sessions' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.531ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.700ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.340ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_sessions' AND constraint_name = 'fk_user_sessions_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.770ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.557ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'guest_sessions' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.538ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.512ms] [34;1m[rows:-][0m SELECT * FROM `guest_sessions` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[24.044ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'guest_sessions' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.723ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.523ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.087ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'guest_sessions' AND constraint_name = 'fk_guest_sessions_guest'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.574ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'user_events' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.519ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.514ms] [34;1m[rows:-][0m SELECT * FROM `user_events` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[18.564ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'user_events' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.548ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.065ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.599ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_events' AND constraint_name = 'fk_user_events_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.588ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.133ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_events' AND constraint_name = 'fk_user_events_event'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.681ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.591ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'user_reports' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.147ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `user_reports` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[24.706ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'user_reports' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.612ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.608ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.577ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_reports' AND constraint_name = 'fk_user_reports_submitted_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.005ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.547ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_reports' AND constraint_name = 'fk_user_reports_user'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.055ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.581ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_reports' AND constraint_name = 'fk_user_reports_report_tag'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.534ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.559ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.611ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'developers' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.567ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `developers` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[19.764ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'developers' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.717ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.531ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.645ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developers' AND constraint_name = 'fk_developers_banner'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.446ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developers' AND constraint_name = 'fk_developers_avatar'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.879ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'developer_events' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.561ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `developer_events` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[51.316ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'developer_events' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.509ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.371ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.504ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_events' AND constraint_name = 'fk_developer_events_event'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.044ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.672ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_events' AND constraint_name = 'fk_developer_events_developer'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.512ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.614ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'developer_games' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.124ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.577ms] [34;1m[rows:-][0m SELECT * FROM `developer_games` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[76.409ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'developer_games' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.282ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.507ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.636ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_games' AND constraint_name = 'fk_developer_games_thumbnail'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.210ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.589ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_games' AND constraint_name = 'fk_developer_games_developer'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.782ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.525ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.143ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'feature_tags' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.088ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `feature_tags` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[10.713ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'feature_tags' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.083ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.158ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.528ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'developer_game_features' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.513ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.519ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.007ms] [34;1m[rows:-][0m SELECT * FROM `developer_game_features` LIMIT 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[4.065ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'developer_game_features' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.505ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.008ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.508ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_game_features' AND constraint_name = 'fk_developer_game_features_developer_game'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.506ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.654ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_game_features' AND constraint_name = 'fk_developer_game_features_feature_tag'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.012ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'developer_members' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.566ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:27 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.526ms] [34;1m[rows:-][0m SELECT * FROM `developer_members` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[59.000ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'developer_members' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.506ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.556ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.550ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_members' AND constraint_name = 'fk_developers_developer_members'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.056ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.647ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_members' AND constraint_name = 'fk_users_developer_member'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.528ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.617ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'developer_game_reports' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.729ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.849ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `developer_game_reports` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[44.962ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'developer_game_reports' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.504ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.505ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.566ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_game_reports' AND constraint_name = 'fk_developer_game_reports_submitted_user'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.511ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.655ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_game_reports' AND constraint_name = 'fk_developer_game_reports_developer_game'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.520ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.737ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_game_reports' AND constraint_name = 'fk_developer_game_reports_report_tag'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.009ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'developer_reports' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.512ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `developer_reports` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[16.785ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'developer_reports' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.510ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.515ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_reports' AND constraint_name = 'fk_developer_reports_submitted_user'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.476ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_reports' AND constraint_name = 'fk_developer_reports_developer'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.928ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.505ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'developer_reports' AND constraint_name = 'fk_developer_reports_report_tag'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.013ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'game_comments' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.266ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.523ms] [34;1m[rows:-][0m SELECT * FROM `game_comments` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[22.406ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'game_comments' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.504ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.544ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.294ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'game_comments' AND constraint_name = 'fk_game_comments_replies'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.694ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.716ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'game_comments' AND constraint_name = 'fk_developer_games_game_comments'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.721ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.890ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.503ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'game_comments' AND constraint_name = 'fk_users_game_comments'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.760ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'achievements' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.800ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.511ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.534ms] [34;1m[rows:-][0m SELECT * FROM `achievements` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[14.180ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'achievements' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.533ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.446ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.720ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'achievements' AND constraint_name = 'fk_achievements_user'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.014ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.581ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'achievements' AND constraint_name = 'fk_achievements_developer_game'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.631ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.692ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'achievements' AND constraint_name = 'fk_achievements_icon'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.142ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.514ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'user_game_saves' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.302ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `user_game_saves` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[18.472ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'user_game_saves' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.526ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.508ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.611ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_game_saves' AND constraint_name = 'fk_developer_games_user_game_saves'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.512ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.236ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_game_saves' AND constraint_name = 'fk_users_user_game_saves'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.996ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'user_played_games' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.077ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.513ms] [34;1m[rows:-][0m SELECT * FROM `user_played_games` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[20.128ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'user_played_games' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.549ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.065ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.082ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_played_games' AND constraint_name = 'fk_user_played_games_user'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.534ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.748ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.561ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'user_played_games' AND constraint_name = 'fk_user_played_games_developer_game'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.504ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'friends' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.028ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `friends` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[19.605ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'friends' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.021ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.700ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.244ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'friends' AND constraint_name = 'fk_friends_friend'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.692ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.504ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'friends' AND constraint_name = 'fk_friends_user'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.018ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.674ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'cl-omega' AND table_name = 'friends' AND index_name = 'idx_friends_user_id'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.619ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'cl-omega' AND table_name = 'friends' AND index_name = 'idx_friends_friend_id'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.734ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.529ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'friend_requests' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.650ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `friend_requests` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[75.440ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'friend_requests' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.906ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.096ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.184ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'friend_requests' AND constraint_name = 'fk_friend_requests_sender'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[2.136ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.569ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'friend_requests' AND constraint_name = 'fk_friend_requests_receiver'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.527ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.529ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'cl-omega' AND table_name = 'friend_requests' AND index_name = 'idx_friend_requests_sender_id'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.565ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'cl-omega' AND table_name = 'friend_requests' AND index_name = 'idx_friend_requests_receiver_id'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.778ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.691ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'blocklists' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.549ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `blocklists` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[19.401ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'blocklists' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.504ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.895ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.535ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'blocklists' AND constraint_name = 'fk_blocklists_user'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.509ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.717ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'blocklists' AND constraint_name = 'fk_blocklists_blocked'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.005ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'cl-omega' AND table_name = 'blocklists' AND index_name = 'idx_blocklists_user_id'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.534ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.665ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'cl-omega' AND table_name = 'blocklists' AND index_name = 'idx_blocklists_blocked_id'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.145ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.770ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'messages' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.026ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `messages` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[71.624ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'messages' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.549ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.804ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.605ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'messages' AND constraint_name = 'fk_messages_sender'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.107ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.590ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'messages' AND constraint_name = 'fk_messages_receiver'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.008ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.508ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'cl-omega' AND table_name = 'messages' AND index_name = 'idx_messages_sender_id'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'cl-omega' AND table_name = 'messages' AND index_name = 'idx_messages_receiver_id'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.623ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'cl-omega' AND table_name = 'notifications' AND table_type = 'BASE TABLE'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.698ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT * FROM `notifications` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[25.985ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'cl-omega' AND table_name = 'notifications' ORDER BY ORDINAL_POSITION
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[1.934ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'cl-omega' AND table_name = 'notifications' AND constraint_name = 'fk_notifications_user'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT DATABASE()
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.668ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'cl-omega%' ORDER BY SCHEMA_NAME='cl-omega' DESC,SCHEMA_NAME limit 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:20
+[0m[33m[0.000ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'cl-omega' AND table_name = 'notifications' AND index_name = 'idx_notifications_user_id'
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.564ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'older' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.698ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'mobile' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'oneq' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.667ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'dlc' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:28 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'points' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[2.172ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'mature' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[1.091ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'ontw' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.577ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'onpm' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.527ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'violent' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[1.208ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'call' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.605ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'vchat' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.584ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'config' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.613ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'controllers' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.542ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'legacy' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.555ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'multidev' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'substances' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.524ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'mail' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'achievements' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.568ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'matchmaking' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'oss' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.541ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'proprietary' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.522ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'onscratch' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'review' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.515ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'vmail' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.517ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'save' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:64
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `feature_tags` WHERE `feature_tags`.`id` = 'everyone' ORDER BY `feature_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.512ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'recovery_code_retrieval_error' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.578ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'recovery_code_store_error' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.515ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'guest_create_error' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.561ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'game_save_error' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_password_changed' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.514ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_email_change_failure' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.556ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_logout' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'game_save_deleted' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.558ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_verify_set_failure' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_recovery_success' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.584ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_password_reset_sent' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.537ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_password_reset_success' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.516ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_created' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.513ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_session_error' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.532ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_auth_password_error' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.569ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_totp_enroll_success' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_auth_totp_error' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.514ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_verify_bypassed_disabled' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.529ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_verify_success' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.574ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_verify_failure' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_error' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.546ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'game_save_created' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.525ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'guest_created' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_login' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.549ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_session_created' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.512ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_session_deleted' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_totp_enroll_started' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'developer_member_created' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.835ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'developer_member_deleted' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.579ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_settings_updated' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_totp_enroll_failure' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_recovery_failure' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.770ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_deleted' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.522ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_recovery_set' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_password_reset_failure' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.528ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_email_change_requested' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_email_changed' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_account_deleted' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.519ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_verify_sent' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_verify_bypassed_test' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.668ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_recovery_set_failure' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.587ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'user_password_reset_verified' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.560ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'developer_deleted' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.523ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'developer_owner_change' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'developer_approval_start' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.572ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'developer_approval_success' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'developer_approval_deny' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.556ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'developer_approval_failure' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:82
+[0m[33m[0.531ms] [34;1m[rows:1][0m SELECT * FROM `events` WHERE `events`.`id` = 'developer_created' ORDER BY `events`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:97
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `report_tags` WHERE `report_tags`.`id` = 'slander' ORDER BY `report_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:97
+[0m[33m[0.530ms] [34;1m[rows:1][0m SELECT * FROM `report_tags` WHERE `report_tags`.`id` = 'violent' ORDER BY `report_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:97
+[0m[33m[0.563ms] [34;1m[rows:1][0m SELECT * FROM `report_tags` WHERE `report_tags`.`id` = 'bullying' ORDER BY `report_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:97
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `report_tags` WHERE `report_tags`.`id` = 'tos' ORDER BY `report_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:97
+[0m[33m[0.513ms] [34;1m[rows:1][0m SELECT * FROM `report_tags` WHERE `report_tags`.`id` = 'spam' ORDER BY `report_tags`.`id` LIMIT 1
+2026/09/19 14:22:31.488670 main.go:268: [Info] Starting server...
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:97
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `report_tags` WHERE `report_tags`.`id` = 'ip' ORDER BY `report_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:97
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `report_tags` WHERE `report_tags`.`id` = 'missing' ORDER BY `report_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:97
+[0m[33m[0.514ms] [34;1m[rows:1][0m SELECT * FROM `report_tags` WHERE `report_tags`.`id` = 'nsfw' ORDER BY `report_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:97
+[0m[33m[0.000ms] [34;1m[rows:1][0m SELECT * FROM `report_tags` WHERE `report_tags`.`id` = 'substances' ORDER BY `report_tags`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:103
+[0m[33m[0.637ms] [34;1m[rows:1][0m SELECT * FROM `developers` WHERE `developers`.`id` = '01HNPHQM5SPAG43J68R3NRX4M6' ORDER BY `developers`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:117
+[0m[33m[0.559ms] [34;1m[rows:1][0m SELECT * FROM `developer_games` WHERE `developer_games`.`id` = '01HNPHRWS0N0AYMM5K4HN31V4W' ORDER BY `developer_games`.`id` LIMIT 1
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:137
+[0m[33m[0.573ms] [34;1m[rows:0][0m INSERT INTO `feature_tags` (`id`,`description`) VALUES ('achievements',''),('controllers',''),('everyone',''),('legacy',''),('multidev',''),('oss',''),('onscratch',''),('ontw',''),('review',''),('save',''),('vchat','') ON DUPLICATE KEY UPDATE `id`=`id`
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:137
+[0m[33m[0.806ms] [34;1m[rows:0][0m INSERT INTO `developer_game_features` (`developer_game_id`,`feature_tag_id`) VALUES ('01HNPHRWS0N0AYMM5K4HN31V4W','achievements'),('01HNPHRWS0N0AYMM5K4HN31V4W','controllers'),('01HNPHRWS0N0AYMM5K4HN31V4W','everyone'),('01HNPHRWS0N0AYMM5K4HN31V4W','legacy'),('01HNPHRWS0N0AYMM5K4HN31V4W','multidev'),('01HNPHRWS0N0AYMM5K4HN31V4W','oss'),('01HNPHRWS0N0AYMM5K4HN31V4W','onscratch'),('01HNPHRWS0N0AYMM5K4HN31V4W','ontw'),('01HNPHRWS0N0AYMM5K4HN31V4W','review'),('01HNPHRWS0N0AYMM5K4HN31V4W','save'),('01HNPHRWS0N0AYMM5K4HN31V4W','vchat') ON DUPLICATE KEY UPDATE `developer_game_id`=`developer_game_id`
+
+2026/09/19 14:22:31 [32mD:/cloudlink-omega-test/storage/pkg/common/migrate_and_seed.go:137
+[0m[33m[0.532ms] [34;1m[rows:0][0m DELETE FROM `developer_game_features` WHERE `developer_game_features`.`developer_game_id` = '01HNPHRWS0N0AYMM5K4HN31V4W' AND `developer_game_features`.`feature_tag_id` NOT IN ('achievements','controllers','everyone','legacy','multidev','oss','onscratch','ontw','review','save','vchat')

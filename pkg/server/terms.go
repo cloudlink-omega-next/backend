@@ -18,6 +18,7 @@ func (s *Server) Terms(c *fiber.Ctx) error {
 		"ServerName": s.ServerName,
 		"Username":   username,
 		"LoggedIn":   loggedIn,
+		"IsAdmin":    s.IsAdmin(c),
 	}
 
 	c.Context().SetContentType("text/html; charset=utf-8")

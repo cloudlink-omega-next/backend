@@ -4,11 +4,11 @@
     <td class="px-4 py-2">{{ .Action }}</td>
 
     {{ if .Success }}
-    <td class="px-4 py-2 text-green-600">Successful</td>
+    <td class="px-4 py-2 text-green-600" data-i18n="log_successful">Successful</td>
     {{ else if .Warn }}
-    <td class="px-4 py-2 text-yellow-600">Warning</td>
+    <td class="px-4 py-2 text-yellow-600" data-i18n="log_warning">Warning</td>
     {{ else if .Fail }}
-    <td class="px-4 py-2 text-red-600">Failed</td>
+    <td class="px-4 py-2 text-red-600" data-i18n="log_failed">Failed</td>
     {{ end }}
 
     <td class="px-4 py-2">{{ .Message }}</td>

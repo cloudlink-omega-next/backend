@@ -255,7 +255,7 @@
         getSandboxMode: () => 'unsandboxed',
         canLoadExtensionFromProject: () => true
       });
-      for (const extension of []) {
+      for (const extension of ["/hosted/extensions/cloudlink-omega.js"]) {
         vm.extensionManager.loadExtensionURL(extension);
       }
 

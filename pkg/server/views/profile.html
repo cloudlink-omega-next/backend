@@ -1,0 +1,477 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden mb-6">
+        <div class="h-48 bg-gradient-to-r from-red-400 to-red-600 relative">
+            <div class="absolute inset-0 bg-black/10"></div>
+        </div>
+
+        <div class="px-6 pb-6">
+            <div class="flex flex-col sm:flex-row sm:items-end -mt-16 mb-4">
+                <div class="relative">
+                    <img id="profileAvatar" alt="Profile Avatar" class="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 bg-white dark:bg-gray-800 object-cover shadow-lg" data-avatar-url="{{ if .User.Avatar }}{{ .User.Avatar.Link }}{{ else }}/assets/static/img/ui/placeholder_user.png{{ end }}">
+                    <label for="avatarInput" class="absolute bottom-0 right-0 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full cursor-pointer shadow-md transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                    </label>
+                    <input type="file" id="avatarInput" accept="image/*" class="hidden">
+                </div>
+
+                <div class="mt-4 sm:mt-0 sm:ml-6 flex-1">
+                    <h1 id="profileName" class="text-3xl font-bold text-gray-900 dark:text-white" data-raw-name="{{ if .User.Name }}{{ .User.Name }}{{ else }}{{ .User.Username }}{{ end }}">{{ if .User.Name }}{{ .User.Name }}{{ else }}{{ .User.Username }}{{ end }}</h1>
+                    <p id="profileUsername" class="text-gray-600 dark:text-gray-300">@{{ .User.Username }}</p>
+                </div>
+
+                <div class="mt-4 sm:mt-0">
+                    <button id="editProfileBtn" class="px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                        <span data-i18n="profile_edit">Edit Profile</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="profileBio" class="mb-4">
+                <p class="text-gray-700 dark:text-gray-300" id="profileBioText" data-raw-bio="{{ if .User.Bio }}{{ .User.Bio }}{{ end }}">{{ if .User.Bio }}{{ .User.Bio }}{{ else }}<span data-i18n="profile_no_bio">No bio yet.</span>{{ end }}</p>
+            </div>
+
+            <div class="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+                <div id="profileLocationContainer" {{ if not .User.Location }}class="hidden"{{ end }}>
+                    <div class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span id="profileLocation" data-raw-location="{{ .User.Location }}">{{ .User.Location }}</span>
+                    </div>
+                </div>
+                <div id="profileWebsiteContainer" {{ if not .User.Website }}class="hidden"{{ end }}>
+                    <div class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                        <a id="profileWebsite" href="{{ .User.Website }}" target="_blank" class="text-red-500 hover:text-red-600 hover:underline" data-raw-website="{{ .User.Website }}">{{ .User.Website }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editProfileForm" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hidden">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6" data-i18n="profile_title">Profile</h2>
+
+        <form id="profileForm" class="space-y-6">
+            <div>
+                <label for="editAvatarInput" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-i18n="profile_avatar">Avatar</label>
+                <div class="flex items-center gap-4">
+                    <img id="editAvatarPreview" alt="Avatar Preview" class="w-20 h-20 rounded-full object-cover" data-avatar-url="{{ if .User.Avatar }}{{ .User.Avatar.Link }}{{ else }}/assets/static/img/ui/placeholder_user.png{{ end }}">
+                    <div>
+                        <input type="file" id="editAvatarInput" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100">
+                        <p class="text-xs text-gray-500 mt-1" data-i18n="profile_avatar_hint">JPG, PNG, GIF or WebP. Max 5MB.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label for="editName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-i18n="profile_display_name">Display Name</label>
+                <input type="text" id="editName" name="name" data-raw-name="{{ if .User.Name }}{{ .User.Name }}{{ end }}" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent">
+            </div>
+
+            <div>
+                <label for="editBio" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-i18n="profile_bio">Bio</label>
+                <textarea id="editBio" name="bio" rows="4" data-raw-bio="{{ if .User.Bio }}{{ .User.Bio }}{{ end }}" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"></textarea>
+                <p class="text-xs text-gray-500 mt-1" data-i18n="profile_bio_hint">Brief description about yourself.</p>
+            </div>
+
+            <div>
+                <label for="editLocation" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-i18n="profile_location">Location</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin text-gray-400"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <input type="text" id="editLocation" name="location" data-raw-location="{{ if .User.Location }}{{ .User.Location }}{{ end }}" class="w-full pl-10 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                </div>
+            </div>
+
+            <div>
+                <label for="editWebsite" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" data-i18n="profile_website">Website</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link text-gray-400"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    </div>
+                    <input type="url" id="editWebsite" name="website" data-raw-website="{{ if .User.Website }}{{ .User.Website }}{{ end }}" placeholder="https://example.com" class="w-full pl-10 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4">
+                <button type="button" id="cancelEditBtn" class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors" data-i18n="profile_cancel">Cancel</button>
+                <button type="submit" class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors" data-i18n="profile_save_changes">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="avatarCropModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-3xl w-full mx-4">
+        <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Crop Avatar</h3>
+            <div class="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden" style="min-height: 300px;">
+                <img id="cropImage" alt="Crop Preview" class="block max-w-full" style="max-height: 60vh; margin: 0 auto; visibility: hidden;">
+            </div>
+            <div class="flex justify-end gap-3 mt-6">
+                <button type="button" id="cancelCropBtn" class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                    Cancel
+                </button>
+                <button type="button" id="saveCropBtn" class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  (function() {
+    const editBtn = document.getElementById('editProfileBtn');
+    const editForm = document.getElementById('editProfileForm');
+    const cancelBtn = document.getElementById('cancelEditBtn');
+    const profileForm = document.getElementById('profileForm');
+    const avatarInput = document.getElementById('editAvatarInput');
+    const mainAvatarInput = document.getElementById('avatarInput');
+    const avatarPreview = document.getElementById('editAvatarPreview');
+    const profileAvatar = document.getElementById('profileAvatar');
+    const profileName = document.getElementById('profileName');
+    const profileUsername = document.getElementById('profileUsername');
+    const profileBio = document.getElementById('profileBio');
+    const profileBioText = document.getElementById('profileBioText');
+    const profileLocation = document.getElementById('profileLocation');
+    const profileLocationContainer = document.getElementById('profileLocationContainer');
+    const profileWebsite = document.getElementById('profileWebsite');
+    const profileWebsiteContainer = document.getElementById('profileWebsiteContainer');
+    const cropModal = document.getElementById('avatarCropModal');
+    const cropImage = document.getElementById('cropImage');
+    const cancelCropBtn = document.getElementById('cancelCropBtn');
+    const saveCropBtn = document.getElementById('saveCropBtn');
+
+    const profileAvatarEl = document.getElementById('profileAvatar');
+    const avatarUrl = profileAvatarEl ? profileAvatarEl.getAttribute('data-avatar-url') : '';
+    if (profileAvatarEl && avatarUrl) {
+      profileAvatarEl.src = avatarUrl;
+    }
+
+    const profileNameEl = document.getElementById('profileName');
+    const rawName = profileNameEl ? profileNameEl.getAttribute('data-raw-name') : '';
+    if (profileNameEl && rawName) {
+      profileNameEl.textContent = rawName;
+    }
+
+    const profileUsernameEl = document.getElementById('profileUsername');
+    const rawUsername = profileUsernameEl ? profileUsernameEl.textContent.replace('@', '') : '';
+    if (profileUsernameEl && rawUsername) {
+      profileUsernameEl.textContent = '@' + rawUsername;
+    }
+
+    const profileBioEl = document.getElementById('profileBio');
+    const rawBio = profileBioEl ? profileBioEl.getAttribute('data-raw-bio') : '';
+    if (profileBioEl) {
+      if (rawBio) {
+        profileBioEl.innerHTML = '';
+        const p = document.createElement('p');
+        p.className = 'text-gray-700 dark:text-gray-300';
+        p.textContent = rawBio;
+        profileBioEl.appendChild(p);
+      } else {
+        profileBioEl.innerHTML = '<p class="text-gray-700 dark:text-gray-300"><span data-i18n="profile_no_bio">No bio yet.</span></p>';
+      }
+    }
+
+    const profileLocationEl = document.getElementById('profileLocation');
+    const rawLocation = profileLocationEl ? profileLocationEl.getAttribute('data-raw-location') : '';
+    if (profileLocationContainer) {
+        if (rawLocation) {
+            profileLocationEl.textContent = rawLocation;
+            profileLocationContainer.classList.remove('hidden');
+        } else {
+            profileLocationContainer.classList.add('hidden');
+        }
+    }
+
+    const profileWebsiteEl = document.getElementById('profileWebsite');
+    const rawWebsite = profileWebsiteEl ? profileWebsiteEl.getAttribute('data-raw-website') : '';
+    if (profileWebsiteContainer) {
+        if (rawWebsite) {
+            profileWebsiteEl.textContent = rawWebsite;
+            profileWebsiteEl.href = rawWebsite.startsWith('http') ? rawWebsite : 'https://' + rawWebsite;
+            profileWebsiteContainer.classList.remove('hidden');
+        } else {
+            profileWebsiteContainer.classList.add('hidden');
+        }
+    }
+
+    const editName = document.getElementById('editName');
+    const editBio = document.getElementById('editBio');
+    const editLocation = document.getElementById('editLocation');
+    const editWebsite = document.getElementById('editWebsite');
+
+    if (editName && rawName) {
+      editName.value = rawName;
+    }
+    if (editBio && rawBio) {
+      editBio.value = rawBio;
+    }
+    if (editLocation && rawLocation) {
+      editLocation.value = rawLocation;
+    }
+    if (editWebsite && rawWebsite) {
+      editWebsite.value = rawWebsite;
+    }
+
+    if (avatarPreview && avatarUrl) {
+      avatarPreview.src = avatarUrl;
+    }
+
+    let cropper = null;
+    let selectedAvatarFile = null;
+
+    function showEditForm() {
+        editForm.classList.remove('hidden');
+        editBtn.classList.add('hidden');
+    }
+
+    function hideEditForm() {
+        editForm.classList.add('hidden');
+        editBtn.classList.remove('hidden');
+    }
+
+    editBtn.addEventListener('click', showEditForm);
+    cancelBtn.addEventListener('click', hideEditForm);
+
+    mainAvatarInput.addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        showEditForm();
+        
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        avatarInput.files = dt.files;
+        
+        avatarInput.dispatchEvent(new Event('change'));
+    });
+
+    function loadCropper() {
+        if (document.querySelector('link[href*="cropperjs"]') && document.querySelector('script[src*="cropperjs"]')) {
+            return Promise.resolve();
+        }
+
+        return new Promise((resolve, reject) => {
+            let cssLoaded = false;
+            let jsLoaded = false;
+
+            const checkAllLoaded = () => {
+                if (cssLoaded && jsLoaded) {
+                    resolve();
+                }
+            };
+
+            const css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css';
+            css.onload = () => {
+                cssLoaded = true;
+                checkAllLoaded();
+            };
+            css.onerror = reject;
+            document.head.appendChild(css);
+
+            const js = document.createElement('script');
+            js.src = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js';
+            js.onload = () => {
+                jsLoaded = true;
+                checkAllLoaded();
+            };
+            js.onerror = reject;
+            document.body.appendChild(js);
+        });
+    }
+
+    avatarInput.addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        selectedAvatarFile = file;
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            await loadCropper();
+
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+
+            cropImage.src = e.target.result;
+
+            await new Promise((resolve, reject) => {
+                if (cropImage.complete) {
+                    resolve();
+                } else {
+                    cropImage.onload = resolve;
+                    cropImage.onerror = reject;
+                }
+            });
+
+            cropper = new Cropper(cropImage, {
+                aspectRatio: 1,
+                viewMode: 1,
+                autoCropArea: 0.8,
+                responsive: true,
+                ready: function() {
+                    cropImage.style.visibility = 'visible';
+                }
+            });
+
+            cropModal.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    });
+
+    cancelCropBtn.addEventListener('click', function() {
+        cropModal.classList.add('hidden');
+        if (cropper) {
+            cropper.destroy();
+            cropper = null;
+        }
+        selectedAvatarFile = null;
+        avatarInput.value = '';
+    });
+
+    saveCropBtn.addEventListener('click', async function() {
+        if (!cropper || !selectedAvatarFile) return;
+
+        const canvas = cropper.getCroppedCanvas({
+            width: 256,
+            height: 256,
+        });
+
+        canvas.toBlob(async function(blob) {
+            const croppedFile = new File([blob], selectedAvatarFile.name, {
+                type: selectedAvatarFile.type,
+                lastModified: Date.now(),
+            });
+
+            avatarInput.files = (function() {
+                const dt = new DataTransfer();
+                dt.items.add(croppedFile);
+                return dt.files;
+            })();
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                avatarPreview.src = e.target.result;
+                profileAvatar.src = e.target.result;
+            };
+            reader.readAsDataURL(blob);
+
+            cropModal.classList.add('hidden');
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+        }, selectedAvatarFile.type);
+    });
+
+    profileForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const name = editName ? editName.value : '';
+        const bio = editBio ? editBio.value : '';
+        const location = editLocation ? editLocation.value : '';
+        const website = editWebsite ? editWebsite.value : '';
+
+        try {
+            const profileRes = await fetch('/api/v1/profile', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name || null,
+                    bio: bio || null,
+                    location: location || null,
+                    website: website || null,
+                }),
+            });
+
+            if (!profileRes.ok) {
+                alert(t('error_occurred'));
+                return;
+            }
+
+            const avatarFile = avatarInput.files[0];
+            if (avatarFile) {
+                const avatarFormData = new FormData();
+                avatarFormData.append('avatar', avatarFile);
+
+                const avatarRes = await fetch('/api/v1/profile/avatar', {
+                    method: 'POST',
+                    body: avatarFormData,
+                });
+
+                if (!avatarRes.ok) {
+                    alert(t('error_occurred'));
+                    return;
+                }
+
+                const avatarData = await avatarRes.json();
+                if (avatarData.data && avatarData.data.avatar_url) {
+                    profileAvatar.src = avatarData.data.avatar_url;
+                    avatarPreview.src = avatarData.data.avatar_url;
+                }
+            }
+
+            if (profileName && name) {
+                profileName.textContent = name;
+                profileName.setAttribute('data-raw-name', name);
+            }
+            if (profileUsername && name) {
+                profileUsername.textContent = '@' + name;
+            }
+            if (profileBio) {
+              if (bio) {
+                profileBio.innerHTML = '';
+                const p = document.createElement('p');
+                p.className = 'text-gray-700 dark:text-gray-300';
+                p.textContent = bio;
+                profileBio.appendChild(p);
+                profileBioText.setAttribute('data-raw-bio', bio);
+              } else {
+                profileBio.innerHTML = '<p class="text-gray-700 dark:text-gray-300"><span data-i18n="profile_no_bio">No bio yet.</span></p>';
+                profileBioText.setAttribute('data-raw-bio', '');
+              }
+            }
+            if (profileLocation) {
+                profileLocation.textContent = location || '';
+                profileLocation.setAttribute('data-raw-location', location || '');
+            }
+            if (profileLocationContainer) {
+                if (location) {
+                    profileLocationContainer.classList.remove('hidden');
+                } else {
+                    profileLocationContainer.classList.add('hidden');
+                }
+            }
+            if (profileWebsite) {
+                profileWebsite.textContent = website || '';
+                profileWebsite.href = website ? (website.startsWith('http') ? website : 'https://' + website) : '#';
+                profileWebsite.setAttribute('data-raw-website', website || '');
+            }
+            if (profileWebsiteContainer) {
+                if (website) {
+                    profileWebsiteContainer.classList.remove('hidden');
+                } else {
+                    profileWebsiteContainer.classList.add('hidden');
+                }
+            }
+
+            hideEditForm();
+        } catch (error) {
+            alert(t('error_occurred'));
+        }
+    });
+
+    applyI18n();
+  })();
+});
+</script>

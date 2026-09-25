@@ -20,9 +20,11 @@
 
 # .env files
 *.env
+.env
 
 # Go workspace file
 go.work
+go.work.sum
 
 # ignore debug binaries
 __debug_*
@@ -42,3 +44,7 @@ __debug_*
 tmp/
 
 *.fiber.gz
+
+# Runtime generated content
+hosted/
+*.log

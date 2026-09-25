@@ -8,14 +8,16 @@ import (
 )
 
 type SaveArgs struct {
-	Slot uint8  `json:"save_slot" form:"save_slot" validate:"required,min=1,max=10" label:"save_slot"`
-	Data string `json:"save_data" form:"save_data" validate:"required,max=10000" label:"save_data"`
-	UGI  string `json:"ugi" form:"ugi" validate:"ulid" label:"ugi"`
+	Slot  uint8  `json:"save_slot" form:"save_slot" validate:"required,min=1,max=10" label:"save_slot"`
+	Data  string `json:"save_data" form:"save_data" validate:"required,max=10000" label:"save_data"`
+	UGI   string `json:"ugi" form:"ugi" validate:"ulid" label:"ugi"`
+	Token string `json:"token" form:"token" validate:"" label:"token"`
 }
 
 type LoadArgs struct {
-	Slot uint8  `json:"save_slot" form:"save_slot" validate:"required,min=1,max=10" label:"save_slot"`
-	UGI  string `json:"ugi" form:"ugi" validate:"ulid" label:"ugi"`
+	Slot  uint8  `json:"save_slot" form:"save_slot" validate:"required,min=1,max=10" label:"save_slot"`
+	UGI   string `json:"ugi" form:"ugi" validate:"ulid" label:"ugi"`
+	Token string `json:"token" form:"token" validate:"" label:"token"`
 }
 
 func (a *APIv1) Save(c *fiber.Ctx) error {
@@ -32,6 +34,8 @@ func (a *APIv1) Save(c *fiber.Ctx) error {
 	var claims *structs.Claims
 	if a.ParentServer.Authorization.ValidFromNormal(c) {
 		claims = a.ParentServer.Authorization.GetNormalClaims(c)
+	} else if args.Token != "" && a.ParentServer.Authorization.ValidFromToken(args.Token) {
+		claims = a.ParentServer.Authorization.GetClaimsFromToken(args.Token)
 	} else {
 		return APIResult(c, fiber.StatusUnauthorized, "Unauthorized.", nil)
 	}
@@ -54,9 +58,12 @@ func (a *APIv1) Save(c *fiber.Ctx) error {
 	}
 
 	// Save
-	var count int64
-	a.Database.DB.Model(&types.UserGameSave{}).First(&types.UserGameSave{}, "user_id = ? AND save_slot = ? AND developer_game_id = ?", claims.ULID, args.Slot, args.UGI).Count(&count)
-	if count > 0 {
+	var existing types.UserGameSave
+	result := a.Database.DB.First(&existing, "user_id = ? AND save_slot = ? AND developer_game_id = ?", claims.ULID, args.Slot, args.UGI)
+	if result.Error != nil && result.Error != gorm.ErrRecordNotFound {
+		return APIResult(c, fiber.StatusInternalServerError, result.Error.Error(), nil)
+	}
+	if result.RowsAffected > 0 {
 		a.Database.DB.Model(&types.UserGameSave{}).Where("user_id = ? AND save_slot = ? AND developer_game_id = ?", claims.ULID, args.Slot, args.UGI).Update("save_data", encrypted)
 	} else {
 		a.Database.DB.Create(&types.UserGameSave{UserID: claims.ULID, SaveSlot: args.Slot, DeveloperGameID: args.UGI, SaveData: encrypted})
@@ -80,6 +87,8 @@ func (a *APIv1) Load(c *fiber.Ctx) error {
 	var claims *structs.Claims
 	if a.ParentServer.Authorization.ValidFromNormal(c) {
 		claims = a.ParentServer.Authorization.GetNormalClaims(c)
+	} else if args.Token != "" && a.ParentServer.Authorization.ValidFromToken(args.Token) {
+		claims = a.ParentServer.Authorization.GetClaimsFromToken(args.Token)
 	} else {
 		return APIResult(c, fiber.StatusUnauthorized, "Unauthorized.", nil)
 	}

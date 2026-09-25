@@ -21,14 +21,14 @@
                 </defs>
             </svg>
         </span>
-		<h1 class="text-5xl font-bold dark:text-white mb-4">Whoops!</h1>
-		<p class="text-lg dark:text-white mb-4">This is not the page you're looking for.</p>
+		<h1 class="text-5xl font-bold dark:text-white mb-4" data-i18n="play_not_found">Whoops!</h1>
+		<p class="text-lg dark:text-white mb-4" data-i18n="play_not_found_desc">This is not the page you're looking for.</p>
 		<div class="w-full flex flex-wrap flex-row items-center justify-center gap-3">
             <a href="/" type="button" class="w-50 px-6 py-3 bg-white dark:bg-gray-600 hover:font-bold hover:bg-red-400 dark:hover:bg-red-400 text-black dark:text-white hover:text-white rounded-xl 
             font-medium transition-all duration-300 
             hover:shadow-lg hover:shadow-red-500/30 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 
             active:scale-95">
-                <span class="flex items-center justify-center gap-2 text-2xl">
+                <span class="flex items-center justify-center gap-2 text-2xl" data-i18n="play_not_found_exit">
                     Get me out of here!
                 </span>
             </a>
@@ -38,3 +38,11 @@
 
 <!-- Use to handle modals -->
 <script src="/assets/js/modals.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof applyI18n === 'function') {
+    applyI18n();
+  }
+});
+</script>

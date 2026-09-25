@@ -59,9 +59,12 @@ func (a *APIv0) Save(c *fiber.Ctx) error {
 	}
 
 	// Save
-	var count int64
-	a.Database.DB.Model(&types.UserGameSave{}).First(&types.UserGameSave{}, "user_id = ? AND save_slot = ? AND developer_game_id = ?", claims.ULID, args.Slot, args.UGI).Count(&count)
-	if count > 0 {
+	var existing types.UserGameSave
+	result := a.Database.DB.First(&existing, "user_id = ? AND save_slot = ? AND developer_game_id = ?", claims.ULID, args.Slot, args.UGI)
+	if result.Error != nil && result.Error != gorm.ErrRecordNotFound {
+		return c.Status(fiber.StatusInternalServerError).SendString(result.Error.Error())
+	}
+	if result.RowsAffected > 0 {
 		a.Database.DB.Model(&types.UserGameSave{}).Where("user_id = ? AND save_slot = ? AND developer_game_id = ?", claims.ULID, args.Slot, args.UGI).Update("save_data", encrypted)
 	} else {
 		a.Database.DB.Create(&types.UserGameSave{UserID: claims.ULID, SaveSlot: args.Slot, DeveloperGameID: args.UGI, SaveData: encrypted})

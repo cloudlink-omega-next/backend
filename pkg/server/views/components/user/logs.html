@@ -1,16 +1,16 @@
 {{ define "user_logs" }}
 <div class="bg-white dark:bg-gray-800 p-4 rounded shadow mt-2 mb-6">
-    <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4">Account Log</h2>
+    <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="account_log">Account Log</h2>
     {{ if .Empty }}
-        <p class="text-gray-600 dark:text-white mb-4">Nothing to see here...</p>
+        <p class="text-gray-600 dark:text-white mb-4" data-i18n="logs_empty">Nothing to see here...</p>
     {{ else }}
-    <p class="text-gray-600 dark:text-white mb-4">Showing page {{ .Page }} of {{ .Pages }}</p>
+    <p class="text-gray-600 dark:text-white mb-4"><span data-i18n="logs_showing_page">Showing page</span> {{ .Page }} <span data-i18n="logs_of">of</span> {{ .Pages }}</p>
     <table class="w-full text-left">
         <tr class="border-b">
-            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Timestamp</th>
-            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Action</th>
-            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Status</th>
-            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Details</th>
+            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="timestamp">Timestamp</th>
+            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="action">Action</th>
+            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="status">Status</th>
+            <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="details">Details</th>
         </tr>
         {{ range .Logs }}
             {{ template "user_log_element" . }}

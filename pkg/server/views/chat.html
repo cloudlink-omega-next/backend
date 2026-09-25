@@ -1,0 +1,116 @@
+<div class="flex mx-auto w-full h-screen">
+
+  <!-- Sidebar -->
+  <aside class="w-1/4 bg-white text-black dark:text-white dark:bg-gray-800 p-4 border-r border-gray-200 dark:border-gray-700">
+    <h2 class="text-xl font-semibold mb-4" data-i18n="chat_title">Chat</h2>
+    <nav>
+      <ul class="space-y-2">
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span data-i18n="friends_my_friends">My Friends</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/dashboard">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Dashboard
+            </div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Chat Area -->
+  <main class="flex-1 flex flex-col bg-gray-100 dark:bg-gray-900 dark:text-white">
+    <header class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center gap-3">
+      <img src="{{ if .FriendAvatarURL }}{{ .FriendAvatarURL }}{{ else }}/assets/static/img/ui/placeholder_user.png{{ end }}" class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700">
+      <h1 id="chat-title" class="text-xl font-semibold" data-i18n="chat_title">Chat</h1>
+    </header>
+
+    <div id="messages-list" class="flex-1 overflow-y-auto p-4 space-y-3">
+      <p class="text-gray-600 dark:text-gray-300" data-i18n="chat_loading">Loading messages...</p>
+    </div>
+
+    <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex gap-2">
+      <input id="message-input" type="text" data-i18n-placeholder="chat_type_message" placeholder="Type a message..." class="flex-1 px-3 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+      <button onclick="sendMessage()" class="px-4 py-2 rounded bg-red-400 text-white" data-i18n="chat_send">Send</button>
+    </div>
+  </main>
+</div>
+
+<script>
+const friendId = '{{ .FriendID }}';
+const friendName = '{{ .FriendName }}';
+document.getElementById('chat-title').textContent = friendName ? friendName : t('chat_title');
+
+let lastMessageId = null;
+
+async function loadMessages() {
+  try {
+    const res = await fetch(`/api/v1/friends/${friendId}/messages?t=${Date.now()}`);
+    if (res.status === 401 || res.status === 403) {
+      window.location.href = '/accounts/login?redirect=/friends';
+      return;
+    }
+    const data = await res.json();
+    const container = document.getElementById('messages-list');
+    if (!res.ok || data.result !== 'OK' || !Array.isArray(data.data) || data.data.length === 0) {
+      if (!container.querySelector('[data-message-id]')) {
+        container.innerHTML = '<p class="text-gray-600 dark:text-gray-300" data-i18n="chat_no_messages">No messages yet.</p>';
+      }
+      return;
+    }
+
+    container.innerHTML = '';
+    for (const msg of data.data) {
+      const item = document.createElement('div');
+      item.setAttribute('data-message-id', msg.id);
+      const isMe = msg.sender_id === msg.current_user_id;
+      item.className = `p-2 rounded max-w-[70%] ${isMe ? 'ml-auto bg-red-400 text-white' : 'mr-auto bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700'}`;
+      const avatarHtml = msg.sender_avatar ? `<img src="${msg.sender_avatar}" class="w-6 h-6 rounded-full mr-2">` : '';
+      const displayName = msg.sender_name && msg.sender_name.trim() !== '' ? msg.sender_name : msg.sender;
+      item.innerHTML = `${avatarHtml}<span class="font-semibold">${displayName}</span><p class="text-sm">${msg.content}</p><p class="text-xs mt-1 opacity-70">${msg.created_at}</p>`;
+      container.appendChild(item);
+    }
+    container.scrollTop = container.scrollHeight;
+  } catch (e) {
+    console.error('Failed to load messages:', e);
+  }
+}
+
+(async function() {
+  await loadMessages();
+  setInterval(loadMessages, 3000);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      loadMessages();
+    }
+  });
+  applyI18n();
+})();
+
+async function sendMessage() {
+  const input = document.getElementById('message-input');
+  const content = input.value.trim();
+  if (!content) return;
+
+  const res = await fetch(`/api/v1/friends/${friendId}/messages`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ receiver_id: friendId, content })
+  });
+  if (res.ok) {
+    input.value = '';
+    await loadMessages();
+  } else if (res.status === 401 || res.status === 403) {
+    window.location.href = '/accounts/login?redirect=/friends';
+  } else {
+    alert(t('chat_failed_send'));
+  }
+}
+</script>

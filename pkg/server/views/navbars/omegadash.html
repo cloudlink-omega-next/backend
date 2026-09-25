@@ -11,7 +11,7 @@
 		<!-- Username and Points -->
 		<div>
 			<div class="text-2xl text-gray-900 dark:text-white font-semibold text-sm">{{ .Username }}</div>
-			<div class="text-xs text-black dark:text-gray-400">{{ .Points }} Points</div>
+			<div class="text-xs text-black dark:text-gray-400">{{ .Points }} <span data-i18n="nav_points">Points</span></div>
 		</div>
 	</div>
 
@@ -27,6 +27,12 @@
 		<a href="#">
 			<img src="/assets/static/img/ui/close.svg" alt="Close" class="w-8 h-8">
 		</a>
+	</div>
+
+	<div class="flex items-center gap-2">
+		<button id="lang-toggle" class="text-xs text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+			<span data-i18n="lang_zh">中文</span>
+		</button>
 	</div>
 </div>
 {{ end}}

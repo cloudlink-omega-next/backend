@@ -22,10 +22,10 @@ import (
 	"gorm.io/gorm"
 )
 
-//go:embed views/*
+//go:embed views/**
 var embedded_templates embed.FS
 
-//go:embed assets/*
+//go:embed assets/**
 var embedded_static embed.FS
 
 // TODO: add fields for the frontend server
@@ -38,7 +38,6 @@ type Server structs.Server
 //
 // The created instance is returned.
 func New(
-
 	// Server Name is used for labeling the server. Format: [Country Code]-[Server Nickname]-[Designation].
 	server_name string,
 
@@ -63,6 +62,9 @@ func New(
 	// Disable DB - This service is completely disabled since it's a frontend-facing service
 	bypass_db bool,
 
+	// Admin email - if set, this email address will have admin access
+	admin_email string,
+
 ) *Server {
 	srv := &Server{
 		ServerName: server_name,
@@ -71,6 +73,7 @@ func New(
 		Policy:     bluemonday.UGCPolicy(),
 		HostedPath: hosted_path,
 		MailConfig: email_config,
+		AdminEmail: admin_email,
 	}
 
 	if bypass_db {
@@ -107,13 +110,30 @@ func New(
 	// Configure routes
 	srv.App.Get("/admin", srv.Admin)
 	srv.App.Get("/dashboard", srv.Dashboard)
-	// srv.App.Get("/developer", srv.DeveloperDashboard)
+	srv.App.Get("/dashboard/achievements", srv.DashboardAchievements)
+	srv.App.Get("/dashboard/cloud-saves", srv.CloudSaves)
+	srv.App.Get("/dashboard/settings", srv.Settings)
+	srv.App.Get("/profile", srv.Profile)
+	srv.App.Get("/security", srv.Security)
+	srv.App.Get("/developer", srv.DeveloperDashboard)
 	// srv.App.Get("/omegadash", srv.OmegaDash)
 	srv.App.Get("/terms", srv.Terms)
 	srv.App.Get("/modal", srv.Modal)
 	srv.App.Get("/about", srv.About)
 	srv.App.Get("/explore", srv.Explore)
 	srv.App.Get("/play/:id?", srv.Play)
+	srv.App.Get("/friends", srv.Friends)
+	srv.App.Get("/friends/requests", srv.FriendRequests)
+	srv.App.Get("/friends/search", srv.SearchFriends)
+	srv.App.Get("/friends/blocklist", srv.Blocklist)
+	srv.App.Get("/friends/notifications", srv.Notifications)
+	srv.App.Get("/chat/:user_id", srv.Chat)
+	srv.App.Get("/points/confirm/deduct/:token", srv.PointsConfirmDeduction)
+	srv.App.Get("/points/confirm/purchase/:purchaseID", srv.PointsConfirmPurchase)
+	srv.App.Get("/dashboard/points/success", srv.PaymentSuccess)
+	srv.App.Get("/dashboard/points/cancel", srv.PaymentCancelled)
+	srv.App.Post("/points/payment/process", srv.PointsProcessPayment)
+	srv.App.Get("/reports/new", srv.ReportNew)
 	srv.App.Get("/", srv.Index)
 
 	// Configure API Routes
@@ -121,6 +141,13 @@ func New(
 	apiv1 := v1.New((*structs.Server)(srv))
 	srv.App.Mount("/api/v0", apiv0.App)
 	srv.App.Mount("/api/v1", apiv1.App)
+
+	srv.App.Get("/api/v1/admin/overview", func(c *fiber.Ctx) error { return apiv1.GetAdminOverview(c) })
+	srv.App.Get("/api/v1/admin/logs", func(c *fiber.Ctx) error { return apiv1.GetAdminLogs(c) })
+	srv.App.Get("/api/v1/admin/accounts", func(c *fiber.Ctx) error { return apiv1.GetAdminAccounts(c) })
+	srv.App.Get("/api/v1/admin/storage", func(c *fiber.Ctx) error { return apiv1.GetAdminStorage(c) })
+	srv.App.Get("/api/v1/admin/settings", func(c *fiber.Ctx) error { return apiv1.GetAdminSettings(c) })
+	srv.App.Put("/api/v1/admin/settings", func(c *fiber.Ctx) error { return apiv1.UpdateAdminSettings(c) })
 
 	// Initialize assets path
 	srv.App.Use("/assets", filesystem.New(filesystem.Config{

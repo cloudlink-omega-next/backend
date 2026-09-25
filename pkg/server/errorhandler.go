@@ -8,6 +8,7 @@ import (
 )
 
 func (s *Server) ErrorPage(c *fiber.Ctx, err error) error {
+	fmt.Println("[DEBUG] ErrorPage called with error:", err.Error())
 	var status_code int
 	if err == nil {
 		status_code = fiber.StatusInternalServerError
@@ -20,23 +21,19 @@ func (s *Server) ErrorPage(c *fiber.Ctx, err error) error {
 		}
 	}
 
-	// Set the status code for the response
 	c.Status(status_code)
 
-	// Either render a page, or send plain text
 	request_content_type := string(c.Request().Header.ContentType())
 
-	var match bool
-	for _, t := range []string{"html", "plain", "form", "json", "xml"} {
-		match = !match && strings.Contains(request_content_type, t)
+	if strings.Contains(request_content_type, "json") {
+		return c.JSON(fiber.Map{
+			"result": err.Error(),
+			"data":   nil,
+		})
 	}
 
-	if match {
-		return c.SendString(err.Error())
-	} else {
-		return c.Render("views/error", &map[string]string{
-			"Message":    err.Error(),
-			"Status":     fmt.Sprint(status_code),
-			"ServerName": s.ServerName}, "views/layouts/error")
-	}
+	return c.Render("views/error", &map[string]string{
+		"Message":    err.Error(),
+		"Status":     fmt.Sprint(status_code),
+		"ServerName": s.ServerName}, "views/layouts/error")
 }

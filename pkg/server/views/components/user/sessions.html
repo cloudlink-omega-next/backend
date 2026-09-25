@@ -1,12 +1,12 @@
 {{ define "user_sessions" }}
 <div class="bg-white dark:bg-gray-800 p-4 rounded shadow mt-2 mb-6">
-    <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4">Active Sessions</h2>
+    <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="active_sessions">Active Sessions</h2>
         <table class="w-full text-left">
             <tr class="border-b">
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Device</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">IP Address</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Created</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold">Expires</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="device">Device</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="ip_address">IP Address</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="created">Created</th>
+                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="expires">Expires</th>
             </tr>
             {{ range .Sessions }}
                 {{ template "user_session_element" . }}

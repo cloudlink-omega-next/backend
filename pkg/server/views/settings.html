@@ -1,0 +1,206 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden mb-6">
+    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white" data-i18n="settings_title">Settings</h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="settings_subtitle">Manage your account preferences and visibility.</p>
+    </div>
+
+    <div class="p-6 space-y-8">
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4" data-i18n="language_section">Language</h2>
+        <div class="flex items-center gap-4">
+          <select id="settingLanguage" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent">
+            <option value="en" data-i18n="lang_en">English</option>
+            <option value="zh" data-i18n="lang_zh">中文</option>
+          </select>
+          <button id="saveLanguage" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors" data-i18n="save_button">Save</button>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4" data-i18n="theme_section">Theme</h2>
+        <div class="flex items-center gap-4">
+          <select id="settingTheme" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent">
+            <option value="system" data-i18n="theme_system">System</option>
+            <option value="light" data-i18n="theme_light">Light</option>
+            <option value="dark" data-i18n="theme_dark">Dark</option>
+          </select>
+          <button id="saveTheme" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors" data-i18n="save_button">Save</button>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4" data-i18n="visibility_section">Visibility</h2>
+        <div class="flex items-center gap-4">
+          <select id="settingVisibility" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent">
+            <option value="public" data-i18n="visibility_public">Public - others can find you</option>
+            <option value="private" data-i18n="visibility_private">Private - others cannot find you</option>
+          </select>
+          <button id="saveVisibility" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors" data-i18n="save_button">Save</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden mb-6">
+    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white" data-i18n="account_section">Account</h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="account_subtitle">Manage your account data and deletion.</p>
+    </div>
+
+    <div class="p-6 space-y-6">
+      <section>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4" data-i18n="export_data">Export Account Data</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4" data-i18n="export_data_desc">Download a copy of your account data including profile information, game saves, and activity logs.</p>
+        <button id="exportData" class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-lg transition-colors" data-i18n="export_data_button">Export Data</button>
+      </section>
+
+      <section class="border-t border-gray-200 dark:border-gray-700 pt-6">
+        <h3 class="text-lg font-semibold text-red-600 dark:text-red-400 mb-2" data-i18n="danger_zone">Danger Zone</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4" data-i18n="delete_account_desc">Once you delete your account, there is no going back. Please be certain.</p>
+        <button id="deleteAccount" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors" data-i18n="delete_account_button">Delete Account</button>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    const languageSelect = document.getElementById('settingLanguage');
+    const themeSelect = document.getElementById('settingTheme');
+    const visibilitySelect = document.getElementById('settingVisibility');
+
+    async function loadSettings() {
+      try {
+        const res = await fetch('/api/v1/settings', { credentials: 'include' });
+        const data = await res.json();
+        if (!res.ok || data.result !== 'OK') {
+          alert(typeof t === 'function' ? t('error_occurred') : 'An error occurred. Please try again.');
+          return;
+        }
+
+        const settings = data.data || {};
+        if (languageSelect && settings.language) {
+          languageSelect.value = settings.language;
+        }
+        if (themeSelect && settings.theme) {
+          themeSelect.value = settings.theme;
+        }
+        if (visibilitySelect && settings.is_public !== undefined) {
+          visibilitySelect.value = settings.is_public ? 'public' : 'private';
+        }
+      } catch (e) {
+        console.error('Failed to load settings:', e);
+      }
+    }
+
+    async function saveSettings(payload) {
+      console.log('saveSettings called with:', payload);
+      try {
+        const res = await fetch('/api/v1/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(payload),
+        });
+
+        console.log('saveSettings response status:', res.status);
+        const data = await res.json();
+        console.log('saveSettings response data:', data);
+        if (!res.ok || data.result !== 'OK') {
+          alert(typeof t === 'function' ? t('error_occurred') : 'An error occurred. Please try again.');
+          return;
+        }
+
+        alert(typeof t === 'function' ? t('settings_saved') : 'Settings saved successfully.');
+        return data.data;
+      } catch (e) {
+        console.error('saveSettings error:', e);
+        alert(typeof t === 'function' ? t('error_occurred') : 'An error occurred. Please try again.');
+      }
+    }
+
+    document.getElementById('saveLanguage').addEventListener('click', async () => {
+      console.log('[settings] saveLanguage clicked, current lang:', languageSelect.value);
+      const lang = languageSelect.value;
+      const theme = themeSelect ? themeSelect.value : '';
+      const isPublic = visibilitySelect ? visibilitySelect.value : '';
+      await saveSettings({ language: lang, theme: theme === '' ? undefined : theme, is_public: isPublic === '' ? undefined : isPublic === 'public' });
+      console.log('[settings] after saveSettings, setI18nLang available:', typeof setI18nLang === 'function');
+      if (typeof setI18nLang === 'function') {
+        setI18nLang(lang);
+        console.log('[settings] setI18nLang called with:', lang);
+      } else {
+        console.warn('[settings] setI18nLang is not available');
+      }
+    });
+
+    document.getElementById('saveTheme').addEventListener('click', async () => {
+      const theme = themeSelect.value;
+      const lang = languageSelect ? languageSelect.value : '';
+      const isPublic = visibilitySelect ? visibilitySelect.value : '';
+      await saveSettings({ language: lang === '' ? undefined : lang, theme: theme, is_public: isPublic === '' ? undefined : isPublic === 'public' });
+    });
+
+    document.getElementById('saveVisibility').addEventListener('click', async () => {
+      const isPublic = visibilitySelect.value === 'private';
+      const lang = languageSelect ? languageSelect.value : '';
+      const theme = themeSelect ? themeSelect.value : '';
+      await saveSettings({ language: lang === '' ? undefined : lang, theme: theme === '' ? undefined : theme, is_public: isPublic });
+    });
+
+    document.getElementById('exportData').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/api/v1/settings/export', {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (!res.ok) {
+          alert(typeof t === 'function' ? t('error_occurred') : 'An error occurred. Please try again.');
+          return;
+        }
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'account-data.json';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } catch (err) {
+        alert(typeof t === 'function' ? t('error_occurred') : 'An error occurred. Please try again.');
+      }
+    });
+
+    document.getElementById('deleteAccount').addEventListener('click', async () => {
+      if (!confirm(typeof t === 'function' ? t('confirm_delete') : 'Are you sure you want to delete your account? This action cannot be undone.')) {
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/v1/settings/account', {
+          method: 'DELETE',
+          credentials: 'include',
+        });
+
+        if (!res.ok) {
+          alert(typeof t === 'function' ? t('error_occurred') : 'An error occurred. Please try again.');
+          return;
+        }
+
+        alert(typeof t === 'function' ? t('account_deleted') : 'Your account has been deleted.');
+        window.location.href = '/';
+      } catch (err) {
+        alert(typeof t === 'function' ? t('error_occurred') : 'An error occurred. Please try again.');
+      }
+    });
+
+    loadSettings();
+    setTimeout(applyI18n, 300);
+  }, 100);
+});
+</script>

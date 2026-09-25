@@ -1,0 +1,163 @@
+<div class="flex mx-auto w-full">
+
+  <!-- Sidebar -->
+  <aside class="w-1/6 bg-white text-black dark:text-white dark:bg-gray-800 p-4" style="height: 100vh;">
+    <h2 class="text-xl font-semibold mb-4" data-i18n="friends_title">Friends</h2>
+    <nav>
+      <ul class="space-y-2">
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span data-i18n="friends_my_friends">My Friends</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends/requests">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" x2="20" y1="8" y2="14"/><line x1="23" x2="17" y1="11" y2="11"/></svg>
+              <span data-i18n="friends_requests">Friend Requests</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends/search">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <span data-i18n="friends_find">Find Friends</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
+          <a href="/friends/blocklist">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban"><circle cx="12" cy="12" r="10"/><line x1="4.93" x2="19.07" y1="4.93" y2="19.07"/></svg>
+              <span data-i18n="friends_blocked">Blocked Users</span>
+            </div>
+          </a>
+        </li>
+        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-red-400 text-white font-bold transition-all duration-200">
+          <a href="/friends/notifications">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              <span data-i18n="nav_notifications">Notifications</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 bg-gray-100 dark:bg-gray-900 dark:text-white">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-semibold" data-i18n="notifications_title">Notifications</h1>
+      <button onclick="markAllRead()" class="px-4 py-2 rounded bg-blue-500 text-white text-sm hover:bg-blue-600 transition-colors" data-i18n="notifications_mark_all_read">
+        Mark All as Read
+      </button>
+    </div>
+
+    <div id="notifications-list" class="space-y-4">
+      <p class="text-gray-600 dark:text-gray-300" data-i18n="notifications_loading">Loading notifications...</p>
+    </div>
+  </main>
+</div>
+
+<script>
+async function loadNotifications() {
+  try {
+    const res = await fetch('/api/v1/notifications?t=' + Date.now());
+    if (res.status === 401 || res.status === 403) {
+      window.location.href = '/accounts/login?redirect=/friends/notifications';
+      return;
+    }
+    const data = await res.json();
+    const container = document.getElementById('notifications-list');
+
+    if (!res.ok || data.result !== 'OK' || !Array.isArray(data.data) || data.data.length === 0) {
+      container.innerHTML = '<p class="text-gray-600 dark:text-gray-300" data-i18n="notifications_none">No notifications yet.</p>';
+      return;
+    }
+
+    container.innerHTML = '';
+
+    for (const notification of data.data) {
+      const item = document.createElement('div');
+      item.className = 'border rounded p-4 bg-white dark:bg-gray-800 flex items-start justify-between' + (notification.read ? '' : ' ring-2 ring-blue-500');
+      
+      let iconColor = 'bg-gray-500';
+      if (notification.type === 'friend_request_accepted') iconColor = 'bg-green-500';
+      else if (notification.type === 'friend_request_rejected') iconColor = 'bg-red-500';
+      else if (notification.type === 'blocked_by_user') iconColor = 'bg-red-600';
+      
+      item.innerHTML = `
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 rounded-full ${iconColor} flex items-center justify-center text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            </div>
+          </div>
+          <div class="flex-1">
+            <p class="text-gray-700 dark:text-white">${notification.message}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${notification.created_at}</p>
+          </div>
+        </div>
+        ${!notification.read ? `<button onclick="markRead('${notification.id}')" class="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-sm hover:bg-gray-300 dark:hover:bg-gray-600" data-i18n="notifications_mark_read">Mark as Read</button>` : ''}
+      `;
+      container.appendChild(item);
+    }
+    applyI18n();
+  } catch (e) {
+    console.error('Failed to load notifications:', e);
+  }
+}
+
+(async function() {
+  await loadNotifications();
+  setInterval(loadNotifications, 5000);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      loadNotifications();
+    }
+  });
+})();
+
+async function markRead(id) {
+  const res = await fetch(`/api/v1/notifications/${id}/read`, { method: 'POST' });
+  if (res.ok) {
+    const item = document.querySelector(`button[onclick="markRead('${id}')"]`);
+    if (item) {
+      const card = item.closest('.border');
+      if (card) {
+        card.classList.remove('ring-2', 'ring-blue-500');
+      }
+      item.remove();
+    }
+    if (typeof updateUnreadCount === 'function') {
+      updateUnreadCount();
+    }
+  } else if (res.status === 401 || res.status === 403) {
+    window.location.href = '/accounts/login?redirect=/friends/notifications';
+  } else {
+    alert(t('notifications_failed_read'));
+  }
+}
+
+async function markAllRead() {
+  const res = await fetch('/api/v1/notifications/read-all', { method: 'POST' });
+  if (res.ok) {
+    const container = document.getElementById('notifications-list');
+    if (container) {
+      container.innerHTML = '<p class="text-gray-600 dark:text-gray-300" data-i18n="notifications_none">No notifications yet.</p>';
+    }
+    if (typeof updateUnreadCount === 'function') {
+      updateUnreadCount();
+    }
+  } else if (res.status === 401 || res.status === 403) {
+    window.location.href = '/accounts/login?redirect=/friends/notifications';
+  } else {
+    alert(t('notifications_failed_all_read'));
+  }
+}
+</script>

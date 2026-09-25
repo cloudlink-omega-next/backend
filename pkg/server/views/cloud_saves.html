@@ -1,0 +1,161 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold" data-i18n="cloud_saves_title">Cloud Saves</h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="cloud_saves_subtitle">Manage your encrypted cloud save slots.</p>
+    </div>
+    <button onclick="refreshCloudSaves()" class="px-4 py-2 bg-red-500 hover:bg-red-400 text-white rounded-lg text-sm font-semibold" data-i18n="cloud_saves_refresh">Refresh</button>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 rounded-xl ring-1 ring-gray-200 dark:ring-gray-700">
+    <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+      <div>
+        <h2 class="font-semibold" data-i18n="cloud_saves_saved_data">Saved Data</h2>
+        <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="cloud_saves_slot_info">Shows up to 10 save slots per game.</p>
+      </div>
+    </div>
+    <div class="p-4">
+      <div id="cloud-saves-message" class="hidden mb-4 text-sm rounded-lg p-3"></div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm">
+          <thead>
+            <tr class="text-left text-gray-500 dark:text-gray-400">
+              <th class="py-2 pr-4" data-i18n="cloud_saves_game">Game</th>
+              <th class="py-2 pr-4" data-i18n="cloud_saves_slot">Slot</th>
+              <th class="py-2 pr-4" data-i18n="cloud_saves_preview">Preview</th>
+              <th class="py-2 pr-4" data-i18n="cloud_saves_updated">Updated</th>
+              <th class="py-2 text-right" data-i18n="cloud_saves_actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="cloud-saves-body" class="divide-y divide-gray-200 dark:divide-gray-700"></tbody>
+        </table>
+      </div>
+      <div id="cloud-saves-empty" class="hidden py-10 text-center text-gray-500 dark:text-gray-400">
+        <span data-i18n="cloud_saves_empty">No cloud saves found.</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  (function() {
+    const BASE_URL = '{{ .BaseURL }}';
+
+    function setCloudSavesMessage(text, type) {
+      const el = document.getElementById('cloud-saves-message');
+      el.textContent = text;
+      el.className = 'mb-4 text-sm rounded-lg p-3 ' + (type === 'error' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700');
+      el.classList.remove('hidden');
+    }
+
+    function escapeHtml(value) {
+      return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    async function refreshCloudSaves() {
+      const body = document.getElementById('cloud-saves-body');
+      const empty = document.getElementById('cloud-saves-empty');
+      const message = document.getElementById('cloud-saves-message');
+      body.innerHTML = '';
+      empty.classList.add('hidden');
+      message.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/v1/cloud-saves', { credentials: 'include' });
+        const data = await res.json();
+        if (!res.ok || data.result !== 'OK') {
+          setCloudSavesMessage(t('error_occurred'), 'error');
+          return;
+        }
+
+        const saves = data.data || [];
+        if (saves.length === 0) {
+          empty.classList.remove('hidden');
+          return;
+        }
+
+        saves.forEach(item => {
+          const game = item.developer_game || {};
+          const name = escapeHtml(game.Name || 'Unknown Game');
+          const description = escapeHtml(game.Description || '');
+          const thumbnail = escapeHtml(game.Thumbnail && game.Thumbnail.Link ? game.Thumbnail.Link : '');
+          const preview = (item.save_data || '').slice(0, 120);
+          const updated = item.updated_at ? new Date(item.updated_at).toLocaleString() : '-';
+          const gameId = game.ID || '';
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="py-3 pr-4">
+              <div class="font-medium">${name}</div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">${description}</div>
+            </td>
+            <td class="py-3 pr-4">${item.save_slot}</td>
+            <td class="py-3 pr-4 text-gray-600 dark:text-gray-300">${escapeHtml(preview) || '<span class="italic text-gray-400">empty</span>'}</td>
+            <td class="py-3 pr-4 text-gray-500 dark:text-gray-400">${updated}</td>
+            <td class="py-3 text-right space-x-2">
+              <button onclick="loadCloudSave('${gameId}', ${item.save_slot})" class="px-3 py-1 bg-gray-900 text-white rounded-md text-xs" data-i18n="cloud_saves_load">Load</button>
+              <button onclick="deleteCloudSave('${gameId}', ${item.save_slot})" class="px-3 py-1 bg-red-500 hover:bg-red-400 text-white rounded-md text-xs" data-i18n="cloud_saves_delete">Delete</button>
+            </td>
+          `;
+          body.appendChild(tr);
+        });
+      } catch (error) {
+        setCloudSavesMessage(t('error_occurred'), 'error');
+      }
+    }
+
+    async function loadCloudSave(developerGameId, saveSlot) {
+      try {
+        const payload = { save_slot: saveSlot, developer_game_id: developerGameId };
+        console.log('Load cloud save request:', payload);
+        const res = await fetch('/api/v1/cloud-saves/decrypt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(payload)
+        });
+        const text = await res.text();
+        console.log('Load cloud save response:', res.status, text);
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = { result: text };
+        }
+        if (!res.ok || data.result !== 'OK') {
+          alert(t('error_occurred'));
+          return;
+        }
+        alert('Decrypted save data:\\n' + data.data);
+      } catch (error) {
+        alert(t('error_occurred'));
+      }
+    }
+
+    async function deleteCloudSave(developerGameId, saveSlot) {
+      if (!confirm(t('cloud_saves_delete_confirm'))) {
+        return;
+      }
+      try {
+        const res = await fetch('/api/v1/cloud-saves/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ save_slot: saveSlot, developer_game_id: developerGameId })
+        });
+        const data = await res.json();
+        if (!res.ok || data.result !== 'OK') {
+          alert(t('error_occurred'));
+          return;
+        }
+        refreshCloudSaves();
+      } catch (error) {
+        alert(t('error_occurred'));
+      }
+    }
+
+    refreshCloudSaves();
+
+    applyI18n();
+  })();
+});
+</script>

@@ -12,6 +12,7 @@ func (s *Server) About(c *fiber.Ctx) error {
 		"BaseURL":    s.ServerURL,
 		"ServerName": s.ServerName,
 		"LoggedIn":   loggedIn,
+		"IsAdmin":    s.IsAdmin(c),
 	}
 
 	c.Context().SetContentType("text/html; charset=utf-8")

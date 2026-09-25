@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i18n Test</title>
+    <script src="/assets/js/i18n.js"></script>
+</head>
+<body>
+    <h1 data-i18n="dashboard_title">User Dashboard</h1>
+    <p data-i18n="achievements_loading">Loading achievements...</p>
+    <button id="lang-toggle">Switch to 中文</button>
+    <button id="saveLanguage">Save Language</button>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('[Test] DOM loaded');
+        console.log('[Test] i18n functions available:', {
+            getI18nLang: typeof getI18nLang,
+            setI18nLang: typeof setI18nLang,
+            applyI18n: typeof applyI18n,
+            t: typeof t
+        });
+        
+        // Test initial apply
+        applyI18n();
+        
+        // Test language toggle
+        document.getElementById('lang-toggle').addEventListener('click', function() {
+            console.log('[Test] Toggle clicked');
+            const currentLang = getI18nLang();
+            const newLang = currentLang === 'en' ? 'zh' : 'en';
+            console.log('[Test] Switching from', currentLang, 'to', newLang);
+            setI18nLang(newLang);
+        });
+        
+        // Test settings save
+        document.getElementById('saveLanguage').addEventListener('click', function() {
+            console.log('[Test] Save clicked');
+            const lang = document.documentElement.lang;
+            console.log('[Test] Current lang:', lang);
+            if (typeof setI18nLang === 'function') {
+                setI18nLang(lang);
+                console.log('[Test] setI18nLang called successfully');
+            } else {
+                console.warn('[Test] setI18nLang is not available');
+            }
+        });
+    });
+    </script>
+</body>
+</html>

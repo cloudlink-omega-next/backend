@@ -8,17 +8,7 @@
             <div class="flex items-center">
                 <a href="/" class="flex items-center text-xl font-bold text-gray-800 dark:text-white hover:text-red-400 dark:hover:text-red-400 transition-colors">
                     <span class="flex items-center justify-center pb-4">
-                        <svg class="w-12 h-auto mt-4" viewBox="0 0 177 123" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_149_138)">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M55.4632 48.5129H42.0789C24.3611 48.5129 10 62.875 10 80.5918C10 98.3086 24.3611 112.671 42.0789 112.671H134.32C152.037 112.671 166.399 98.3086 166.399 80.5918C166.399 62.875 152.037 48.5129 134.32 48.5129H120.935L120.166 39.3498C118.786 22.9153 104.995 10 88.1993 10C71.4038 10 57.6129 22.9153 56.2327 39.3498L55.4632 48.5129ZM130.131 38.5129C128.319 16.9423 110.237 0 88.1993 0C66.1613 0 48.0793 16.9423 46.2678 38.5129H42.0789C18.838 38.5129 0 57.3523 0 80.5918C0 103.831 18.838 122.671 42.0789 122.671H134.32C157.561 122.671 176.399 103.831 176.399 80.5918C176.399 57.3523 157.561 38.5129 134.32 38.5129H130.131Z" fill="currentColor"/>
-                            <path d="M117.278 98.9703C117.278 101.364 115.338 103.304 112.944 103.304H97.5482C95.1549 103.304 93.2148 101.364 93.2148 98.9703V89.6158C93.2148 87.9408 94.1803 86.4159 95.6942 85.6991C101.585 82.911 105.391 76.9013 105.391 70.3889C105.391 61.0546 97.7967 53.4604 88.4622 53.4604C79.1277 53.4604 71.5337 61.0546 71.5337 70.3889C71.5337 76.9015 75.3399 82.911 81.2305 85.6991C82.7445 86.4156 83.71 87.9406 83.71 89.6158V98.9703C83.71 101.364 81.77 103.304 79.3766 103.304H63.9802C61.5869 103.304 59.6468 101.364 59.6468 98.9703C59.6468 96.577 61.5869 94.6369 63.9802 94.6369H75.0433V92.1875C71.8002 90.1894 69.0342 87.4877 66.9496 84.2607C64.2787 80.1262 62.8669 75.3296 62.8669 70.3889C62.8669 56.2755 74.3489 44.7936 88.4622 44.7936C102.576 44.7936 114.058 56.2755 114.058 70.3887C114.058 75.3294 112.646 80.1262 109.975 84.2605C107.891 87.4875 105.125 90.1894 101.882 92.1875V94.6369H112.944C115.338 94.6369 117.278 96.577 117.278 98.9703Z" fill="currentColor"/>
-                            </g>
-                            <defs>
-                            <clipPath id="clip0_149_138">
-                            <rect width="176.399" height="122.671" fill="currentColor"/>
-                            </clipPath>
-                            </defs>
-                        </svg>
+                        <img src="/assets/static/img/omega-next.png" alt="Cloudlink Ω Next" class="h-12 w-auto" />
                     </span>
                 </a>
             </div>
@@ -46,13 +36,24 @@
             <div class="hidden lg:flex lg:items-center lg:space-x-6">
                 <a href="/"
                     class="text-red-600 dark:text-red-400 px-3 py-2 text-sm font-medium rounded-lg bg-red-50 dark:bg-red-900/30">
-                    Home
+                    <span data-i18n="nav_home">Home</span>
                 </a>
 
                 <a href="/explore"
                     class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                    Explore
+                    <span data-i18n="nav_explore">Explore</span>
                 </a>
+
+                {{ if .LoggedIn }}
+                <a href="{{ .BaseURL }}/reports/new"
+                    class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <span data-i18n="nav_report">Report</span>
+                </a>
+                {{ end }}
+
+                <button id="lang-toggle" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <span data-i18n="lang_zh">中文</span>
+                </button>
 
                 <!-- <span class="text-gray-400 px-3 py-2 text-sm font-medium cursor-not-allowed">
                     Disabled
@@ -65,11 +66,11 @@
                         
                         {{ if .LoggedIn }}
                         <div class="flex flex-row items-center justify-center gap-2">
-                            <img src="/assets/static/img/ui/placeholder_user.png" alt="Profile Image" class="w-10 h-10">
+                            <img src="{{ if .AvatarURL }}{{ .AvatarURL }}{{ else }}/assets/static/img/ui/placeholder_user.png{{ end }}" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
                             <h2 class="text-xl font-bold dark:text-white">{{ .Username }}</h2>
                         </div>
                         {{ else }}
-                        Get started
+                        <span data-i18n="nav_get_started">Get started</span>
                         {{ end }}
 
                         <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -89,15 +90,33 @@
                             {{ end }}
                             class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                             {{ if .LoggedIn }}
-                            My Account
+                            <span data-i18n="nav_my_account">My Account</span>
                             {{ else }}
-                            Create an Account
+                            <span data-i18n="nav_create_account">Create an Account</span>
                             {{ end }}
                         </a>
                         {{ if .LoggedIn }}
-                        <a href="#"
+                        <a href="{{ .BaseURL }}/dashboard/settings"
                             class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                            Settings
+                            <span data-i18n="nav_settings">Settings</span>
+                        </a>
+                        {{ end }}
+                        {{ if .LoggedIn }}
+                        <a href="{{ .BaseURL }}/developer"
+                            class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span data-i18n="nav_developer">Developer Dashboard</span>
+                        </a>
+                        {{ end }}
+                        {{ if and .LoggedIn .IsAdmin }}
+                        <a href="{{ .BaseURL }}/admin"
+                            class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span data-i18n="admin_title">Admin Dashboard</span>
+                        </a>
+                        {{ end }}
+                        {{ if .LoggedIn }}
+                        <a href="{{ .BaseURL }}/friends/notifications" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 relative">
+                            <span data-i18n="nav_notifications">Notifications</span>
+                            <span id="nav-unread-count" class="hidden absolute right-2 top-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
                         </a>
                         {{ end }}
                         <a 
@@ -108,9 +127,9 @@
                             {{ end }}
                             class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                             {{ if .LoggedIn }}
-                            Logout
+                            <span data-i18n="nav_logout">Logout</span>
                             {{ else }}
-                            Login to Account
+                            <span data-i18n="nav_login">Login to Account</span>
                             {{ end }}
                         </a>
                     </div>
@@ -124,13 +143,24 @@
         <div class="px-2 pt-2 pb-3 space-y-1">
             <a href="/"
                 class="block px-3 py-2 rounded-lg text-base font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30">
-                Home
+                <span data-i18n="nav_home">Home</span>
             </a>
 
             <a href="/explore"
                 class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                Explore
+                <span data-i18n="nav_explore">Explore</span>
             </a>
+
+            {{ if .LoggedIn }}
+            <a href="{{ .BaseURL }}/reports/new"
+                class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <span data-i18n="nav_report">Report</span>
+            </a>
+            {{ end }}
+
+            <button id="mobile-lang-toggle" class="block w-full text-left px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <span data-i18n="lang_zh">中文</span>
+            </button>
 
             <!-- <span class="block px-3 py-2 rounded-lg text-base font-medium text-gray-400 cursor-not-allowed">
                 Disabled
@@ -142,11 +172,11 @@
                     class="flex items-center justify-between w-full px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     {{ if .LoggedIn }}
                     <div class="flex flex-row items-center justify-center gap-2">
-                        <img src="/assets/static/img/ui/placeholder_user.png" alt="Profile Image" class="w-10 h-10">
+                        <img src="{{ if .AvatarURL }}{{ .AvatarURL }}{{ else }}/assets/static/img/ui/placeholder_user.png{{ end }}" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
                         <h2 class="text-xl font-bold dark:text-white">{{ .Username }}</h2>
                     </div>
                     {{ else }}
-                    Get started
+                    <span data-i18n="nav_get_started">Get started</span>
                     {{ end }}
                     <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -161,15 +191,34 @@
                         {{ end }}
                         class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         {{ if .LoggedIn }}
-                        My Account
+                        <span data-i18n="nav_my_account">My Account</span>
                         {{ else }}
-                        Create an Account
+                        <span data-i18n="nav_create_account">Create an Account</span>
                         {{ end }}
                     </a>
                     {{ if .LoggedIn }}
-                    <a href="#"
+                    <a href="{{ .BaseURL }}/dashboard/settings"
                         class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        Settings
+                        <span data-i18n="nav_settings">Settings</span>
+                    </a>
+                    {{ end }}
+                    {{ if .LoggedIn }}
+                    <a href="{{ .BaseURL }}/developer"
+                        class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <span data-i18n="nav_developer">Developer Dashboard</span>
+                    </a>
+                    {{ end }}
+                    {{ if and .LoggedIn .IsAdmin }}
+                    <a href="{{ .BaseURL }}/admin"
+                        class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <span data-i18n="admin_title">Admin Dashboard</span>
+                    </a>
+                    {{ end }}
+                    {{ if .LoggedIn }}
+                    <a href="{{ .BaseURL }}/friends/notifications"
+                        class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 relative">
+                        <span data-i18n="nav_notifications">Notifications</span>
+                        <span id="mobile-unread-count" class="hidden absolute right-2 top-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
                     </a>
                     {{ end }}
                     <a
@@ -180,9 +229,9 @@
                         {{ end }}
                         class="block px-3 py-2 rounded-lg text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         {{ if .LoggedIn }}
-                        Logout
+                        <span data-i18n="nav_logout">Logout</span>
                         {{ else }}
-                        Login to Account
+                        <span data-i18n="nav_login">Login to Account</span>
                         {{ end }}
                     </a>
                 </div>
@@ -190,6 +239,4 @@
         </div>
     </div>
 </nav>
-
-<script type="text/javascript" src="/assets/js/navbar.js" onload></script>
 {{ end }}

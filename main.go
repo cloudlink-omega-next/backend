@@ -130,8 +130,8 @@ func main() {
 		db,
 		cache,
 		mail_config,
-		false, // Enable testing mode - Allows accounts to bypass email registration if they use @localhost
-		bypass_db,
+	!use_email, // Bypass email registration when USE_EMAIL is false
+	bypass_db,
 		true,  // Defer migrations
 	)
 
@@ -145,6 +145,7 @@ func main() {
 		auth,
 		mail_config,
 		bypass_db,
+		os.Getenv("ADMIN_EMAIL"),
 	)
 
 	// Initialize the Signaling server（用规范化后的 allowedDomainsSlice）
@@ -176,6 +177,10 @@ func main() {
 	app := fiber.New(fiber.Config{
 		ErrorHandler: backend.ErrorPage,
 		ProxyHeader:  "X-Real-IP",
+		// Game uploads are large zip archives, so the default 4MB limit is far
+		// too small. This limit only takes effect on the root app, since Fiber
+		// applies it to the underlying HTTP server.
+		BodyLimit: 100 * 1024 * 1024,
 	})
 
 	// Initialize Fiber middleware

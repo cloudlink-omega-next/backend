@@ -5,20 +5,54 @@
 (() => {
 	'use strict';
 
-	// Function to update theme based on localStorage or system preference
-	const updateTheme = () => {
+	const STORAGE_KEY = 'theme_preference';
+
+	const getSystemTheme = () => {
 		if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			return 'dark';
+		}
+		return 'light';
+	};
+
+	const getStoredTheme = () => {
+		const stored = localStorage.getItem(STORAGE_KEY);
+		if (stored === 'light' || stored === 'dark' || stored === 'system') {
+			return stored;
+		}
+		return 'system';
+	};
+
+	const getEffectiveTheme = () => {
+		const preference = getStoredTheme();
+		if (preference === 'system') {
+			return getSystemTheme();
+		}
+		return preference;
+	};
+
+	window.applyTheme = () => {
+		const theme = getEffectiveTheme();
+		if (theme === 'dark') {
 			document.documentElement.classList.add('dark');
 		} else {
 			document.documentElement.classList.remove('dark');
 		}
 	};
 
-	// Initialize theme on load
-	updateTheme();
+	window.updateThemePreference = (preference) => {
+		localStorage.setItem(STORAGE_KEY, preference);
+		window.applyTheme();
+	};
 
-	// Listen for OS color scheme changes
+	window.getThemePreference = () => {
+		return getStoredTheme();
+	};
+
+	applyTheme();
+
 	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-		updateTheme();
+		if (getStoredTheme() === 'system') {
+			applyTheme();
+		}
 	});
 })();

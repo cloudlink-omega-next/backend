@@ -57,3 +57,26 @@ func (d *Database) GetAllGames(page int, limit int) (games []*types.DeveloperGam
 	d.Cache.Set("allgames", cached_all{games, total, max_pages}, cache_key)
 	return games, total, max_pages
 }
+
+// GetGamesForDeveloper returns every game owned by a developer account, including
+// submissions that are still awaiting review.
+func (d *Database) GetGamesForDeveloper(developer_id string) (games []*types.DeveloperGame) {
+	d.DB.Preload("Features").Where("developer_id = ?", developer_id).Order("created_at DESC").Find(&games)
+	return games
+}
+
+// GetPendingGames returns every submitted game that is neither published nor rejected.
+func (d *Database) GetPendingGames() (games []*types.DeveloperGame) {
+	var published bitfield.Bitfield8
+	published.ManySet(constants.GAME_IS_ACTIVE, constants.GAME_IS_VERIFIED)
+
+	var rejected bitfield.Bitfield8
+	rejected.Set(constants.GAME_WAS_REJECTED)
+
+	d.DB.Preload("Developer").
+		Where("state & ? = 0", uint8(published)).
+		Where("state & ? = 0", uint8(rejected)).
+		Order("created_at ASC").
+		Find(&games)
+	return games
+}

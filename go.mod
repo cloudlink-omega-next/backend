@@ -19,6 +19,7 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/mileusna/useragent v1.3.5
 	github.com/oklog/ulid/v2 v2.1.1
+	github.com/stripe/stripe-go/v86 v86.4.0
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.26.1
 )

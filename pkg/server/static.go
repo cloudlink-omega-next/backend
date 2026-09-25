@@ -10,9 +10,11 @@ import (
 
 func StaticHandler(s *Server, group fiber.Router, hosted_path string) {
 	group.Static("/projects_public", hosted_path+"/projects_public", fiber.Static{Compress: true, CacheDuration: time.Minute, Browse: true})
-	group.Static("/developer_art", hosted_path+"/developer_art", fiber.Static{Compress: true, Browse: true})
-	group.Static("/game_art", hosted_path+"/game_art", fiber.Static{Compress: true, Browse: true})
-	group.Static("/thumbnail", hosted_path+"/thumbnails", fiber.Static{Compress: true, Browse: true})
+	group.Static("/developer_art", hosted_path+"/developer_art", fiber.Static{Compress: true, CacheDuration: time.Minute, Browse: true})
+	group.Static("/game_art", hosted_path+"/game_art", fiber.Static{Compress: true, CacheDuration: time.Minute, Browse: true})
+	group.Static("/thumbnail", hosted_path+"/thumbnails", fiber.Static{Compress: true, CacheDuration: time.Minute, Browse: true})
+	group.Static("/extensions", hosted_path+"/extensions", fiber.Static{Compress: true, CacheDuration: time.Minute, Browse: true})
+	group.Static("/avatars", hosted_path+"/avatars", fiber.Static{Compress: true, CacheDuration: time.Minute, Browse: true})
 	group.Static("/projects_private", hosted_path+"/projects_private", fiber.Static{
 		Compress:      true,
 		CacheDuration: time.Minute,

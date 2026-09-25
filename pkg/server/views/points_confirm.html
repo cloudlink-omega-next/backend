@@ -1,0 +1,190 @@
+{{ define "points_confirm" }}
+<!-- Points Confirmation Content -->
+<div class="space-y-4">
+    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            {{ if .Amount }}
+                Confirm Points Deduction
+            {{ else }}
+                Confirm Points Purchase
+            {{ end }}
+        </h4>
+        <p class="text-sm text-gray-600 dark:text-gray-300">
+            {{ if .Amount }}
+                You are about to deduct points for this purchase.
+            {{ else }}
+                You are about to purchase points.
+            {{ end }}
+        </p>
+    </div>
+
+    <div class="space-y-3">
+        {{ if .Amount }}
+            <div class="flex justify-between items-center">
+                <span class="text-gray-600 dark:text-gray-300">Game:</span>
+                <span class="font-semibold text-gray-900 dark:text-white">{{ .GameName }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-600 dark:text-gray-300">Points to deduct:</span>
+                <span class="font-semibold text-red-400">{{ .Amount }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-600 dark:text-gray-300">Current balance:</span>
+                <span class="font-semibold text-gray-900 dark:text-white">{{ .CurrentBalance }}</span>
+            </div>
+        {{ else }}
+            <div class="flex justify-between items-center">
+                <span class="text-gray-600 dark:text-gray-300">Points:</span>
+                <span class="font-semibold text-gray-900 dark:text-white">{{ .Amount }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-600 dark:text-gray-300">Price:</span>
+                <span class="font-semibold text-gray-900 dark:text-white">{{ .Price }} {{ .Currency }}</span>
+            </div>
+        {{ end }}
+    </div>
+
+    {{ if .Amount }}
+        <form id="points-deduct-form" class="space-y-3">
+            <input type="hidden" name="request_id" value="{{ .RequestID }}">
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Password:
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    placeholder="Enter your password"
+                >
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button 
+                    type="submit" 
+                    class="flex-1 bg-red-400 hover:bg-red-500 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                >
+                    Confirm Deduction
+                </button>
+                <button 
+                    type="button" 
+                    onclick="closeModal()"
+                    class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                >
+                    Cancel
+                </button>
+            </div>
+        </form>
+    {{ else }}
+        <form id="points-purchase-form" class="space-y-3">
+            <input type="hidden" name="purchase_id" value="{{ .PurchaseID }}">
+            <div>
+                <label for="payment_method" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Payment Method:
+                </label>
+                <select 
+                    id="payment_method" 
+                    name="payment_method" 
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                >
+                    <option value="credit_card">Credit Card</option>
+                    <option value="debit_card">Debit Card</option>
+                    <option value="paypal">PayPal</option>
+                </select>
+            </div>
+            <div>
+                <label for="transaction_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Transaction ID:
+                </label>
+                <input 
+                    type="text" 
+                    id="transaction_id" 
+                    name="transaction_id"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    placeholder="Enter transaction ID"
+                >
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Password:
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    placeholder="Enter your password"
+                >
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button 
+                    type="submit" 
+                    class="flex-1 bg-red-400 hover:bg-red-500 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                >
+                    Create Purchase
+                </button>
+                <button 
+                    type="button" 
+                    onclick="closeModal()"
+                    class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                >
+                    Close
+                </button>
+            </div>
+        </form>
+    {{ end }}
+</div>
+
+<script>
+(function() {
+    const form = document.getElementById('points-deduct-form') || document.getElementById('points-purchase-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        const endpoint = form.id === 'points-deduct-form' 
+            ? '/api/v1/points/deduct/confirm' 
+            : '/api/v1/points/purchase/confirm';
+        
+        try {
+            showLoadingOverlay();
+            
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            
+            if (response.ok && result.result === 'OK') {
+                if (form.id === 'points-deduct-form') {
+                    alert('Points deducted successfully!');
+                } else {
+                    alert('Purchase successful!');
+                }
+                closeModal();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                alert(result.result || 'Operation failed.');
+            }
+        } catch (error) {
+            alert(error.message || 'An error occurred.');
+        } finally {
+            hideLoadingOverlay();
+        }
+    });
+})();
+</script>
+{{ end }}

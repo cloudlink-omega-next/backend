@@ -15,7 +15,9 @@ type ParsedSession struct {
 }
 
 func (s *Server) Dashboard(c *fiber.Ctx) error {
+	fmt.Println("[DEBUG] Dashboard handler called")
 	loggedIn := s.Authorization.ValidFromNormal(c)
+	fmt.Println("[DEBUG] loggedIn:", loggedIn)
 	if !loggedIn {
 		return s.ErrorPage(c, &fiber.Error{
 			Code:    fiber.StatusUnauthorized,
@@ -24,6 +26,23 @@ func (s *Server) Dashboard(c *fiber.Ctx) error {
 	}
 
 	claims := s.Authorization.GetNormalClaims(c)
+	fmt.Println("[DEBUG] claims:", claims.Username)
+
+	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err != nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusInternalServerError,
+			Message: "Failed to retrieve user data.",
+		})
+	}
+	fmt.Println("[DEBUG] user retrieved:", user.Username)
+
+	var avatarURL string
+	if user.Avatar != nil {
+		avatarURL = user.Avatar.Link
+	} else {
+		avatarURL = "/assets/static/img/ui/placeholder_user.png"
+	}
 
 	// Read all active sessions
 	sessions, err := s.Accounts.DB.GetAllSessions(claims.ULID)
@@ -69,22 +88,111 @@ func (s *Server) Dashboard(c *fiber.Ctx) error {
 		})
 	}
 
+	// Get played games
+	played_games, err := s.Accounts.DB.GetUserPlayedGames(claims.ULID)
+	if err != nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusInternalServerError,
+			Message: "Failed to retrieve played games.",
+		})
+	}
+
+	// Get friends
+	friends, err := s.Accounts.DB.GetUserFriends(claims.ULID)
+	if err != nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusInternalServerError,
+			Message: "Failed to retrieve friends.",
+		})
+	}
+
+	// Get friend requests count
+	friend_requests_count, err := s.Accounts.DB.GetFriendRequestsCount(claims.ULID)
+	if err != nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusInternalServerError,
+			Message: "Failed to retrieve friend requests.",
+		})
+	}
+
+	// Get user points
+	var userPoint *types.UserPoint
+	if err := s.DB.DB.First(&userPoint, "user_id = ?", claims.ULID).Error; err != nil {
+		userPoint = &types.UserPoint{
+			UserID:  claims.ULID,
+			Balance: 0,
+		}
+	}
+
 	// Create modal data based on the ID
 	data := map[string]any{
 		"BaseURL":      s.ServerURL,
 		"Username":     claims.Username,
 		"ServerName":   s.ServerName,
 		"LoggedIn":     true,
-		"GamesPlayed":  "WIP",
-		"FriendsMet":   "WIP",
-		"PointsEarned": "WIP",
+		"AvatarURL":    avatarURL,
+		"GamesPlayed":  played_games,
+		"FriendsMet":   len(friends),
+		"FriendRequests": friend_requests_count,
+		"PointsBalance": userPoint.Balance,
+		"PointsEarned": userPoint.Balance,
 		"Sessions":     parsed_sessions,
 		"Empty":        len(logs) == 0,
 		"Logs":         logs,
 		"Page":         1,
 		"Pages":        pages,
+		"IsAdmin":      s.IsAdmin(c),
 	}
 
 	c.Context().SetContentType("text/html; charset=utf-8")
+	fmt.Println("[DEBUG] Rendering template: views/user with layout: views/layouts/nofooter")
 	return c.Render("views/user", data, "views/layouts/nofooter")
+}
+
+func (s *Server) DashboardAchievements(c *fiber.Ctx) error {
+	loggedIn := s.Authorization.ValidFromNormal(c)
+	if !loggedIn {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusUnauthorized,
+			Message: "Please login first before accessing the user dashboard.",
+		})
+	}
+
+	claims := s.Authorization.GetNormalClaims(c)
+
+	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err != nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusInternalServerError,
+			Message: "Failed to retrieve user profile.",
+		})
+	}
+
+	var avatarURL string
+	if user.Avatar != nil {
+		avatarURL = user.Avatar.Link
+	} else {
+		avatarURL = "/assets/static/img/ui/placeholder_user.png"
+	}
+
+	achievements, err := s.Accounts.DB.GetUserAchievements(claims.ULID)
+	if err != nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusInternalServerError,
+			Message: "Failed to retrieve achievements.",
+		})
+	}
+
+	data := map[string]any{
+		"BaseURL":      s.ServerURL,
+		"Username":     claims.Username,
+		"ServerName":   s.ServerName,
+		"LoggedIn":     true,
+		"Achievements": achievements,
+		"AvatarURL":    avatarURL,
+		"IsAdmin":      s.IsAdmin(c),
+	}
+
+	c.Context().SetContentType("text/html; charset=utf-8")
+	return c.Render("views/achievements", data, "views/layouts/nofooter")
 }

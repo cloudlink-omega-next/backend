@@ -62,9 +62,20 @@ func (s *Server) Index(c *fiber.Ctx) error {
 	}
 
 	var username string
+	var avatarURL string
 
 	if loggedIn {
-		username = s.Authorization.GetNormalClaims(c).Username
+		claims := s.Authorization.GetNormalClaims(c)
+		username = claims.Username
+
+		user, err := s.Accounts.DB.GetUser(claims.ULID)
+		if err == nil && user.Avatar != nil {
+			avatarURL = user.Avatar.Link
+		} else {
+			avatarURL = "/assets/static/img/ui/placeholder_user.png"
+		}
+	} else {
+		avatarURL = "/assets/static/img/ui/placeholder_user.png"
 	}
 
 	data := map[string]any{
@@ -73,6 +84,7 @@ func (s *Server) Index(c *fiber.Ctx) error {
 		"Title":      "Home Page",
 		"LoggedIn":   loggedIn,
 		"Username":   username,
+		"AvatarURL":  avatarURL,
 		"Cards":      loaded_cards, /* []map[string]any{
 			{
 				"ImageURL":   "/assets/static/img/dummy2.png",
@@ -146,6 +158,7 @@ func (s *Server) Index(c *fiber.Ctx) error {
 			/*BlankComingSoonEntry,
 			BlankComingSoonEntry,*/
 		},
+		"IsAdmin": s.IsAdmin(c),
 	}
 
 	// Render the modal template

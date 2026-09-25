@@ -48,3 +48,5 @@ tmp/
 # Runtime generated content
 hosted/
 *.log
+server_log.txt
+log.txt

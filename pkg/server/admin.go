@@ -4,6 +4,7 @@ import (
 	"github.com/cloudlink-omega/accounts/pkg/constants"
 	"github.com/cloudlink-omega/storage/pkg/types"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
 func (s *Server) IsAdmin(c *fiber.Ctx) bool {
@@ -21,6 +22,9 @@ func (s *Server) IsAdmin(c *fiber.Ctx) bool {
 	}
 
 	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return false
+	}
 	if err != nil {
 		return false
 	}

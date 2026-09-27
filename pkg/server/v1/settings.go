@@ -4,6 +4,7 @@ import (
 	"github.com/cloudlink-omega/storage/pkg/common"
 	"github.com/cloudlink-omega/storage/pkg/types"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
 type GetSettingsResponse struct {
@@ -30,6 +31,9 @@ func (a *APIv1) GetSettings(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve settings.", nil)
 	}
@@ -53,6 +57,9 @@ func (a *APIv1) UpdateSettings(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
 	}
@@ -121,6 +128,9 @@ func (a *APIv1) ChangePassword(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
 	}
@@ -158,6 +168,9 @@ func (a *APIv1) ExportAccountData(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
 	}
@@ -212,6 +225,9 @@ func (a *APIv1) DeleteAccount(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
 	}

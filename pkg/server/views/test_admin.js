@@ -1,331 +1,4 @@
-<div class="flex mx-auto w-full">
-  <!-- Sidebar -->
-  <aside class="w-64 bg-white text-black dark:text-white dark:bg-gray-800 p-4">
-    <h2 class="text-xl font-semibold mb-4" data-i18n="admin_title">Admin Dashboard</h2>
-    <nav>
-      <ul class="space-y-2">
-        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#" data-tab="overview">
-            <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-              <span data-i18n="admin_overview">Overview</span>
-            </div>
-          </a>
-        </li>
-        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#" data-tab="logs">
-            <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scroll"><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></svg>
-              <span data-i18n="admin_logs">Logs</span>
-            </div>
-          </a>
-        </li>
-        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#" data-tab="accounts">
-            <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>
-              <span data-i18n="admin_accounts">Accounts</span>
-            </div>
-          </a>
-        </li>
-        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#" data-tab="storage">
-            <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hard-drive"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg>
-              <span data-i18n="admin_storage">Storage</span>
-            </div>
-          </a>
-        </li>
-        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#" data-tab="reports">
-            <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-alert"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
-              <span data-i18n="admin_reports">Reports</span>
-            </div>
-          </a>
-        </li>
-        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#" data-tab="game_management">
-            <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gamepad-2"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>
-              <span data-i18n="admin_game_management">Game Management</span>
-            </div>
-          </a>
-        </li>
-        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#" data-tab="cloud_saves">
-            <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hard-drive"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg>
-              <span data-i18n="admin_cloud_saves">Cloud Saves</span>
-            </div>
-          </a>
-        </li>
-        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#" data-tab="games">
-            <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gamepad-2"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>
-              <span data-i18n="admin_game_review">Game Review</span>
-            </div>
-          </a>
-        </li>
-        <li class="block px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200">
-          <a href="#" data-tab="settings">
-            <div class="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cog"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 1 0 0 4Z"/><path d="M12 2v2"/><path d="M12 22v-2"/><path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/><path d="m20.66 17-1.73-1"/><path d="m3.34 7 1.73 1"/><path d="M14 12h8"/><path d="M2 12h2"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m17 3.34-1 1.73"/><path d="m11 13.73-4 6.93"/></svg>
-              <span data-i18n="admin_settings">Settings</span>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </aside>
-
-  <!-- Main Content -->
-  <main class="flex-1 p-6 bg-gray-100 dark:bg-gray-900 dark:text-white">
-    <!-- Dashboard Header -->
-    <div class="mb-6">
-      <h1 class="text-3xl font-semibold text-gray-800 dark:text-white" data-i18n="admin_overview">Overview</h1>
-    </div>
-
-    <!-- Overview Tab -->
-    <div id="tab-overview" class="admin-tab">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_registered_users">Registered Users</h3>
-          <p class="text-2xl font-bold text-red-400" id="stat-registered-users">-</p>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_active_sessions">Active Sessions</h3>
-          <p class="text-2xl font-bold text-red-400" id="stat-active-sessions">-</p>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_active_lobbies">Active Lobbies</h3>
-          <p class="text-2xl font-bold text-red-400" id="stat-active-lobbies">-</p>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_active_voice_connections">Active Voice Connections</h3>
-          <p class="text-2xl font-bold text-red-400" id="stat-active-voice">-</p>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_published_games">Published Games</h3>
-          <p class="text-2xl font-bold text-red-400" id="stat-published-games">-</p>
-        </div>
-      </div>
-
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_system_event_log">System Event Log</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left">
-            <thead>
-              <tr class="border-b">
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_timestamp">Timestamp</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_class">Class</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_description">Description</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_status">Status</th>
-              </tr>
-            </thead>
-            <tbody id="overview-logs-body">
-              <tr><td class="px-4 py-2" colspan="4">加载中...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Logs Tab -->
-    <div id="tab-logs" class="admin-tab hidden">
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_system_event_log">System Event Log</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left">
-            <thead>
-              <tr class="border-b">
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_timestamp">Timestamp</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_class">Class</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_description">Description</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_status">Status</th>
-              </tr>
-            </thead>
-            <tbody id="logs-tab-body">
-              <tr><td class="px-4 py-2" colspan="4">加载中...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Accounts Tab -->
-    <div id="tab-accounts" class="admin-tab hidden">
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-semibold text-gray-700 dark:text-white" data-i18n="admin_accounts">Accounts</h2>
-          <input type="text" id="account-search" class="px-3 py-2 border rounded bg-white dark:bg-gray-700 dark:text-white" placeholder="Search users..." />
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left">
-            <thead>
-              <tr class="border-b">
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_avatar">Avatar</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_username">Username</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_email">Email</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_state">State</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_created">Created</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_game_actions">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="accounts-tab-body">
-              <tr><td class="px-4 py-2" colspan="6">加载中...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reports Tab -->
-    <div id="tab-reports" class="admin-tab hidden">
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-semibold text-gray-700 dark:text-white" data-i18n="admin_reports">Reports</h2>
-          <select id="report-type-filter" class="px-3 py-2 border rounded bg-white dark:bg-gray-700 dark:text-white">
-            <option value="" data-i18n="admin_all_types">All Types</option>
-            <option value="user" data-i18n="admin_report_user">User</option>
-            <option value="developer" data-i18n="admin_report_developer">Developer</option>
-            <option value="game" data-i18n="admin_report_game">Game</option>
-          </select>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left">
-            <thead>
-              <tr class="border-b">
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_reporter">Reporter</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_reported_user">Reported User</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_type">Type</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_reason">Reason</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_created">Created</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_actions">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="reports-tab-body">
-              <tr><td class="px-4 py-2" colspan="6">加载中...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Storage Tab -->
-    <div id="tab-storage" class="admin-tab hidden">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
-        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_total_hosted_games">Hosted Games</h3>
-          <p class="text-2xl font-bold text-red-400" id="stat-hosted-games">-</p>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-gray-700 dark:text-white" data-i18n="admin_total_cloud_saves">Cloud Saves</h3>
-          <p class="text-2xl font-bold text-red-400" id="stat-cloud-saves">-</p>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-          <h3 class="text-lg font-sememibold text-gray-700 dark:text-white" data-i18n="admin_total_images">Images</h3>
-          <p class="text-2xl font-bold text-red-400" id="stat-images">-</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Game Review Tab -->
-    <div id="tab-games" class="admin-tab hidden">
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_game_review">Game Review</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left">
-            <thead>
-              <tr class="border-b">
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="game_name">Game Name</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_developer">Developer</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_description">Description</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_timestamp">Timestamp</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_report_actions">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="games-tab-body">
-              <tr><td class="px-4 py-2" colspan="5">加载中...</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p id="games-status" class="mt-3 text-sm text-gray-600 dark:text-gray-300"></p>
-      </div>
-    </div>
-
-    <!-- Game Management Tab -->
-    <div id="tab-game_management" class="admin-tab hidden">
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_game_management">Game Management</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left">
-            <thead>
-              <tr class="border-b">
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_game_name">Game Name</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_game_developer">Developer</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_visibility">Visibility</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_game_timestamp">Timestamp</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_game_actions">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="game-management-tab-body">
-              <tr><td class="px-4 py-2" colspan="5">加载中...</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p id="game-management-status" class="mt-3 text-sm text-gray-600 dark:text-gray-300"></p>
-      </div>
-    </div>
-
-    <!-- Cloud Saves Tab -->
-    <div id="tab-cloud_saves" class="admin-tab hidden">
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_cloud_saves">Cloud Saves</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left">
-            <thead>
-              <tr class="border-b">
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_cloud_save_user">User</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_cloud_save_slot">Slot</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_cloud_save_game">Game</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_cloud_save_data">Save Data</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_cloud_save_updated">Updated</th>
-                <th class="px-4 py-2 text-gray-600 dark:text-white font-semibold" data-i18n="admin_cloud_save_actions">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="cloud-saves-tab-body">
-              <tr><td class="px-4 py-2" colspan="6">加载中...</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p id="cloud-saves-status" class="mt-3 text-sm text-gray-600 dark:text-gray-300"></p>
-      </div>
-    </div>
-
-    <!-- Settings Tab -->
-    <div id="tab-settings" class="admin-tab hidden">
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow max-w-2xl">
-        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4" data-i18n="admin_settings">Settings</h2>
-        <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300" data-i18n="admin_email_label">Admin Email</label>
-            <input type="email" id="admin-email" class="mt-1 block w-full rounded-md border-gray-300 bg-white dark:bg-gray-700 dark:text-white" />
-            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400" data-i18n="admin_email_hint">If set, users with this email will have admin access.</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <button id="admin-settings-save" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded" data-i18n="save">Save</button>
-            <span id="admin-settings-status" class="text-sm text-gray-600 dark:text-gray-300"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-</div>
-
-<script>
-(function() {
+﻿(function() {
   const baseUrl = '{{ .BaseURL }}';
 
   // Error responses (rate limits, server errors) are rendered as HTML pages, so
@@ -712,23 +385,18 @@
     var tbody = document.getElementById('cloud-saves-tab-body');
     if (!tbody) return;
     if (!Array.isArray(saves) || saves.length === 0) {
-      tbody.innerHTML = '<tr><td class="px-4 py-2" colspan="6">' + (typeof t === 'function' ? t('admin_cloud_save_empty') : 'No cloud saves found.') + '</td></tr>';
+      tbody.innerHTML = '<tr><td class="px-4 py-2" colspan="6">No cloud saves found.</td></tr>';
       return;
     }
     var html = '';
-    saves.forEach(function(save, index) {
-      html += '<tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700" data-cloud-save-index="' + index + '">';
-      html += '<td class="px-4 py-2">' + escapeHtml(String(save.username || save.user_id || '')) + '</td>';
+    saves.forEach(function(save) {
+      html += '<tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">';
+      html += '<td class="px-4 py-2">' + escapeHtml(String(save.user_id || '')) + '</td>';
       html += '<td class="px-4 py-2">' + escapeHtml(String(save.save_slot || '')) + '</td>';
-      var gameDisplay = save.developer_game_id || '';
-      if (save.developer_game_name) {
-        gameDisplay += '/' + save.developer_game_name;
-      }
-      html += '<td class="px-4 py-2">' + escapeHtml(gameDisplay) + '</td>';
-      html += '<td class="px-4 py-2"><textarea id="cloud-save-data-' + index + '" class="w-full h-24 px-2 py-1 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white text-xs">' + escapeHtml(save.save_data || '') + '</textarea></td>';
+      html += '<td class="px-4 py-2">' + escapeHtml(save.developer_game_name || save.developer_game_id || '') + '</td>';
+      html += '<td class="px-4 py-2"><textarea readonly class="w-full h-24 px-2 py-1 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white text-xs">' + escapeHtml(save.save_data || '') + '</textarea></td>';
       html += '<td class="px-4 py-2">' + escapeHtml(save.updated_at || '') + '</td>';
       html += '<td class="px-4 py-2">' +
-        '<button class="px-2 py-1 bg-green-500 text-white rounded text-sm mr-2" onclick="saveCloudSave(\'' + save.user_id + '\', \'' + save.save_slot + '\', \'' + save.developer_game_id + '\', ' + index + ')">' + (typeof t === 'function' ? t('admin_cloud_save_save') : 'Save') + '</button>' +
         '<button class="px-2 py-1 bg-red-500 text-white rounded text-sm" onclick="deleteCloudSave(\'' + save.user_id + '\', \'' + save.save_slot + '\', \'' + save.developer_game_id + '\')">' + (typeof t === 'function' ? t('admin_cloud_save_delete') : 'Delete') + '</button>' +
         '</td>';
       html += '</tr>';
@@ -752,9 +420,7 @@
         renderCloudSaves(res.data.data);
         return;
       }
-      var errorMsg = (typeof t === 'function' ? t('admin_load_cloud_saves_failed') : 'Failed to load cloud saves: ') + (res.data && res.data.result ? res.data.result : (typeof t === 'function' ? t('error_occurred') : 'Unknown error'));
-      setCloudSaveStatus(errorMsg, 'error');
-      console.error('Cloud saves API response:', res);
+      setCloudSaveStatus((typeof t === 'function' ? t('admin_load_cloud_saves_failed') : 'Failed to load cloud saves: ') + (res.data && res.data.result ? res.data.result : (typeof t === 'function' ? t('error_occurred') : 'Unknown error')), 'error');
     });
   }
 
@@ -831,10 +497,9 @@
     });
   };
 
-  window.saveCloudSave = function(userId, slot, gameId, index) {
-    var textarea = document.getElementById('cloud-save-data-' + index);
-    if (!textarea) return;
-    var newData = textarea.value;
+  window.updateCloudSave = function(userId, slot, gameId) {
+    var newData = prompt((typeof t === 'function' ? t('admin_cloud_save_data') : 'Enter new save data:'));
+    if (newData === null) return;
     var body = { developer_game_id: gameId, save_data: newData };
     apiPut('/api/v1/admin/users/' + userId + '/cloud-saves/' + slot, body).then(function(res) {
       if (res.status === 200) {

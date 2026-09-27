@@ -9,6 +9,7 @@ import (
 	"github.com/cloudlink-omega/storage/pkg/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/microcosm-cc/bluemonday"
+	"gorm.io/gorm"
 )
 
 type Server struct {
@@ -40,6 +41,9 @@ func (s *Server) IsAdmin(c *fiber.Ctx) bool {
 	}
 
 	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return false
+	}
 	if err != nil {
 		return false
 	}

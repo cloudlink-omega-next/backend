@@ -7,6 +7,7 @@ import (
 	"github.com/cloudlink-omega/storage/pkg/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/oklog/ulid/v2"
+	"gorm.io/gorm"
 )
 
 // PointsConfirmDeduction renders the points deduction confirmation page.
@@ -142,6 +143,12 @@ func (s *Server) PointsProcessPayment(c *fiber.Ctx) error {
 	}
 
 	user, err := s.Accounts.DB.GetUser(purchase.UserID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"result": "error",
+			"message": "User not found.",
+		})
+	}
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"result": "error",

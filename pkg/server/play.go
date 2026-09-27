@@ -2,8 +2,10 @@ package server
 
 import (
 	"os"
+	"path/filepath"
 	"time"
 
+	"github.com/cloudlink-omega/accounts/pkg/constants"
 	"github.com/cloudlink-omega/storage/pkg/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
@@ -18,7 +20,11 @@ func (s *Server) Play(c *fiber.Ctx) error {
 	// Check if the game exists
 	game := s.DB.GetGame(id)
 
-	_, file_error := os.Stat(s.HostedPath + "/projects_public/" + id)
+	public_path := filepath.Join(s.HostedPath, "projects_public", id)
+	private_path := filepath.Join(s.HostedPath, "projects_private", id)
+
+	_, public_error := os.Stat(public_path)
+	_, private_error := os.Stat(private_path)
 
 	claims := s.Authorization.GetNormalClaims(c)
 	loggedIn := s.Authorization.ValidFromNormal(c)
@@ -32,10 +38,27 @@ func (s *Server) Play(c *fiber.Ctx) error {
 		}
 	}
 
-	if file_error != nil || game == nil {
-		if file_error != nil {
-			log.Error(file_error)
+	if game == nil || public_error != nil && private_error != nil {
+		if public_error != nil {
+			log.Error(public_error)
 		}
+		if private_error != nil {
+			log.Error(private_error)
+		}
+		data := map[string]any{
+			"BaseURL":    s.ServerURL,
+			"LoggedIn":   loggedIn,
+			"Username":   username,
+			"AvatarURL":  avatarURL,
+			"ServerName": s.ServerName,
+			"Title":      "Whoops!",
+		}
+		c.Context().SetContentType("text/html; charset=utf-8")
+		c.Status(fiber.StatusNotFound)
+		return c.Render("views/play_not_found", data, "views/layouts/default")
+	}
+
+	if !game.State.Read(constants.GAME_IS_ACTIVE) {
 		data := map[string]any{
 			"BaseURL":    s.ServerURL,
 			"LoggedIn":   loggedIn,
@@ -88,7 +111,8 @@ func (s *Server) Play(c *fiber.Ctx) error {
 				"Date":     "1/1/2023",
 			},
 		}, */
-		"IsAdmin": s.IsAdmin(c),
+		"IsAdmin":   s.IsAdmin(c),
+		"IsPrivate": !game.State.Read(constants.GAME_IS_VERIFIED),
 	}
 
 	// Render the modal template

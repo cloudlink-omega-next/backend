@@ -17,6 +17,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/oklog/ulid/v2"
+	"gorm.io/gorm"
 )
 
 const (
@@ -94,6 +95,9 @@ func (a *APIv1) RegisterDeveloper(c *fiber.Ctx) error {
 
 	// Set owner
 	owner, err := a.ParentServer.Authorization.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || owner == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, err.Error(), nil)
 	}
@@ -109,12 +113,12 @@ func (a *APIv1) RegisterDeveloper(c *fiber.Ctx) error {
 	members = append(members, owner_member)
 	for _, member := range args.Members {
 		user, err := a.ParentServer.Authorization.DB.GetUser(member)
-		if err != nil {
-			return APIResult(c, fiber.StatusInternalServerError, err.Error(), nil)
-		}
-		if user == nil {
+		if err == gorm.ErrRecordNotFound || user == nil {
 			warnings = append(warnings, fmt.Sprintf("%s not found", member))
 			continue
+		}
+		if err != nil {
+			return APIResult(c, fiber.StatusInternalServerError, err.Error(), nil)
 		}
 		member := &types.DeveloperMember{UserID: user.ID}
 		member.State.Set(constants.DEVMEMBER_IS_ACTIVE)
@@ -354,6 +358,7 @@ func (a *APIv1) UploadGame(c *fiber.Ctx) error {
 	developer_id := c.FormValue("developerid")
 	name := strings.TrimSpace(c.FormValue("name"))
 	description := strings.TrimSpace(c.FormValue("description"))
+	is_private := c.FormValue("private") == "1"
 
 	if developer_id == "" {
 		return APIResult(c, fiber.StatusBadRequest, "Developer ID is required.", nil)
@@ -446,6 +451,10 @@ func (a *APIv1) UploadGame(c *fiber.Ctx) error {
 		Name:        name,
 		Description: description,
 		Features:    resolveFeatureTags(a, feature_ids),
+	}
+
+	if is_private {
+		game.State.Set(constants.GAME_IS_ACTIVE)
 	}
 
 	// The game starts out unverified, which keeps it hidden until it is approved.
@@ -541,6 +550,146 @@ func (a *APIv1) UpdateGameFeatures(c *fiber.Ctx) error {
 }
 
 /*
+ * Updates the visibility of a game.
+ * PUT /api/v1/developer/games/:id/visibility
+ *
+ * Body Types: JSON
+ *
+ * Content:
+ *
+ *	{
+ *		"visibility": "private" | "public"
+ *	}
+ *
+ * Response: application/json
+ * 200 OK
+ *	{
+ *		"result": "OK"
+ *	}
+ */
+func (a *APIv1) UpdateGameVisibility(c *fiber.Ctx) error {
+	if !a.ParentServer.Authorization.ValidFromNormal(c) {
+		return APIResult(c, fiber.StatusUnauthorized, "Not logged in!", nil)
+	}
+
+	claims := a.ParentServer.Authorization.GetNormalClaims(c)
+
+	var args struct {
+		Visibility string `json:"visibility"`
+	}
+	if err := c.BodyParser(&args); err != nil {
+		return APIResult(c, fiber.StatusBadRequest, err.Error(), nil)
+	}
+
+	visibility := strings.ToLower(strings.TrimSpace(args.Visibility))
+	if visibility != "private" && visibility != "public" {
+		return APIResult(c, fiber.StatusBadRequest, "Visibility must be 'private' or 'public'.", nil)
+	}
+
+	game := a.Database.GetGame(c.Params("id"))
+	if game == nil {
+		return APIResult(c, fiber.StatusNotFound, "Game not found!", nil)
+	}
+
+	developer := a.Database.GetDeveloper(game.DeveloperID)
+	if developer == nil || !isDeveloperMember(developer, claims.ULID) {
+		return APIResult(c, fiber.StatusForbidden, "You are not a member of this developer account.", nil)
+	}
+
+	isActive := game.State.Read(constants.GAME_IS_ACTIVE)
+	isVerified := game.State.Read(constants.GAME_IS_VERIFIED)
+	isPrivate := isActive && !isVerified
+
+	if visibility == "private" && !isPrivate {
+		privateDir := filepath.Join(a.ParentServer.HostedPath, "projects_private", game.ID)
+		publicDir := filepath.Join(a.ParentServer.HostedPath, "projects_public", game.ID)
+
+		_ = os.MkdirAll(filepath.Dir(privateDir), 0755)
+		_ = os.Rename(publicDir, privateDir)
+
+		state := game.State
+		state.Clear(constants.GAME_IS_VERIFIED)
+
+		if err := a.Database.DB.Model(&types.DeveloperGame{}).Where("id = ?", game.ID).Update("state", state).Error; err != nil {
+			return APIResult(c, fiber.StatusInternalServerError, "Failed to update game visibility.", nil)
+		}
+
+		a.Database.Cache.Flush()
+		common.LogEvent(a.ParentServer.DB.DB, &types.UserEvent{
+			UserID:     claims.ULID,
+			EventID:    "game_visibility_updated",
+			Details:    "Set game " + game.Name + " (" + game.ID + ") to private",
+			Successful: true,
+		})
+
+		return APIResult(c, fiber.StatusOK, "Game is now private.", nil)
+	}
+
+	if visibility == "public" && isPrivate {
+		publicDir := filepath.Join(a.ParentServer.HostedPath, "projects_public", game.ID)
+		privateDir := filepath.Join(a.ParentServer.HostedPath, "projects_private", game.ID)
+
+		sourceDir := privateDir
+		if _, err := os.Stat(filepath.Join(publicDir, "index.html")); err == nil {
+			sourceDir = publicDir
+		} else if _, err := os.Stat(filepath.Join(privateDir, "index.html")); err != nil {
+			return APIResult(c, fiber.StatusBadRequest, "The uploaded game package is missing.", nil)
+		}
+
+		if sourceDir != publicDir {
+			_ = os.MkdirAll(filepath.Dir(publicDir), 0755)
+			_ = os.RemoveAll(publicDir)
+			if err := os.Rename(sourceDir, publicDir); err != nil {
+				return APIResult(c, fiber.StatusInternalServerError, "Failed to publish the game package.", nil)
+			}
+		}
+
+		state := game.State
+		state.Clear(constants.GAME_IS_ACTIVE)
+		state.Clear(constants.GAME_IS_VERIFIED)
+		state.Clear(constants.GAME_WAS_REJECTED)
+
+		if err := a.Database.DB.Model(&types.DeveloperGame{}).Where("id = ?", game.ID).Update("state", state).Error; err != nil {
+			return APIResult(c, fiber.StatusInternalServerError, "Failed to update game visibility.", nil)
+		}
+
+		a.Database.Cache.Flush()
+
+		server_admin := a.Database.GetAdmin()
+		if server_admin != nil {
+			email.SendPlainEmail((*account_structs.MailConfig)(a.EmailConfig), &account_structs.EmailArgs{
+				Subject:  "Game visibility change request",
+				To:       server_admin.Email,
+				Nickname: a.EmailConfig.Username,
+			}, fmt.Sprintf(`Hello %s,
+
+A developer requested to publish a game. It will not be visible until it is approved.
+
+Submitted by: %s (ID: %s, Email: %s)
+Developer: %s (%s)
+ID: %s
+Name: %s
+Description: %s
+
+Regards,
+- %s`, server_admin.Username, claims.Username, claims.ULID, claims.Email, developer.Name, developer.ID, game.ID, game.Name, game.Description, a.ParentServer.ServerName))
+		}
+
+		common.LogEvent(a.ParentServer.DB.DB, &types.UserEvent{
+			UserID:     claims.ULID,
+			EventID:    "game_visibility_pending",
+			Details:    "Requested publish game " + game.Name + " (" + game.ID + ") for developer " + developer.Name,
+			Successful: true,
+		})
+
+		return APIResult(c, fiber.StatusOK, "Game visibility updated. Please wait for admin approval.", nil)
+	}
+
+	a.Database.Cache.Flush()
+	return APIResult(c, fiber.StatusOK, "Game visibility unchanged.", nil)
+}
+
+/*
  * Lists the developer accounts the caller belongs to, along with their games.
  * GET /api/v1/developer/games
  *
@@ -588,21 +737,23 @@ func (a *APIv1) GetMyDeveloperGames(c *fiber.Ctx) error {
 		}
 
 		for _, game := range a.Database.GetGamesForDeveloper(developer.ID) {
-			status := "pending"
-			if game.State.Read(constants.GAME_WAS_REJECTED) {
-				status = "rejected"
-			} else if game.State.Read(constants.GAME_IS_ACTIVE) && game.State.Read(constants.GAME_IS_VERIFIED) {
-				status = "published"
-			}
+		status := "pending"
+		if game.State.Read(constants.GAME_WAS_REJECTED) {
+			status = "rejected"
+		} else if game.State.Read(constants.GAME_IS_ACTIVE) && !game.State.Read(constants.GAME_IS_VERIFIED) {
+			status = "private"
+		} else if game.State.Read(constants.GAME_IS_ACTIVE) && game.State.Read(constants.GAME_IS_VERIFIED) {
+			status = "published"
+		}
 
-			features := []string{}
-			for _, feature := range game.Features {
-				if feature != nil {
-					features = append(features, feature.ID)
-				}
+		features := []string{}
+		for _, feature := range game.Features {
+			if feature != nil {
+				features = append(features, feature.ID)
 			}
+		}
 
-			entry.Games = append(entry.Games, &game_entry{
+		entry.Games = append(entry.Games, &game_entry{
 				ID:          game.ID,
 				Name:        game.Name,
 				Description: game.Description,

@@ -9,6 +9,7 @@ import (
 	"github.com/cloudlink-omega/storage/pkg/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/oklog/ulid/v2"
+	"gorm.io/gorm"
 )
 
 // UpdateProfile updates the user's profile information
@@ -114,6 +115,9 @@ func (a *APIv1) GetProfile(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve profile.", nil)
 	}

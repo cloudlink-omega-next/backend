@@ -73,14 +73,11 @@ func main() {
 
 	// Compile authorized domains for CORS（支持空、true、逗号/空格/分号分隔）
 	envAllowed := strings.TrimSpace(os.Getenv("ALLOWED_DOMAINS"))
-	var allowed_domains string
 	var allowedDomainsSlice []string
 	if envAllowed == "true" {
-		allowed_domains = "*"
 		allowedDomainsSlice = []string{"*"}
 	} else if envAllowed == "" {
 		// 禁止任何域名连接
-		allowed_domains = ""
 		allowedDomainsSlice = []string{}
 	} else {
 		parts := strings.FieldsFunc(envAllowed, func(r rune) bool { return r == ',' || r == ' ' || r == ';' })
@@ -92,10 +89,8 @@ func main() {
 			}
 		}
 		if len(cleaned) == 0 {
-			allowed_domains = ""
 			allowedDomainsSlice = []string{}
 		} else {
-			allowed_domains = strings.Join(cleaned, ",")
 			allowedDomainsSlice = cleaned
 		}
 	}
@@ -187,19 +182,11 @@ func main() {
 	app.Use(fiber_logger.New())
 	app.Use(recover.New())
 
-	// Fiber CORS: AllowCredentials 不能和 AllowOrigins:* 同时使用，否则会 panic
-	allowCredentials := true
-	if allowed_domains == "*" {
-		allowCredentials = false
-		log.Warn("[CORS] AllowCredentials is disabled because AllowOrigins is set to *. To support credentials, please configure specific domains.")
-	} else if allowed_domains == "" {
-		allowCredentials = false
-		log.Warn("[CORS] ALLOWED_DOMAINS is empty, all cross-origin requests have been blocked.")
-	}
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     allowed_domains,
-		AllowHeaders:     "Origin, Content-Type, Accept",
-		AllowCredentials: allowCredentials,
+		AllowOrigins:     "*",
+		AllowHeaders:     "Origin, Content-Type, Accept, Authorization, X-Requested-With",
+		AllowMethods:     "GET, POST, PUT, DELETE, OPTIONS",
+		AllowCredentials: false,
 	}))
 
 	// Mount servers in the Fiber app

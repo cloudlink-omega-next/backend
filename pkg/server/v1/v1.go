@@ -20,7 +20,7 @@ type APIv1 struct {
 
 type Result struct {
 	Result string `json:"result"`
-	Data   any    `json:"data,omitempty"`
+	Data   any    `json:"data"`
 }
 
 func New(s *structs.Server) *APIv1 {
@@ -112,6 +112,9 @@ func New(s *structs.Server) *APIv1 {
 	// Replace the feature tags of one of the caller's games
 	dev_group.Put("/games/:id/features", api.UpdateGameFeatures)
 
+	// Update game visibility
+	dev_group.Put("/games/:id/visibility", api.UpdateGameVisibility)
+
 	// Mount the developer group
 	api.App.Mount("/developer", dev_group)
 
@@ -121,7 +124,7 @@ func New(s *structs.Server) *APIv1 {
 	// Admin API
 	adminApp := fiber.New()
 	adminApp.Use(limiter.New(limiter.Config{
-		Max:        10,
+		Max:        120,
 		Expiration: time.Minute,
 	}))
 	adminApp.Get("/overview", api.GetAdminOverview)
@@ -138,6 +141,13 @@ func New(s *structs.Server) *APIv1 {
 	adminApp.Get("/games", api.GetAdminGames)
 	adminApp.Post("/games/:id/approve", api.ApproveGame)
 	adminApp.Post("/games/:id/reject", api.RejectGame)
+	adminApp.Delete("/games/:id", api.AdminDeleteGame)
+	adminApp.Put("/games/:id/visibility", api.AdminUpdateGameVisibility)
+	adminApp.Post("/games/:id/replace", api.AdminReplaceGameFile)
+	adminApp.Get("/users/:id/cloud-saves", api.AdminGetUserCloudSaves)
+	adminApp.Post("/users/:id/cloud-saves/:slot/delete", api.AdminDeleteCloudSave)
+	adminApp.Put("/users/:id/cloud-saves/:slot", api.AdminUpdateCloudSave)
+	adminApp.Get("/cloud-saves", api.AdminGetAllCloudSaves)
 	api.App.Mount("/admin", adminApp)
 
 	api.App.Get("/admin/overview2", api.GetAdminOverview)

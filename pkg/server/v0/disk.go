@@ -40,11 +40,11 @@ func (a *APIv0) Save(c *fiber.Ctx) error {
 
 	// Get user from database
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return c.Status(fiber.StatusNotFound).SendString("User not found.")
+	}
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
-	}
-	if user == nil {
-		return c.Status(fiber.StatusInternalServerError).SendString("Could not find user.")
 	}
 
 	// Encrypt save data
@@ -106,11 +106,11 @@ func (a *APIv0) Load(c *fiber.Ctx) error {
 
 	// Get user from database
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return c.Status(fiber.StatusNotFound).SendString("User not found.")
+	}
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
-	}
-	if user == nil {
-		return c.Status(fiber.StatusInternalServerError).SendString("Could not find user.")
 	}
 
 	// Decrypt save data

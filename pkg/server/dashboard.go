@@ -7,6 +7,7 @@ import (
 	"github.com/mileusna/useragent"
 
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
 type ParsedSession struct {
@@ -29,6 +30,12 @@ func (s *Server) Dashboard(c *fiber.Ctx) error {
 	fmt.Println("[DEBUG] claims:", claims.Username)
 
 	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusNotFound,
+			Message: "User account not found. Please login again.",
+		})
+	}
 	if err != nil {
 		return s.ErrorPage(c, &fiber.Error{
 			Code:    fiber.StatusInternalServerError,
@@ -161,6 +168,12 @@ func (s *Server) DashboardAchievements(c *fiber.Ctx) error {
 	claims := s.Authorization.GetNormalClaims(c)
 
 	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusNotFound,
+			Message: "User account not found. Please login again.",
+		})
+	}
 	if err != nil {
 		return s.ErrorPage(c, &fiber.Error{
 			Code:    fiber.StatusInternalServerError,

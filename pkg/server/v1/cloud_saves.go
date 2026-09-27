@@ -93,6 +93,9 @@ func (a *APIv1) CloudSaveDecrypt(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to get user.", nil)
 	}

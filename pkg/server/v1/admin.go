@@ -1,8 +1,10 @@
 package v1
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/cloudlink-omega/accounts/pkg/constants"
@@ -66,7 +68,7 @@ func (a *APIv1) GetAdminLogs(c *fiber.Ctx) error {
 		return APIResult(c, fiber.StatusInternalServerError, err.Error(), nil)
 	}
 
-	var logs []map[string]any
+	var logs = []map[string]any{}
 	for _, event := range userEvents {
 		logs = append(logs, map[string]any{
 			"timestamp":   event.CreatedAt.Format("2006-01-02T15:04:05Z"),
@@ -119,7 +121,7 @@ func (a *APIv1) GetAdminAccounts(c *fiber.Ctx) error {
 	var count int64
 	a.Database.DB.Model(&types.User{}).Count(&count)
 
-	var accounts []map[string]any
+	var accounts = []map[string]any{}
 	for _, user := range users {
 		avatarURL := "/assets/static/img/ui/placeholder_user.png"
 		if user.Avatar != nil && user.Avatar.Link != "" {
@@ -150,6 +152,9 @@ func (a *APIv1) BanUser(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(userID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
 	}
@@ -178,6 +183,9 @@ func (a *APIv1) UnbanUser(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(userID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
 	}
@@ -208,6 +216,9 @@ func (a *APIv1) AdminDeleteAccount(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(userID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
 	}
@@ -373,7 +384,7 @@ func (a *APIv1) GetAdminReports(c *fiber.Ctx) error {
 		return APIResult(c, fiber.StatusInternalServerError, err.Error(), nil)
 	}
 
-	var reportList []map[string]any
+	var reportList = []map[string]any{}
 	for _, report := range reports {
 		reportTag := ""
 		if report.ReportTag != nil {
@@ -585,7 +596,8 @@ func (a *APIv1) UpdateAdminSettings(c *fiber.Ctx) error {
 	return APIResult(c, fiber.StatusOK, "OK", data)
 }
 
-// GetAdminGames returns every game submission that is still awaiting review.
+// GetAdminGames returns game submissions. By default it returns only pending
+// games; pass ?all=1 to return every game for management.
 func (a *APIv1) GetAdminGames(c *fiber.Ctx) error {
 	if !a.ParentServer.IsAdmin(c) {
 		return APIResult(c, fiber.StatusForbidden, "Forbidden.", nil)
@@ -598,10 +610,22 @@ func (a *APIv1) GetAdminGames(c *fiber.Ctx) error {
 		DeveloperID string `json:"developer_id"`
 		Developer   string `json:"developer"`
 		CreatedAt   string `json:"created_at"`
+		State       uint8  `json:"state"`
+	}
+
+	showAll := c.Query("all") == "1"
+
+	var games []*types.DeveloperGame
+	if showAll {
+		if err := a.Database.DB.Preload("Developer").Order("created_at DESC").Find(&games).Error; err != nil {
+			return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve games.", nil)
+		}
+	} else {
+		games = a.Database.GetPendingGames()
 	}
 
 	entries := []*game_entry{}
-	for _, game := range a.Database.GetPendingGames() {
+	for _, game := range games {
 		developer := ""
 		if game.Developer != nil {
 			developer = game.Developer.Name
@@ -613,6 +637,7 @@ func (a *APIv1) GetAdminGames(c *fiber.Ctx) error {
 			DeveloperID: game.DeveloperID,
 			Developer:   developer,
 			CreatedAt:   game.CreatedAt.Format(time.RFC3339),
+			State:       uint8(game.State),
 		})
 	}
 
@@ -636,18 +661,21 @@ func (a *APIv1) ApproveGame(c *fiber.Ctx) error {
 	private_dir := filepath.Join(a.ParentServer.HostedPath, "projects_private", game.ID)
 	public_dir := filepath.Join(a.ParentServer.HostedPath, "projects_public", game.ID)
 
-	// Make sure the staged package still contains its entry point before it is
-	// published.
-	if _, err := os.Stat(filepath.Join(private_dir, "index.html")); err != nil {
+	source_dir := private_dir
+	if _, err := os.Stat(filepath.Join(public_dir, "index.html")); err == nil {
+		source_dir = public_dir
+	} else if _, err := os.Stat(filepath.Join(private_dir, "index.html")); err != nil {
 		return APIResult(c, fiber.StatusBadRequest, "The uploaded game package is missing.", nil)
 	}
 
-	if err := os.MkdirAll(filepath.Dir(public_dir), 0755); err != nil {
-		return APIResult(c, fiber.StatusInternalServerError, "Failed to publish the game package.", nil)
-	}
-	os.RemoveAll(public_dir)
-	if err := os.Rename(private_dir, public_dir); err != nil {
-		return APIResult(c, fiber.StatusInternalServerError, "Failed to publish the game package.", nil)
+	if source_dir != public_dir {
+		if err := os.MkdirAll(filepath.Dir(public_dir), 0755); err != nil {
+			return APIResult(c, fiber.StatusInternalServerError, "Failed to publish the game package.", nil)
+		}
+		os.RemoveAll(public_dir)
+		if err := os.Rename(source_dir, public_dir); err != nil {
+			return APIResult(c, fiber.StatusInternalServerError, "Failed to publish the game package.", nil)
+		}
 	}
 
 	state := game.State
@@ -731,4 +759,475 @@ func (a *APIv1) getReviewableGame(c *fiber.Ctx) (*types.DeveloperGame, error) {
 	}
 
 	return &game, nil
+}
+
+func (a *APIv1) AdminDeleteGame(c *fiber.Ctx) error {
+	if !a.ParentServer.IsAdmin(c) {
+		return APIResult(c, fiber.StatusForbidden, "Forbidden.", nil)
+	}
+
+	gameID := c.Params("id")
+	if gameID == "" {
+		return APIResult(c, fiber.StatusBadRequest, "Game ID is required.", nil)
+	}
+
+	var game types.DeveloperGame
+	if err := a.Database.DB.First(&game, "id = ?", gameID).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return APIResult(c, fiber.StatusNotFound, "Game not found.", nil)
+		}
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve the game.", nil)
+	}
+
+	_ = os.RemoveAll(filepath.Join(a.ParentServer.HostedPath, "projects_private", gameID))
+	_ = os.RemoveAll(filepath.Join(a.ParentServer.HostedPath, "projects_public", gameID))
+	_ = os.Remove(filepath.Join(a.ParentServer.HostedPath, "projects_source", gameID+".sb3"))
+
+	_ = a.Database.DB.Exec("DELETE FROM developer_game_features WHERE developer_game_id = ?", gameID)
+
+	if err := a.Database.DB.Delete(&game).Error; err != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to delete the game.", nil)
+	}
+
+	a.Database.Cache.Flush()
+
+	common.LogEvent(a.ParentServer.DB.DB, &types.UserEvent{
+		UserID:     a.ParentServer.Authorization.GetNormalClaims(c).ULID,
+		EventID:    "game_deleted",
+		Details:    "Deleted game " + game.Name + " (" + game.ID + ")",
+		Successful: true,
+	})
+
+	return APIResult(c, fiber.StatusOK, "Game deleted successfully.", nil)
+}
+
+func (a *APIv1) AdminUpdateGameVisibility(c *fiber.Ctx) error {
+	if !a.ParentServer.IsAdmin(c) {
+		return APIResult(c, fiber.StatusForbidden, "Forbidden.", nil)
+	}
+
+	gameID := c.Params("id")
+	if gameID == "" {
+		return APIResult(c, fiber.StatusBadRequest, "Game ID is required.", nil)
+	}
+
+	var args struct {
+		Visibility string `json:"visibility"`
+	}
+	if err := c.BodyParser(&args); err != nil {
+		return APIResult(c, fiber.StatusBadRequest, err.Error(), nil)
+	}
+
+	visibility := strings.ToLower(strings.TrimSpace(args.Visibility))
+	if visibility != "private" && visibility != "public" {
+		return APIResult(c, fiber.StatusBadRequest, "Visibility must be 'private' or 'public'.", nil)
+	}
+
+	var game types.DeveloperGame
+	if err := a.Database.DB.First(&game, "id = ?", gameID).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return APIResult(c, fiber.StatusNotFound, "Game not found.", nil)
+		}
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve the game.", nil)
+	}
+
+	isActive := game.State.Read(constants.GAME_IS_ACTIVE)
+	isVerified := game.State.Read(constants.GAME_IS_VERIFIED)
+	isPrivate := isActive && !isVerified
+
+	if visibility == "private" && !isPrivate {
+		publicDir := filepath.Join(a.ParentServer.HostedPath, "projects_public", game.ID)
+		privateDir := filepath.Join(a.ParentServer.HostedPath, "projects_private", game.ID)
+
+		_ = os.MkdirAll(filepath.Dir(privateDir), 0755)
+		_ = os.Rename(publicDir, privateDir)
+
+		state := game.State
+		state.Clear(constants.GAME_IS_VERIFIED)
+
+		if err := a.Database.DB.Model(&types.DeveloperGame{}).Where("id = ?", game.ID).Update("state", state).Error; err != nil {
+			return APIResult(c, fiber.StatusInternalServerError, "Failed to update game visibility.", nil)
+		}
+
+		a.Database.Cache.Flush()
+		return APIResult(c, fiber.StatusOK, "Game is now private.", nil)
+	}
+
+	if visibility == "public" && isPrivate {
+		privateDir := filepath.Join(a.ParentServer.HostedPath, "projects_private", game.ID)
+		publicDir := filepath.Join(a.ParentServer.HostedPath, "projects_public", game.ID)
+
+		sourceDir := privateDir
+		if _, err := os.Stat(filepath.Join(publicDir, "index.html")); err == nil {
+			sourceDir = publicDir
+		} else if _, err := os.Stat(filepath.Join(privateDir, "index.html")); err != nil {
+			return APIResult(c, fiber.StatusBadRequest, "The uploaded game package is missing.", nil)
+		}
+
+		if sourceDir != publicDir {
+			_ = os.MkdirAll(filepath.Dir(publicDir), 0755)
+			_ = os.RemoveAll(publicDir)
+			if err := os.Rename(sourceDir, publicDir); err != nil {
+				return APIResult(c, fiber.StatusInternalServerError, "Failed to publish the game package.", nil)
+			}
+		}
+
+		state := game.State
+		state.ManySet(constants.GAME_IS_ACTIVE, constants.GAME_IS_VERIFIED)
+		state.Clear(constants.GAME_WAS_REJECTED)
+
+		if err := a.Database.DB.Model(&types.DeveloperGame{}).Where("id = ?", game.ID).Update("state", state).Error; err != nil {
+			return APIResult(c, fiber.StatusInternalServerError, "Failed to update game visibility.", nil)
+		}
+
+		a.Database.Cache.Flush()
+		return APIResult(c, fiber.StatusOK, "Game is now public.", nil)
+	}
+
+	a.Database.Cache.Flush()
+	return APIResult(c, fiber.StatusOK, "Game visibility unchanged.", nil)
+}
+
+func (a *APIv1) AdminReplaceGameFile(c *fiber.Ctx) error {
+	if !a.ParentServer.IsAdmin(c) {
+		return APIResult(c, fiber.StatusForbidden, "Forbidden.", nil)
+	}
+
+	gameID := c.Params("id")
+	if gameID == "" {
+		return APIResult(c, fiber.StatusBadRequest, "Game ID is required.", nil)
+	}
+
+	var game types.DeveloperGame
+	if err := a.Database.DB.First(&game, "id = ?", gameID).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return APIResult(c, fiber.StatusNotFound, "Game not found.", nil)
+		}
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve the game.", nil)
+	}
+
+	gameFile, err := c.FormFile("game")
+	if err != nil {
+		return APIResult(c, fiber.StatusBadRequest, "A game package (.zip) is required.", nil)
+	}
+	if !strings.HasSuffix(strings.ToLower(gameFile.Filename), ".zip") {
+		return APIResult(c, fiber.StatusBadRequest, "The game package must be a .zip file.", nil)
+	}
+	if gameFile.Size > max_upload_size {
+		return APIResult(c, fiber.StatusBadRequest, "The game package must be smaller than 64MB.", nil)
+	}
+
+	tmpFile, err := os.CreateTemp("", "clomega-game-*.zip")
+	if err != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to store the uploaded game package.", nil)
+	}
+	tmpPath := tmpFile.Name()
+	tmpFile.Close()
+	defer os.Remove(tmpPath)
+
+	if err := c.SaveFile(gameFile, tmpPath); err != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to store the uploaded game package.", nil)
+	}
+
+	targetDir := filepath.Join(a.ParentServer.HostedPath, "projects_public", game.ID)
+	if game.State.Read(constants.GAME_IS_ACTIVE) && !game.State.Read(constants.GAME_IS_VERIFIED) {
+		targetDir = filepath.Join(a.ParentServer.HostedPath, "projects_private", game.ID)
+	}
+
+	if err := extractGameArchive(tmpPath, targetDir); err != nil {
+		return APIResult(c, fiber.StatusBadRequest, "Invalid game package: "+err.Error(), nil)
+	}
+
+	if _, err := os.Stat(filepath.Join(targetDir, "index.html")); err != nil {
+		os.RemoveAll(targetDir)
+		return APIResult(c, fiber.StatusBadRequest, "Invalid game package: index.html was not found in the archive.", nil)
+	}
+
+	a.Database.Cache.Flush()
+
+	common.LogEvent(a.ParentServer.DB.DB, &types.UserEvent{
+		UserID:     a.ParentServer.Authorization.GetNormalClaims(c).ULID,
+		EventID:    "game_file_replaced",
+		Details:    "Replaced files for game " + game.Name + " (" + game.ID + ")",
+		Successful: true,
+	})
+
+	return APIResult(c, fiber.StatusOK, "Game file replaced successfully.", nil)
+}
+
+func (a *APIv1) AdminGetUserCloudSaves(c *fiber.Ctx) error {
+	if !a.ParentServer.IsAdmin(c) {
+		return APIResult(c, fiber.StatusForbidden, "Forbidden.", nil)
+	}
+
+	userID := c.Params("id")
+	if userID == "" {
+		return APIResult(c, fiber.StatusBadRequest, "User ID is required.", nil)
+	}
+
+	user, err := a.ParentServer.Accounts.DB.GetUser(userID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
+	if err != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
+	}
+
+	type cloudSaveRow struct {
+		UserID            string
+		Username          string
+		SaveSlot          uint8
+		SaveData          string
+		UpdatedAt         time.Time
+		DeveloperGameID   string
+		DeveloperGameName string
+		GameDescription   string
+		ThumbnailLink     string
+	}
+
+	var rows []cloudSaveRow
+	err = a.Database.DB.Table("user_game_saves").
+		Select("user_game_saves.user_id, users.username, user_game_saves.save_slot, user_game_saves.save_data, user_game_saves.updated_at, developer_games.id AS developer_game_id, developer_games.name AS developer_game_name, developer_games.description AS developer_game_description, images.link AS developer_game_thumbnail_link").
+		Joins("LEFT JOIN developer_games ON developer_games.id = user_game_saves.developer_game_id").
+		Joins("LEFT JOIN images ON images.id = developer_games.thumbnail_id").
+		Joins("LEFT JOIN users ON users.id = user_game_saves.user_id").
+		Where("user_game_saves.user_id = ?", userID).
+		Order("user_game_saves.developer_game_id ASC, user_game_saves.save_slot ASC").
+		Scan(&rows).Error
+
+	if err != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve cloud saves.", nil)
+	}
+
+	usersByID := map[string]*types.User{}
+	for _, row := range rows {
+		if _, ok := usersByID[row.UserID]; !ok {
+			u, err := a.ParentServer.Accounts.DB.GetUser(row.UserID)
+			if err == nil && u != nil {
+				usersByID[row.UserID] = u
+			}
+		}
+	}
+
+	var saves = []map[string]any{}
+	for _, row := range rows {
+		saveData := row.SaveData
+		if saveData == "" {
+			saveData = "null"
+		}
+
+		if u, ok := usersByID[row.UserID]; ok && saveData != "null" {
+			if decrypted, err := a.ParentServer.Accounts.DB.Decrypt(u, saveData); err == nil {
+				saveData = decrypted
+			}
+		}
+
+		saves = append(saves, map[string]any{
+			"user_id": row.UserID,
+			"username": row.Username,
+			"save_slot": row.SaveSlot,
+			"save_data": saveData,
+			"updated_at": row.UpdatedAt,
+			"developer_game_id": row.DeveloperGameID,
+			"developer_game_name": row.DeveloperGameName,
+			"game_description": row.GameDescription,
+			"thumbnail_link": row.ThumbnailLink,
+		})
+	}
+
+	return APIResult(c, fiber.StatusOK, "OK", saves)
+}
+
+func (a *APIv1) AdminGetAllCloudSaves(c *fiber.Ctx) error {
+	if !a.ParentServer.IsAdmin(c) {
+		return APIResult(c, fiber.StatusForbidden, "Forbidden.", nil)
+	}
+
+	type cloudSaveRow struct {
+		UserID          string
+		Username        string
+		SaveSlot        uint8
+		SaveData        string
+		UpdatedAt       time.Time
+		DeveloperGameID string
+		DeveloperGameName string
+		GameDescription string
+		ThumbnailLink   string
+	}
+
+	var rows []cloudSaveRow
+	err := a.Database.DB.Table("user_game_saves").
+		Select("user_game_saves.user_id, users.username, user_game_saves.save_slot, user_game_saves.save_data, user_game_saves.updated_at, developer_games.id AS developer_game_id, developer_games.name AS developer_game_name, developer_games.description AS developer_game_description, images.link AS developer_game_thumbnail_link").
+		Joins("LEFT JOIN developer_games ON developer_games.id = user_game_saves.developer_game_id").
+		Joins("LEFT JOIN images ON images.id = developer_games.thumbnail_id").
+		Joins("LEFT JOIN users ON users.id = user_game_saves.user_id").
+		Order("user_game_saves.user_id ASC, user_game_saves.developer_game_id ASC, user_game_saves.save_slot ASC").
+		Scan(&rows).Error
+
+	if err != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve cloud saves.", nil)
+	}
+
+	usersByID := map[string]*types.User{}
+	for _, row := range rows {
+		if _, ok := usersByID[row.UserID]; !ok {
+			u, err := a.ParentServer.Accounts.DB.GetUser(row.UserID)
+			if err == nil && u != nil {
+				usersByID[row.UserID] = u
+			}
+		}
+	}
+
+	var saves = []map[string]any{}
+	for _, row := range rows {
+		saveData := row.SaveData
+		if saveData == "" {
+			saveData = "null"
+		}
+
+		if u, ok := usersByID[row.UserID]; ok && saveData != "null" {
+			if decrypted, err := a.ParentServer.Accounts.DB.Decrypt(u, saveData); err == nil {
+				saveData = decrypted
+			}
+		}
+
+		saves = append(saves, map[string]any{
+			"user_id": row.UserID,
+			"username": row.Username,
+			"save_slot": row.SaveSlot,
+			"save_data": saveData,
+			"updated_at": row.UpdatedAt,
+			"developer_game_id": row.DeveloperGameID,
+			"developer_game_name": row.DeveloperGameName,
+			"game_description": row.GameDescription,
+			"thumbnail_link": row.ThumbnailLink,
+		})
+	}
+
+	return APIResult(c, fiber.StatusOK, "OK", saves)
+}
+
+func (a *APIv1) AdminDeleteCloudSave(c *fiber.Ctx) error {
+	if !a.ParentServer.IsAdmin(c) {
+		return APIResult(c, fiber.StatusForbidden, "Forbidden.", nil)
+	}
+
+	userID := c.Params("id")
+	if userID == "" {
+		return APIResult(c, fiber.StatusBadRequest, "User ID is required.", nil)
+	}
+
+	slotStr := c.Params("slot")
+	if slotStr == "" {
+		return APIResult(c, fiber.StatusBadRequest, "Save slot is required.", nil)
+	}
+
+	var slot uint8
+	if _, err := fmt.Sscanf(slotStr, "%d", &slot); err != nil || slot < 1 || slot > 10 {
+		return APIResult(c, fiber.StatusBadRequest, "Invalid save slot.", nil)
+	}
+
+	var args struct {
+		DeveloperGameID string `json:"developer_game_id" form:"developer_game_id"`
+	}
+	if err := c.BodyParser(&args); err != nil {
+		return APIResult(c, fiber.StatusBadRequest, "Invalid request body.", nil)
+	}
+
+	user, err := a.ParentServer.Accounts.DB.GetUser(userID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
+	if err != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
+	}
+
+	result := a.Database.DB.Where("user_id = ? AND save_slot = ? AND developer_game_id = ?", userID, slot, args.DeveloperGameID).Delete(&types.UserGameSave{})
+	if result.Error != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to delete cloud save.", nil)
+	}
+
+	if result.RowsAffected == 0 {
+		return APIResult(c, fiber.StatusNotFound, "Cloud save not found.", nil)
+	}
+
+	common.LogEvent(a.ParentServer.DB.DB, &types.UserEvent{
+		UserID:     a.ParentServer.Authorization.GetNormalClaims(c).ULID,
+		EventID:    "admin_cloud_save_deleted",
+		Details:    "Admin deleted cloud save for user " + user.Username + " (" + userID + ")",
+		Successful: true,
+	})
+
+	return APIResult(c, fiber.StatusOK, "Cloud save deleted successfully.", nil)
+}
+
+func (a *APIv1) AdminUpdateCloudSave(c *fiber.Ctx) error {
+	if !a.ParentServer.IsAdmin(c) {
+		return APIResult(c, fiber.StatusForbidden, "Forbidden.", nil)
+	}
+
+	userID := c.Params("id")
+	if userID == "" {
+		return APIResult(c, fiber.StatusBadRequest, "User ID is required.", nil)
+	}
+
+	slotStr := c.Params("slot")
+	if slotStr == "" {
+		return APIResult(c, fiber.StatusBadRequest, "Save slot is required.", nil)
+	}
+
+	var slot uint8
+	if _, err := fmt.Sscanf(slotStr, "%d", &slot); err != nil || slot < 1 || slot > 10 {
+		return APIResult(c, fiber.StatusBadRequest, "Invalid save slot.", nil)
+	}
+
+	var args struct {
+		DeveloperGameID string `json:"developer_game_id" validate:"required"`
+		SaveData        string `json:"save_data"`
+	}
+	if err := c.BodyParser(&args); err != nil {
+		return APIResult(c, fiber.StatusBadRequest, "Invalid request body.", nil)
+	}
+
+	if args.DeveloperGameID == "" {
+		return APIResult(c, fiber.StatusBadRequest, "Developer game ID is required.", nil)
+	}
+
+	user, err := a.ParentServer.Accounts.DB.GetUser(userID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
+	if err != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
+	}
+
+	var save types.UserGameSave
+	result := a.Database.DB.First(&save, "user_id = ? AND save_slot = ? AND developer_game_id = ?", userID, slot, args.DeveloperGameID)
+	if result.Error != nil {
+		if result.Error == gorm.ErrRecordNotFound {
+			return APIResult(c, fiber.StatusNotFound, "Cloud save not found.", nil)
+		}
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve cloud save.", nil)
+	}
+
+	if args.SaveData != "" {
+		encrypted, err := a.ParentServer.Accounts.DB.Encrypt(user, args.SaveData)
+		if err != nil {
+			return APIResult(c, fiber.StatusInternalServerError, "Failed to encrypt save data.", nil)
+		}
+		save.SaveData = encrypted
+	}
+
+	if err := a.Database.DB.Save(&save).Error; err != nil {
+		return APIResult(c, fiber.StatusInternalServerError, "Failed to update cloud save.", nil)
+	}
+
+	common.LogEvent(a.ParentServer.DB.DB, &types.UserEvent{
+		UserID:     a.ParentServer.Authorization.GetNormalClaims(c).ULID,
+		EventID:    "admin_cloud_save_updated",
+		Details:    "Admin updated cloud save for user " + user.Username + " (" + userID + ")",
+		Successful: true,
+	})
+
+	return APIResult(c, fiber.StatusOK, "Cloud save updated successfully.", nil)
 }

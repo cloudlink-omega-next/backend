@@ -108,6 +108,10 @@
             <p class="text-xs text-gray-500 dark:text-gray-400 mb-2" data-i18n="developer_features_hint">Tick every icon that applies to your game. Hover an icon to read what it means.</p>
             <div id="uploadFeaturePicker" class="max-h-72 overflow-y-auto pr-1"></div>
           </div>
+          <div class="flex items-center gap-2">
+            <input id="devUploadPrivate" name="private" type="checkbox" class="w-4 h-4 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white">
+            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300" for="devUploadPrivate" data-i18n="developer_private_game">Private Game</label>
+          </div>
           <div>
             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1" for="devUploadGame" data-i18n="developer_game_package">Game Package (.zip)</label>
             <input id="devUploadGame" name="game" type="file" accept=".zip,application/zip" required class="w-full px-3 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white">
@@ -163,12 +167,14 @@
     var styles = {
       published: 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300',
       pending: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/50 dark:text-yellow-300',
-      rejected: 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300'
+      rejected: 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300',
+      private: 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
     };
     var labels = {
       published: (typeof t === 'function' ? t('game_status_published') : 'Published'),
       pending: (typeof t === 'function' ? t('game_status_pending') : 'Pending Approval'),
-      rejected: (typeof t === 'function' ? t('game_status_rejected') : 'Rejected')
+      rejected: (typeof t === 'function' ? t('game_status_rejected') : 'Rejected'),
+      private: (typeof t === 'function' ? t('game_status_private') : 'Private')
     };
     var span = document.createElement('span');
     span.className = 'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ' + (styles[status] || styles.pending);
@@ -279,12 +285,52 @@
 
     card.appendChild(buildFeatureEditor(game));
 
-    if (game.status === 'published') {
+    if (game.status === 'published' || game.status === 'private') {
       var play = document.createElement('a');
       play.href = '/play/' + game.id;
       play.className = 'inline-block mt-4 px-4 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200';
       play.textContent = (typeof t === 'function' ? t('developer_play') : 'Play');
       card.appendChild(play);
+    }
+
+    if (game.status === 'published' || game.status === 'private') {
+      var toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'inline-block mt-2 px-4 py-2 rounded-xl ring-1 ring-inset ring-gray-300 dark:ring-gray-600 bg-white dark:bg-gray-700 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white hover:font-bold dark:text-white transition-all duration-200';
+      toggle.textContent = game.status === 'published'
+        ? (typeof t === 'function' ? t('developer_make_private') : 'Make Private')
+        : (typeof t === 'function' ? t('developer_request_public') : 'Request Public');
+      toggle.addEventListener('click', function () {
+        var nextVisibility = game.status === 'published' ? 'private' : 'public';
+        if (!confirm((typeof t === 'function' ? t('developer_visibility_confirm') : 'Set this game to ') + nextVisibility + '?')) {
+          return;
+        }
+        toggle.disabled = true;
+        fetch('/api/v1/developer/games/' + encodeURIComponent(game.id) + '/visibility', {
+          method: 'PUT',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ visibility: nextVisibility })
+        })
+          .then(function (res) { return res.json().catch(function () { return {}; }); })
+          .then(function (data) {
+            toggle.disabled = false;
+            if (!data || data.result.indexOf('OK') !== 0) {
+              showAlert((data && data.result) || 'Failed to update visibility.', 'error');
+              return;
+            }
+            game.status = nextVisibility === 'private' ? 'private' : 'pending';
+            loadGames();
+            showAlert(nextVisibility === 'private'
+              ? (typeof t === 'function' ? t('developer_visibility_private_success') : 'Game is now private.')
+              : (typeof t === 'function' ? t('developer_visibility_public_pending') : 'Public request submitted.'), 'success');
+          })
+          .catch(function () {
+            toggle.disabled = false;
+            showAlert('Failed to update visibility.', 'error');
+          });
+      });
+      card.appendChild(toggle);
     }
 
     return card;
@@ -429,6 +475,7 @@
     data.append('developerid', form.developerid.value);
     data.append('name', form.name.value.trim());
     data.append('description', form.description.value.trim());
+    if (form.private && form.private.checked) data.append('private', '1');
     if (form.game.files[0]) data.append('game', form.game.files[0]);
     if (form.source.files[0]) data.append('source', form.source.files[0]);
 

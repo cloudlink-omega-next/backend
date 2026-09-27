@@ -2,12 +2,19 @@ package server
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
 func (s *Server) Friends(c *fiber.Ctx) error {
 	claims := s.Authorization.GetNormalClaims(c)
 
 	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusNotFound,
+			Message: "User account not found. Please login again.",
+		})
+	}
 	if err != nil {
 		return s.ErrorPage(c, &fiber.Error{
 			Code:    fiber.StatusInternalServerError,
@@ -59,6 +66,12 @@ func (s *Server) SearchFriends(c *fiber.Ctx) error {
 	claims := s.Authorization.GetNormalClaims(c)
 
 	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusNotFound,
+			Message: "User account not found. Please login again.",
+		})
+	}
 	if err != nil {
 		return s.ErrorPage(c, &fiber.Error{
 			Code:    fiber.StatusInternalServerError,
@@ -146,6 +159,12 @@ func (s *Server) Blocklist(c *fiber.Ctx) error {
 	claims := s.Authorization.GetNormalClaims(c)
 
 	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusNotFound,
+			Message: "User account not found. Please login again.",
+		})
+	}
 	if err != nil {
 		return s.ErrorPage(c, &fiber.Error{
 			Code:    fiber.StatusInternalServerError,
@@ -180,6 +199,12 @@ func (s *Server) Notifications(c *fiber.Ctx) error {
 	claims := s.Authorization.GetNormalClaims(c)
 
 	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusNotFound,
+			Message: "User account not found. Please login again.",
+		})
+	}
 	if err != nil {
 		return s.ErrorPage(c, &fiber.Error{
 			Code:    fiber.StatusInternalServerError,

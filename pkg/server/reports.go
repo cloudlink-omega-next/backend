@@ -1,6 +1,7 @@
 package server
 
 import (
+	"gorm.io/gorm"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -15,6 +16,12 @@ func (s *Server) ReportNew(c *fiber.Ctx) error {
 
 	claims := s.Authorization.GetNormalClaims(c)
 	user, err := s.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return s.ErrorPage(c, &fiber.Error{
+			Code:    fiber.StatusNotFound,
+			Message: "User account not found. Please login again.",
+		})
+	}
 	if err != nil {
 		return s.ErrorPage(c, &fiber.Error{
 			Code:    fiber.StatusInternalServerError,

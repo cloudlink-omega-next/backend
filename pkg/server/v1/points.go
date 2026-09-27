@@ -9,6 +9,7 @@ import (
 	"github.com/cloudlink-omega/storage/pkg/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/oklog/ulid/v2"
+	"gorm.io/gorm"
 )
 
 // PointsGetBalanceArgs represents the request for getting points balance.
@@ -258,6 +259,9 @@ func (a *APIv1) CreatePointsPurchase(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, "Failed to retrieve user.", nil)
 	}
@@ -352,6 +356,9 @@ func (a *APIv1) ConfirmPointsPurchase(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, err.Error(), nil)
 	}
@@ -531,6 +538,9 @@ func (a *APIv1) ConfirmPointsDeduction(c *fiber.Ctx) error {
 	}
 
 	user, err := a.ParentServer.Accounts.DB.GetUser(claims.ULID)
+	if err == gorm.ErrRecordNotFound || user == nil {
+		return APIResult(c, fiber.StatusNotFound, "User not found.", nil)
+	}
 	if err != nil {
 		return APIResult(c, fiber.StatusInternalServerError, err.Error(), nil)
 	}

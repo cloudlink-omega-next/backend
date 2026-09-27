@@ -1,3 +1,0 @@
-
-2026/08/30 20:08:25 [35mD:/cloudlink-omega-test/backend/main.go:57
-[0m[31m[error] [0mfailed to initialize database, got error this authentication plugin is not supported
